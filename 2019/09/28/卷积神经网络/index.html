@@ -74,7 +74,7 @@
 <meta property="og:image" content="https://lh3.googleusercontent.com/j6myEpoY4b5cVa7_LL-Ddmal-nySFhnJ-3K0hhL5tD7tuMkdLj9w-at_glTRsPZYc9BrgRDAUnu3">
 <meta property="og:image" content="https://lh3.googleusercontent.com/Np1Ly8xMd-d8lMC1dWlW0tDCtO2FnVg9XdP2HP2CbGXchS7Fth0qb-O8-L7odxvw32lD1k0YOdn4">
 <meta property="og:image" content="https://lh3.googleusercontent.com/Yv3nTa1GSqrg2xaahGLaMUiia2M5-tjqwBIxadzXgdNfU3izvs2VK3Qg97T5Ll1049YELXhRSkP3">
-<meta property="og:updated_time" content="2019-09-29T20:16:07.374Z">
+<meta property="og:updated_time" content="2019-09-29T21:35:06.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卷积神经网络">
 <meta name="twitter:description" content="卷积神经网络全链接前馈网络的问题如果用全连接前馈网络来处理图像时，会存在以下两个问题：  参数太多，如果输入图像大小为100×100×3，在全连接前馈网络中，第一个隐藏层的每个神经元到输入层都有100×100×3 = 30, 000 个相互独立的连接，每个连接都对应一个权重参数。参数的规模也会急剧增加。这会导致整个神经网络的训练效率会非常低，也很容易出现过拟合。 局部不变性特征，：自然图像中的物体">
@@ -270,7 +270,7 @@
                 
               
 
-              <time title="Created: 2019-09-28 15:57:20" itemprop="dateCreated datePublished" datetime="2019-09-28T15:57:20+02:00">2019-09-28</time>
+              <time title="Created: 28-09-2019 15:57:20" itemprop="dateCreated datePublished" datetime="2019-09-28T15:57:20+02:00">28-09-2019</time>
             </span>
           
             
@@ -283,7 +283,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-29 22:16:07" itemprop="dateModified" datetime="2019-09-29T22:16:07+02:00">2019-09-29</time>
+                <time title="Modified: 29-09-2019 23:35:06" itemprop="dateModified" datetime="2019-09-29T23:35:06+02:00">29-09-2019</time>
               </span>
             
           
@@ -303,6 +303,24 @@
             </span>
           
 
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/09/28/卷积神经网络/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/28/卷积神经网络/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
           <br>
 
         </div>
@@ -477,6 +495,9 @@ z^{l}=a^{l-1} * W^{l}+b</script><p>因此我们有：</p>
 
           </div>
           
+    
+    <div class="comments" id="comments"></div>
+  
 
 
         </div>
@@ -750,24 +771,7 @@ z^{l}=a^{l-1} * W^{l}+b</script><p>因此我们有：</p>
     }
   });
 </script>
-<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     
   
@@ -801,6 +805,47 @@ z^{l}=a^{l-1} * W^{l}+b</script><p>因此我们有：</p>
 
 
 
+
+    
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'fQrw7GPV8alSagiWukM9OIkd-MdYXbMMI',
+    appKey: 'F8sp1ceQPgwWeqJdMc3V82wr',
+    placeholder: 'Comments here',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'en' || 'zh-cn'
+  });
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 </body>
