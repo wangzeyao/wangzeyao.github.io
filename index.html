@@ -4,7 +4,7 @@
 
 
 
-<html class="theme-next muse use-motion" lang="en">
+<html class="theme-next pisces use-motion" lang="en">
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="generator" content="Hexo 3.9.0">
@@ -26,11 +26,11 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '7.3.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
     fancybox: false,
     mediumzoom: false,
     lazyload: false,
@@ -156,6 +156,39 @@
         
         
           
+          <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
           <li class="menu-item menu-item-archives">
       
     
@@ -164,8 +197,6 @@
 
   </li>
     </ul>
-    
-
 </nav>
 
 </div>
@@ -177,6 +208,8 @@
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+            
+
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
@@ -190,7 +223,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/28/卷积神经网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="WANG Zey">
+      <meta itemprop="name" content="Classiczy">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -236,7 +269,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-29 11:41:10" itemprop="dateModified" datetime="2019-09-29T11:41:10+02:00">2019-09-29</time>
+                <time title="Modified: 2019-09-29 22:16:07" itemprop="dateModified" datetime="2019-09-29T22:16:07+02:00">2019-09-29</time>
               </span>
             
           
@@ -270,15 +303,7 @@
           <h1 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h1><h3 id="全链接前馈网络的问题"><a href="#全链接前馈网络的问题" class="headerlink" title="全链接前馈网络的问题"></a>全链接前馈网络的问题</h3><p>如果用全连接前馈网络来处理图像时，会存在以下两个问题：</p>
 <ol>
 <li><strong>参数太多</strong>，如果输入图像大小为100×100×3，在全连接前馈网络中，第一个隐藏层的每个神<br>经元到输入层都有100×100×3 = 30, 000 个相互独立的连接，每个连接都对应一个权重参数。参数的规模也会急剧增加。这会导致整个神经网络的训练效率会非常低，也很容易出现过拟合。</li>
-<li><strong>局部不变性特征</strong>，：自然图像中的物体都具有局部不变性特征，比如在尺度缩放、平移、旋转等操作不影响其语义信息。而全连接前馈网络很难提取这些局部不变特征，一般需要进行数据增强来提高性能。</li>
-</ol>
-<h2 id="1-卷积"><a href="#1-卷积" class="headerlink" title="1.卷积"></a>1.卷积</h2><h3 id="1-1-二维卷积"><a href="#1-1-二维卷积" class="headerlink" title="1.1 二维卷积"></a>1.1 二维卷积</h3><p>给定一个图像$X \in \mathbb{R}^{M \times N}$，和滤波器$W \in \mathbb{R}^{m \times n}$，其卷积为：</p>
-<script type="math/tex; mode=display">
-y_{i j}=\sum_{u=1}^{m} \sum_{v=1}^{n} w_{u v} \cdot x_{i-u+1, j-v+1}</script><p> 等于是把卷积核顺时针旋转180°后进行互相关<br> <img src="https://lh3.googleusercontent.com/qHg0J9ywhH8i5ILb6D8Fp0xgBt42G8OEWes24Uu-oyJGRotc0jtgWAt7BPGe3oj-G5O8zONsts47" alt="enter image description here"></p>
-<p>在图像处理中，卷积经常作为特征提取的有效方法。一幅图像在经过卷积操作后得到结果称为<strong>特征映射(Feature Map)</strong></p>
-<h3 id="1-2-互相关"><a href="#1-2-互相关" class="headerlink" title="1.2 互相关"></a>1.2 互相关</h3><p>给定一个图像$X \in \mathbb{R}^{M \times N}$，和滤波器$W \in \mathbb{R}^{m \times n}$，其互相关为：</p>
-<script type="math/tex; mode=display">
-y_{i j}=\sum_{u=1}^{m} \sum_{v=1}^{n} w_{u v} \cdot x_{i+u-1, j+v-1}</script><p>互相关和卷积的区别在于卷积核仅仅是否进行翻转。因此互相关也可以称为不翻转卷积。<br>
+<li><strong>局部不变性特征</strong>，：自然图像中的物体都具有局部不变性特征，比如在尺度缩放、平移、旋转等操作不影响其语义信息。而全连接前馈网络很难提取这些局部不变特征，一般需要进行数据增强来提高性能。
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -316,7 +341,7 @@ y_{i j}=\sum_{u=1}^{m} \sum_{v=1}^{n} w_{u v} \cdot x_{i+u-1, j+v-1}</script><p>
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/28/名词解释/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="WANG Zey">
+      <meta itemprop="name" content="Classiczy">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -427,7 +452,7 @@ R_{m \times n} = U_{m \times m} S_{m \times n} V_{n \times n}'</script><p>$x-9-0
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/28/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="WANG Zey">
+      <meta itemprop="name" content="Classiczy">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -531,7 +556,10 @@ R_{m \times n} = U_{m \times m} S_{m \times n} V_{n \times n}'</script><p>$x-9-0
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">WANG Zey</p>
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Classiczy">
+  <p class="site-author-name" itemprop="name">Classiczy</p>
   <div class="site-description motion-element" itemprop="description"></div>
 </div>
   <nav class="site-state motion-element">
@@ -548,6 +576,10 @@ R_{m \times n} = U_{m \times m} S_{m \times n} V_{n \times n}'</script><p>$x-9-0
       
       <div class="site-state-item site-state-categories">
         
+          
+            <a href="/categories/">
+          
+        
         
         
           
@@ -556,10 +588,77 @@ R_{m \times n} = U_{m \times m} S_{m \times n} V_{n \times n}'</script><p>$x-9-0
         
         <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
         
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
       </div>
     
   </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/wangzeyao" title="GitHub &rarr; https://github.com/wangzeyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:germany2o14@163.com" title="E-Mail &rarr; mailto:germany2o14@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.instagram.com/classicwzy/" title="Instagram &rarr; https://www.instagram.com/classicwzy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://space.bilibili.com/259378363/" title="Bilibili &rarr; https://space.bilibili.com/259378363/" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>Bilibili</a>
+      </span>
+    
+  </div>
 
 
 
@@ -580,11 +679,11 @@ R_{m \times n} = U_{m \times m} S_{m \times n} V_{n \times n}'</script><p>$x-9-0
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">WANG Zey</span>
+  <span class="author" itemprop="copyrightHolder">Classiczy</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
 
         
 
@@ -600,6 +699,8 @@ R_{m \times n} = U_{m \times m} S_{m \times n} V_{n \times n}'</script><p>$x-9-0
     </footer>
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
       </div>
 
     
@@ -615,7 +716,8 @@ R_{m \times n} = U_{m \times m} S_{m \times n} V_{n \times n}'</script><p>$x-9-0
   <script src="/js/motion.js?v=7.3.0"></script>
 
   
-  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
 
 
   
