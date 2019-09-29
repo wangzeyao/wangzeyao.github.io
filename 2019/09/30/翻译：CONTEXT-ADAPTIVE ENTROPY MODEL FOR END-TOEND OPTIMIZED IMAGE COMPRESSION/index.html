@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Classiczy">
 <meta property="og:description" content="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSIONFrom https://arxiv.org/abs/1809.10452在端到端的图像压缩中，一个很重要的元素是可训练的熵模型。隐藏表征的实际分布是不知道的，而熵模型通过近似他们的分布来预测编码所需要的比特数。当输入图像x被变换为隐藏表征y然后">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-29T23:03:41.095Z">
+<meta property="og:updated_time" content="2019-09-29T23:18:01.962Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION">
 <meta name="twitter:description" content="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSIONFrom https://arxiv.org/abs/1809.10452在端到端的图像压缩中，一个很重要的元素是可训练的熵模型。隐藏表征的实际分布是不知道的，而熵模型通过近似他们的分布来预测编码所需要的比特数。当输入图像x被变换为隐藏表征y然后">
@@ -260,7 +260,7 @@
                 
               
 
-              <time title="Created: 30-09-2019 00:59:13 / Modified: 01:03:41" itemprop="dateCreated datePublished" datetime="2019-09-30T00:59:13+02:00">30-09-2019</time>
+              <time title="Created: 30-09-2019 00:59:13 / Modified: 01:18:01" itemprop="dateCreated datePublished" datetime="2019-09-30T00:59:13+02:00">30-09-2019</time>
             </span>
           
             
@@ -312,7 +312,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="论文翻译-CONTEXT-ADAPTIVE-ENTROPY-MODEL-FOR-END-TOEND-OPTIMIZED-IMAGE-COMPRESSION"><a href="#论文翻译-CONTEXT-ADAPTIVE-ENTROPY-MODEL-FOR-END-TOEND-OPTIMIZED-IMAGE-COMPRESSION" class="headerlink" title="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION"></a>论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION</h2><h3 id="From-https-arxiv-org-abs-1809-10452"><a href="#From-https-arxiv-org-abs-1809-10452" class="headerlink" title="From https://arxiv.org/abs/1809.10452"></a>From <a href="https://arxiv.org/abs/1809.10452" target="_blank" rel="noopener">https://arxiv.org/abs/1809.10452</a></h3><p>在端到端的图像压缩中，一个很重要的元素是可训练的熵模型。隐藏表征的实际分布是不知道的，而熵模型通过近似他们的分布来预测编码所需要的比特数。当输入图像x被变换为隐藏表征y然后均匀地量化为$\hat{y}$时，我们用$p_{\hat{\boldsymbol{y}}}(\hat{\boldsymbol{y}})$来表示简单的熵模型。<br>当$\hat{y}$的实际边缘分布用$m(\hat{y})$来表示，我们可以用熵模型交叉熵来计算<strong>率估计</strong>，用等式1来表示</p>
+        <h2 id="论文翻译-CONTEXT-ADAPTIVE-ENTROPY-MODEL-FOR-END-TOEND-OPTIMIZED-IMAGE-COMPRESSION"><a href="#论文翻译-CONTEXT-ADAPTIVE-ENTROPY-MODEL-FOR-END-TOEND-OPTIMIZED-IMAGE-COMPRESSION" class="headerlink" title="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION"></a>论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION</h2><h3 id="From-https-arxiv-org-abs-1809-10452"><a href="#From-https-arxiv-org-abs-1809-10452" class="headerlink" title="From https://arxiv.org/abs/1809.10452"></a>From <a href="https://arxiv.org/abs/1809.10452" target="_blank" rel="noopener">https://arxiv.org/abs/1809.10452</a></h3><p>在端到端的图像压缩中，一个很重要的元素是可训练的熵模型。隐藏表征的实际分布是不知道的，而熵模型通过近似他们的分布来预测编码所需要的比特数。当输入图像x被变换为隐藏表征y然后均匀地量化为$\hat{y}$时，我们用$p_{\hat{\boldsymbol{y}}}(\hat{\boldsymbol{y}})$来表示简单的熵模型。<br>当$\hat{y}$的实际边缘分布用$m(\hat{y})$来表示，我们可以用熵模型交叉熵来计算<strong>率估计</strong>，用等式1来表示<br><a id="more"></a></p>
 <script type="math/tex; mode=display">
 R=\mathbb{E}_{\hat{\boldsymbol{y}} \sim m}\left[-\log _{2} p_{\hat{\boldsymbol{y}}}(\hat{\boldsymbol{y}})\right]=H(m)+D_{K L}\left(m \| p_{\hat{\boldsymbol{y}}}\right)</script><p> 并且可以被分解为两部分，<strong>$\hat{y}$的实际的熵</strong>，加上由于实际的分布和其近似的<strong>误差产生的额外的比特</strong>。<br>因此，在训练过程中减小R 可以使得熵模型$p_{\hat{\boldsymbol{y}}}(\hat{\boldsymbol{y}})$尽可能的接近实际的熵$\hat{y}$，并且让其他参数适当地将x变换为y，使得$\hat{y}$的实际熵变小。<br>根据<a href="https://zh.wikipedia.org/wiki/%E7%9B%B8%E5%AF%B9%E7%86%B5" target="_blank" rel="noopener">相对熵</a>，当$p_{\hat{\boldsymbol{y}}}(\hat{\boldsymbol{y}})$与实际的分布$m(\hat{y})$完全吻合的时候，R取到最小值。这意味着这个方法的压缩效果主要取决于熵模型的容量（能力？）。<br>为了加强其能力，我们提出一个新的熵模型，其采用两种类型的上下文（环境？）。比特消耗和无比特环境。这两种类型的区别是需不需要额外的比特分配。利用这两个上下文，我们允许模型通过使用更一般化的熵模型来更准确地估计每个隐藏表征的分布，从而更有效地减少相邻隐藏表征之间的空间依赖性。</p>
 <h3 id="2-基于上下文自适应熵模型的端到端优化"><a href="#2-基于上下文自适应熵模型的端到端优化" class="headerlink" title="2 基于上下文自适应熵模型的端到端优化"></a>2 基于上下文自适应熵模型的端到端优化</h3><h4 id="2-1-前人的熵模型"><a href="#2-1-前人的熵模型" class="headerlink" title="2.1 前人的熵模型"></a>2.1 前人的熵模型</h4><p>Balle（2017）假定隐藏表征的熵模型是非参数模型，而Theis采用了高斯混合尺度模型，每个representation由六个加权的零均值高斯模型组成。虽然它们采用不同形式的熵模型，但它们具有共同的特征，<strong>即两者都集中于学习表征的分布而不考虑输入自适应性</strong>。即一旦熵模型训练完成，其中的参数在整个测试中都不会改变，无论输入是怎么样的。<br>Balle在2018年介绍了一种新的熵模型，其可以基于输入自适应的预测表征的尺度。他们假设自然图片的隐藏表征的的尺度，在临近的区域倾向于一起移动。为了减少这种冗余，他们使用少量附加信息，通过这些附加信息估计潜在表示的适当比例参数（标准偏差）。除此之外，Balle（2018）同时发现，当连续域中每个表征的先验概率密度函数（PDF）与标准均匀密度函数卷积时，它将逼近于离散隐藏表征的先验概率质量函数（PMF），其通过舍入均匀量化会更加紧密。对于训练，人们添加均匀噪声到每个隐藏表征中，以便将这些有噪表征的分布拟合到所提到的PMF近似函数中。</p>

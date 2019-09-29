@@ -57,13 +57,13 @@
   };
 </script>
 
-  <meta name="description" content="MeanShift 和CamShift简介Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。 算法思想二维空间问题1：想象平面上有一些点，通过怎样的方法能找到点最密集的地方？答：很简单，首先先随便选取一个点X，然后画一个半径为h的圆。之后求在这个圆中(圆形内部)的点到X所构成的向量的和。我们称之为平均向量。之后对">
+  <meta name="description" content="MeanShift 和CamShift简介Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。">
 <meta name="keywords" content="计算机视觉,算法,聚类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MeanShift和CamShift算法">
 <meta property="og:url" content="http://yoursite.com/2019/09/30/MeanShift/index.html">
 <meta property="og:site_name" content="Classiczy">
-<meta property="og:description" content="MeanShift 和CamShift简介Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。 算法思想二维空间问题1：想象平面上有一些点，通过怎样的方法能找到点最密集的地方？答：很简单，首先先随便选取一个点X，然后画一个半径为h的圆。之后求在这个圆中(圆形内部)的点到X所构成的向量的和。我们称之为平均向量。之后对">
+<meta property="og:description" content="MeanShift 和CamShift简介Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://lh3.googleusercontent.com/BEDEiWALPtUjabAe5LOarkXLIQsOW8v8TxyEG40aGHCr6UA0i99tI6_Fl7hNnlQMKzWemr2mCq4S">
 <meta property="og:image" content="https://lh3.googleusercontent.com/-ZARHk3XHB2gOlUz5Yk1yz8cyEnZdXdHA24QBiR1qzExEfYuIBtWmh50hutxn3shDMjil3jLfX0c">
@@ -72,10 +72,10 @@
 <meta property="og:image" content="https://lh3.googleusercontent.com/ld517NoNYoY0p0oN6dEKnFkcFoQ4z4NfzwP-AphFGty5b_1Xi8F1SzKQUaa8OBUTAtmNBkZkqAQs">
 <meta property="og:image" content="https://lh3.googleusercontent.com/FDe6G1ejmS6k0jjkxF46GAGLDOwFPuKUE6Gh03jiXQUFpC3O8vGtZi-Fkx2BsjcinSOMU9mqUYiV">
 <meta property="og:image" content="https://lh3.googleusercontent.com/M9whig9Gp2OA77G9ETCnUyI3m12GNveRjAlm6u4aREGnrgYIHB3Mm9nvIRYFQrhhPR9leBV9WMEE">
-<meta property="og:updated_time" content="2019-09-29T23:09:35.790Z">
+<meta property="og:updated_time" content="2019-09-29T23:18:06.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MeanShift和CamShift算法">
-<meta name="twitter:description" content="MeanShift 和CamShift简介Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。 算法思想二维空间问题1：想象平面上有一些点，通过怎样的方法能找到点最密集的地方？答：很简单，首先先随便选取一个点X，然后画一个半径为h的圆。之后求在这个圆中(圆形内部)的点到X所构成的向量的和。我们称之为平均向量。之后对">
+<meta name="twitter:description" content="MeanShift 和CamShift简介Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。">
 <meta name="twitter:image" content="https://lh3.googleusercontent.com/BEDEiWALPtUjabAe5LOarkXLIQsOW8v8TxyEG40aGHCr6UA0i99tI6_Fl7hNnlQMKzWemr2mCq4S">
   <link rel="canonical" href="http://yoursite.com/2019/09/30/MeanShift/">
 
@@ -268,7 +268,7 @@
                 
               
 
-              <time title="Created: 30-09-2019 01:05:28 / Modified: 01:09:35" itemprop="dateCreated datePublished" datetime="2019-09-30T01:05:28+02:00">30-09-2019</time>
+              <time title="Created: 30-09-2019 01:05:28 / Modified: 01:18:06" itemprop="dateCreated datePublished" datetime="2019-09-30T01:05:28+02:00">30-09-2019</time>
             </span>
           
             
@@ -320,7 +320,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="MeanShift-和CamShift"><a href="#MeanShift-和CamShift" class="headerlink" title="MeanShift 和CamShift"></a>MeanShift 和CamShift</h1><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。</p>
+        <h1 id="MeanShift-和CamShift"><a href="#MeanShift-和CamShift" class="headerlink" title="MeanShift 和CamShift"></a>MeanShift 和CamShift</h1><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。<br><a id="more"></a></p>
 <h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><h4 id="二维空间"><a href="#二维空间" class="headerlink" title="二维空间"></a>二维空间</h4><p><img src="https://lh3.googleusercontent.com/BEDEiWALPtUjabAe5LOarkXLIQsOW8v8TxyEG40aGHCr6UA0i99tI6_Fl7hNnlQMKzWemr2mCq4S" alt="enter image description here"><br>问题1：想象平面上有一些点，通过怎样的方法能找到点最密集的地方？<br>答：很简单，首先先随便选取一个点X，然后画一个半径为h的圆。之后求在这个圆中(圆形内部)的点到X所构成的向量的和。我们称之为平均向量。<br>之后对X在平均向量上的方向和距离上进行平移。得到新的X。然后重复这个步骤。一直到它附近的点的平均向量为0，或者长度足够小。</p>
 <p>问题2：依然是平面上有许多点，我们怎样能把这些点分成几类？（聚类）或者说有一个平面，该怎样对平面进行分割？<br>答：如果你是要分割平面，你要想象许多的点，把平面内的位置都覆盖了，你会发现最后所有的点也就只收敛于几种值。如果你要对已经有了的点进行聚类，那么你就只需要把要分类（实际是聚类）的点都进行一次计算就可以了。（这里有个小技巧，理论上在计算过程中所有经过的点，和包裹到的周围的点都可以认为是一个类别里的，这样在一些时候可以大大减少计算的量。）</p>
 <h4 id="三维空间"><a href="#三维空间" class="headerlink" title="三维空间"></a>三维空间</h4><p><img src="https://lh3.googleusercontent.com/-ZARHk3XHB2gOlUz5Yk1yz8cyEnZdXdHA24QBiR1qzExEfYuIBtWmh50hutxn3shDMjil3jLfX0c" alt="enter image description here"><br>实际上和二维是一样的，只是把二维时候的圆换成三维的球。</p>

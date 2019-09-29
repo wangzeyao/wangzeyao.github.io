@@ -68,7 +68,7 @@
 <meta property="og:image" content="https://fimtale.com/upload/image/20190107/1546805337450006.png">
 <meta property="og:image" content="https://lh3.googleusercontent.com/fmJfYEmHobf80dmBVgJ4Gie2tQl1xH_K6zIVLecPkG-Dy7OxSZzlWQWL9ybdYRzQOacEbKTNH47K">
 <meta property="og:image" content="https://lh3.googleusercontent.com/aPu1YYuW-rcpH6mPRi8mYngGVh41lUEWfQHFjoDJht65h0DLEO7TREkVuqExq4eBFvg0N8gsa7FM">
-<meta property="og:updated_time" content="2019-09-29T23:05:15.156Z">
+<meta property="og:updated_time" content="2019-09-29T23:18:04.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="色彩空间">
 <meta name="twitter:description" content="色彩空间RGB色彩空间RGB分别代表三个基色（R-红色、G-绿色、B-蓝色），具体的色彩值由三个基色叠加而成。在图像处理中，我们往往使用向量表示色彩的值，如(0,0,0)表示黑色、(255, 255, 255)表示白色。其中，255表示色彩空间被量化成255个数，最高亮度值为255（255 = 2^8 - 1，即每个色彩通道用8位表示）。在这个色彩空间中，有256256256种颜色。RGB色彩空间">
@@ -264,7 +264,7 @@
                 
               
 
-              <time title="Created: 30-09-2019 01:04:17 / Modified: 01:05:15" itemprop="dateCreated datePublished" datetime="2019-09-30T01:04:17+02:00">30-09-2019</time>
+              <time title="Created: 30-09-2019 01:04:17 / Modified: 01:18:04" itemprop="dateCreated datePublished" datetime="2019-09-30T01:04:17+02:00">30-09-2019</time>
             </span>
           
             
@@ -316,7 +316,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="色彩空间"><a href="#色彩空间" class="headerlink" title="色彩空间"></a>色彩空间</h1><h2 id="RGB色彩空间"><a href="#RGB色彩空间" class="headerlink" title="RGB色彩空间"></a>RGB色彩空间</h2><p>RGB分别代表三个基色（R-红色、G-绿色、B-蓝色），具体的色彩值由三个基色叠加而成。在图像处理中，我们往往使用向量表示色彩的值，如(0,0,0)表示黑色、(255, 255, 255)表示白色。其中，255表示色彩空间被量化成255个数，最高亮度值为255（255 = 2^8 - 1，即每个色彩通道用8位表示）。在这个色彩空间中，有256<em>256</em>256种颜色。RGB色彩空间如下图所示。是一个包含Red、Green、Blue的三维空间。<br><strong>缺点</strong>是它的细节难以进行数字化的调整。它将色调，亮度，饱和度三个量放在一起表示，很难分开。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注：在OpenCV中，要注意RGB的顺序实际上是BGR</span><br></pre></td></tr></table></figure></p>
+        <h1 id="色彩空间"><a href="#色彩空间" class="headerlink" title="色彩空间"></a>色彩空间</h1><h2 id="RGB色彩空间"><a href="#RGB色彩空间" class="headerlink" title="RGB色彩空间"></a>RGB色彩空间</h2><p>RGB分别代表三个基色（R-红色、G-绿色、B-蓝色），具体的色彩值由三个基色叠加而成。在图像处理中，我们往往使用向量表示色彩的值，如(0,0,0)表示黑色、(255, 255, 255)表示白色。其中，255表示色彩空间被量化成255个数，最高亮度值为255（255 = 2^8 - 1，即每个色彩通道用8位表示）。在这个色彩空间中，有256<em>256</em>256种颜色。RGB色彩空间如下图所示。是一个包含Red、Green、Blue的三维空间。<br><strong>缺点</strong>是它的细节难以进行数字化的调整。它将色调，亮度，饱和度三个量放在一起表示，很难分开。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注：在OpenCV中，要注意RGB的顺序实际上是BGR</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://fimtale.com/upload/image/20190107/1546805337450006.png" alt="enter image description here"></p>
 <h2 id="HSV色彩空间"><a href="#HSV色彩空间" class="headerlink" title="HSV色彩空间"></a>HSV色彩空间</h2><p>HSV色彩空间（Hue-色调、Saturation-饱和度、Value-强度）将亮度从色彩中分解出来<br><img src="https://lh3.googleusercontent.com/fmJfYEmHobf80dmBVgJ4Gie2tQl1xH_K6zIVLecPkG-Dy7OxSZzlWQWL9ybdYRzQOacEbKTNH47K" alt="enter image description here"><br>一般HSV的范围是 ：<br>H: [0,360]<br>S: [0,100]<br>V: [0,100]</p>
 <p>但是在openCV中，HSV的范围却是  ：<br>H: [0,180]<br>S: [0,255]<br>V: [0,255]</p>
