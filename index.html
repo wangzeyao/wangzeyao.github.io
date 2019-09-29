@@ -263,7 +263,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-29 10:26:48" itemprop="dateModified" datetime="2019-09-29T10:26:48+02:00">2019-09-29</time>
+                <time title="Modified: 2019-09-29 11:30:38" itemprop="dateModified" datetime="2019-09-29T11:30:38+02:00">2019-09-29</time>
               </span>
             
           
@@ -295,7 +295,15 @@
           <h1 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h1><h3 id="全链接前馈网络的问题"><a href="#全链接前馈网络的问题" class="headerlink" title="全链接前馈网络的问题"></a>全链接前馈网络的问题</h3><p>如果用全连接前馈网络来处理图像时，会存在以下两个问题：</p>
 <ol>
 <li><strong>参数太多</strong>，如果输入图像大小为100×100×3，在全连接前馈网络中，第一个隐藏层的每个神<br>经元到输入层都有100×100×3 = 30, 000 个相互独立的连接，每个连接都对应一个权重参数。参数的规模也会急剧增加。这会导致整个神经网络的训练效率会非常低，也很容易出现过拟合。</li>
-<li><strong>局部不变性特征</strong>，：自然图像中的物体都具有局部不变性特征，比如在尺度缩放、平移、旋转等操作不影响其语义信息。而全连接前馈网络很难提取这些局部不变特征，一般需要进行数据增强来提高性能。
+<li><strong>局部不变性特征</strong>，：自然图像中的物体都具有局部不变性特征，比如在尺度缩放、平移、旋转等操作不影响其语义信息。而全连接前馈网络很难提取这些局部不变特征，一般需要进行数据增强来提高性能。</li>
+</ol>
+<h2 id="1-卷积"><a href="#1-卷积" class="headerlink" title="1.卷积"></a>1.卷积</h2><h3 id="1-1-二维卷积"><a href="#1-1-二维卷积" class="headerlink" title="1.1 二维卷积"></a>1.1 二维卷积</h3><p>给定一个图像$X \in \mathbb{R}^{M \times N}$，和滤波器$W \in \mathbb{R}^{m \times n}$，其卷积为：</p>
+<script type="math/tex; mode=display">
+y_{i j}=\sum_{u=1}^{m} \sum_{v=1}^{n} w_{u v} \cdot x_{i-u+1, j-v+1}</script><p> 等于是把卷积核顺时针旋转180°后进行互相关<br> <img src="https://lh3.googleusercontent.com/qHg0J9ywhH8i5ILb6D8Fp0xgBt42G8OEWes24Uu-oyJGRotc0jtgWAt7BPGe3oj-G5O8zONsts47" alt="enter image description here"></p>
+<p>在图像处理中，卷积经常作为特征提取的有效方法。一幅图像在经过卷积操作后得到结果称为<strong>特征映射(Feature Map)</strong></p>
+<h3 id="1-2-互相关"><a href="#1-2-互相关" class="headerlink" title="1.2 互相关"></a>1.2 互相关</h3><p>给定一个图像$X \in \mathbb{R}^{M \times N}$，和滤波器$W \in \mathbb{R}^{m \times n}$，其互相关为：</p>
+<script type="math/tex; mode=display">
+y_{i j}=\sum_{u=1}^{m} \sum_{v=1}^{n} w_{u v} \cdot x_{i+u-1, j+v-1}</script><p>互相关和卷积的区别在于卷积核仅仅是否进行翻转。因此互相关也可以称为不翻转卷积。<br>
           <!--noindex-->
           
             <div class="post-button">
