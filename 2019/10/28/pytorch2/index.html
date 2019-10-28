@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="Lab 2: Semantic segmentation with Fully Convolutional NetworksIntroductionSemantic segmentation 语义分割In the previous lab, we used Convolutional Networks to classify images into different classes (numbe">
+<meta name="keywords" content="深度学习,pytorch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pytorch入门学习-2">
+<meta property="og:url" content="http://yoursite.com/2019/10/28/pytorch2/index.html">
+<meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="Lab 2: Semantic segmentation with Fully Convolutional NetworksIntroductionSemantic segmentation 语义分割In the previous lab, we used Convolutional Networks to classify images into different classes (numbe">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.researchgate.net/publication/326875064/figure/fig3/AS:659518916681730@1534252971987/Example-of-2D-semantic-segmentation-Top-input-image-Bottom-prediction.png">
+<meta property="og:image" content="https://www.researchgate.net/profile/Kulsawasd_Jitkajornwanich/publication/318125611/figure/fig2/AS:614349634805761@1523483775045/A-proposed-network-architecture-for-object-segmentation-exponential-linear-unit.png">
+<meta property="og:image" content="https://i.imgur.com/wAL5IUX.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_18_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_18_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_22_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_22_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_22_2.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_22_3.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_22_4.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_22_5.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_22_6.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_22_7.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_22_8.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_22_9.png">
+<meta property="og:image" content="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/u-net-architecture.png">
+<meta property="og:image" content="https://i.imgur.com/VavqNFk.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_31_0.png">
+<meta property="og:image" content="https://d3i71xaburhd42.cloudfront.net/1733583ca8de32ec5ff0526443b46db44f677b3e/3-Figure2-1.png">
+<meta property="og:image" content="https://www.pyimagesearch.com/wp-content/uploads/2016/09/iou_equation.png">
+<meta property="og:image" content="https://www.pyimagesearch.com/wp-content/uploads/2016/09/iou_examples.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_2.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_3.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_4.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_5.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_6.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_7.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_8.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_9.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_10.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_11.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_12.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_13.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_14.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_15.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_16.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_17.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_18.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_19.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_20.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_21.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_22.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_23.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_24.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_25.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_26.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_27.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_28.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/28/pytorch2/output_42_29.png">
+<meta property="og:updated_time" content="2019-10-28T22:08:17.886Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pytorch入门学习-2">
+<meta name="twitter:description" content="Lab 2: Semantic segmentation with Fully Convolutional NetworksIntroductionSemantic segmentation 语义分割In the previous lab, we used Convolutional Networks to classify images into different classes (numbe">
+<meta name="twitter:image" content="https://www.researchgate.net/publication/326875064/figure/fig3/AS:659518916681730@1534252971987/Example-of-2D-semantic-segmentation-Top-input-image-Bottom-prediction.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/28/pytorch2/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Pytorch入门学习-2 | Classiczy</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Classiczy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-books">
+      
+    
+
+    <a href="/books/" rel="section"><i class="menu-item-icon fa fa-fw fa-book"></i> <br>books</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-movies">
+      
+    
+
+    <a href="/movies/" rel="section"><i class="menu-item-icon fa fa-fw fa-ticket-alt"></i> <br>movies</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/28/pytorch2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Pytorch入门学习-2
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 28-10-2019 23:03:30 / Modified: 23:08:17" itemprop="dateCreated datePublished" datetime="2019-10-28T23:03:30+01:00">28-10-2019</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/10/28/pytorch2/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/28/pytorch2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Lab-2-Semantic-segmentation-with-Fully-Convolutional-Networks"><a href="#Lab-2-Semantic-segmentation-with-Fully-Convolutional-Networks" class="headerlink" title="Lab 2: Semantic segmentation with Fully Convolutional Networks"></a>Lab 2: Semantic segmentation with Fully Convolutional Networks</h1><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Semantic-segmentation-语义分割"><a href="#Semantic-segmentation-语义分割" class="headerlink" title="Semantic segmentation 语义分割"></a>Semantic segmentation 语义分割</h2><p>In the previous lab, we used Convolutional Networks to classify images into different classes (numbers, cats/dogs).</p>
+<p>语义分割是一项更进一步的计算机视觉任务，其目的是给<strong>每一个像素</strong>进行分类</p>
+<p>Semantic segmentation is a computer vision task that takes classification a step further, by assigning a class to <strong>every pixel</strong> of an image. </p>
+<p><img src="https://www.researchgate.net/publication/326875064/figure/fig3/AS:659518916681730@1534252971987/Example-of-2D-semantic-segmentation-Top-input-image-Bottom-prediction.png" alt="alt text"></p>
+<p>Of course, this problem is much harder than classification. Semantic segmentation is useful for any application that requires a dense classification, such as urban mapping, medical image segmentation, self-driving cars…<br><a id="more"></a></p>
+<h2 id="Fully-Convolutional-Networks-全卷积网络"><a href="#Fully-Convolutional-Networks-全卷积网络" class="headerlink" title="Fully Convolutional Networks 全卷积网络"></a>Fully Convolutional Networks 全卷积网络</h2><p>全卷积网络即全部使用卷积操作的神经网络。</p>
+<p>As the name implies, Fully Convolutional Networks (FCNs) are networks that only use convolution operations.</p>
+<p>卷积神经网络（CNNs）的最后一般都是全连接网络，用于输出用于最终分类的标签。</p>
+<p>CNNs usually end with some Fully Connected layers for the final classification (we saw that in the previous lab), in<br>order to output a specific number of values per image.</p>
+<p>而全卷积网络不同，输出的是一个<strong>分割图</strong>， 分割图的大小与输入图的大小一致。所以最终的分类也是由卷积层完成的。</p>
+<p>FCNs on the other end, need to output <strong>a segmentation map</strong> that has the same size as the input image, so the final classification is done by convolutional layers.</p>
+<p>For example here is the <strong>SegNet</strong> architecture:</p>
+<p><img src="https://www.researchgate.net/profile/Kulsawasd_Jitkajornwanich/publication/318125611/figure/fig2/AS:614349634805761@1523483775045/A-proposed-network-architecture-for-object-segmentation-exponential-linear-unit.png" alt="Segnet architecture"></p>
+<p>可以看见，网络有收缩和扩张两个部分，可以称之为“编码器”和“解码器”。<strong>编码器</strong>部分使用卷积和池化来计算高等级特征，<strong>解码器</strong>使用这些特征进行上采样并生成分割图。大部分的分割神经网络有类似的结构。<br>As you can see, the network has an “contracting” part and an “expanding” part. This is called an <strong>Encoder-Decoder</strong> architecture. The <strong>Encoder</strong> part computes high-level features using convolution and pooling operations, and the <strong>Decoder</strong> part uses those features and upsamples them to create a segmentation map. Most segmentation neural networks have an architecture like this.</p>
+<h2 id="Skip-connections"><a href="#Skip-connections" class="headerlink" title="Skip connections"></a>Skip connections</h2><p>我们常常直接复制一些来自网络其他层的信息（如从编码器直接复制信息到解码器）。这部分信息可以是池化索引，甚至是整个的特征图。 这样可以保留高频信息和边界信息，这些信息可以保证我们得到一个更全局的视野域和更准确的边界。复制之前的信息并将其连接到另一部分的网络，我们称这个操作为<strong>残差连接</strong>。在ResNets中使用的是短残差连接，而今天要用到的U-Nets中为长残差连接。</p>
+<p>It is common to directly copy some information from different stages of the encoder, in order to use it in the decoder. It can be pooling indices or even entire feature maps. This restores some high frequency location and boundary information in the encoder, which yields a more global field of view for every pixel and more precise edges. Copying previous information and concatenating in an other part of a network is called a <strong>skip connection</strong>. They can be <strong>short skips</strong> (as in <strong>ResNets</strong>) or <strong>long skips</strong> (as in <strong>U-Nets</strong>).</p>
+<h2 id="What-you-will-learn-in-this-lab"><a href="#What-you-will-learn-in-this-lab" class="headerlink" title="What you will learn in this lab"></a>What you will learn in this lab</h2><ul>
+<li>How to <strong>create small tiles</strong> from huge satellite/aerial images </li>
+<li>How to create a <strong>custom PyTorch Dataset</strong> class</li>
+<li>How to handle images and <strong>masks</strong></li>
+<li>How to do <strong>on-the-fly data augmentation</strong> in PyTorch</li>
+<li>How to <strong>implement an FCN</strong> (U-Net)</li>
+<li>How to implement <strong>custom metrics and loss functions</strong> for segmentation</li>
+</ul>
+<h2 id="GPU-Runtime"><a href="#GPU-Runtime" class="headerlink" title="GPU Runtime"></a>GPU Runtime</h2><p>Please check that you are using a GPU runtime! (Runtime -&gt; Change Runtime type)</p>
+<h2 id="Importing-Libraries"><a href="#Importing-Libraries" class="headerlink" title="Importing Libraries"></a>Importing Libraries</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Libraries</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#PyTorch, of course</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="comment">#We will need torchvision transforms for data augmentation</span></span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"></span><br><span class="line"><span class="comment">### utilities</span></span><br><span class="line"><span class="comment"># tool to print a nice summary of a network, similary to keras' summary</span></span><br><span class="line"><span class="keyword">from</span> torchsummary <span class="keyword">import</span> summary</span><br><span class="line"></span><br><span class="line"><span class="comment"># library to do bash-like wildcard expansion</span></span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"></span><br><span class="line"><span class="comment"># others</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> display</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm_notebook</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># a little helper function do directly display a Tensor</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">display_tensor</span><span class="params">(t)</span>:</span></span><br><span class="line">  trans = transforms.ToPILImage()</span><br><span class="line">  display(trans(t))</span><br></pre></td></tr></table></figure>
+<h1 id="Part-1-A-new-kind-of-dataset"><a href="#Part-1-A-new-kind-of-dataset" class="headerlink" title="Part 1: A new kind of dataset"></a>Part 1: A new kind of dataset</h1><p>For this lab, we will use the <strong>Inria Aerial Image Labelling Dataset</strong> (<a href="https://project.inria.fr/aerialimagelabeling/" target="_blank" rel="noopener">https://project.inria.fr/aerialimagelabeling/</a>), which is a high resolution (0.3m/pixel) <strong>building segmentation</strong> dataset that Inria released in 2017. It is already widely used by the scientific community and in industry applications.</p>
+<p>It contains <strong>images and corresponding masks</strong>. The mask is white (255) for the <em>building</em> class, and black (0) for the <em>not building</em> class.</p>
+<p>Since this dataset is quite big and takes a long time to download (28GB), we will only work on the <strong>city of Chicago</strong>. Which means we have <strong>36 images of 5000x5000 pixels</strong> (about 1.8GB of data). It is enough for our little experiment, but if we want our method to generalize to other cities, we will need more data. <strong>With Deep Learning, data is key!</strong></p>
+<p><img src="https://i.imgur.com/wAL5IUX.png" alt="alt text"></p>
+<h2 id="Downloading-the-data"><a href="#Downloading-the-data" class="headerlink" title="Downloading the data"></a>Downloading the data</h2><p>Run the following code to get the data.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!wget -O chicagopng.zip http://gaetanbahl.engineer/chicagopng.zip</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!unzip -uo chicagopng.zip</span><br></pre></td></tr></table></figure>
+<h2 id="Creating-small-patches"><a href="#Creating-small-patches" class="headerlink" title="Creating small patches"></a>Creating small patches</h2><p>原图的分辨率太大，所以使用imagemagick把图片切割称小的batch</p>
+<p>Our images have a size of 5000x5000 pixels. It would be impractical to train a neural network directly on these images, because of memory limitations. We have to make <strong>patches</strong>.</p>
+<p>We can do this using ImageMagick’s <strong>convert</strong> tool.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#make directories for images and ground truth</span></span><br><span class="line">!mkdir img_patches</span><br><span class="line">!mkdir gt_patches</span><br><span class="line"></span><br><span class="line"><span class="comment"># install imagemagick</span></span><br><span class="line">!apt-get update</span><br><span class="line">!apt-get install imagemagick</span><br><span class="line">!echo <span class="string">"Done!"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#create tiles of 250x250 pixels</span></span><br><span class="line"><span class="comment">#this can take a long time !</span></span><br><span class="line">!basename -a -s .png $(ls <span class="number">-1</span> chicagopng/images/) |  xargs -I&#123;&#125; -P <span class="number">2</span> convert -crop <span class="number">250</span>x250 chicagopng/images/&#123;&#125;.png img_patches/&#123;&#125;_%<span class="number">03</span>d.png</span><br><span class="line">!basename -a -s .png $(ls <span class="number">-1</span> chicagopng/gt/) |  xargs -I&#123;&#125; -P <span class="number">2</span> convert -crop <span class="number">250</span>x250 chicagopng/gt/&#123;&#125;.png gt_patches/&#123;&#125;_%<span class="number">03</span>d.png</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># check that the number of patches is correct</span></span><br><span class="line">!echo <span class="string">"Number of image patches"</span></span><br><span class="line">!ls <span class="number">-1</span> img_patches | wc -l</span><br><span class="line">!echo <span class="string">"Number of ground truth patches"</span></span><br><span class="line">!ls <span class="number">-1</span> gt_patches | wc -l</span><br></pre></td></tr></table></figure>
+<pre><code>Number of image patches
+14400
+Number of ground truth patches
+14400
+</code></pre><h2 id="Creating-a-custom-Dataset-class-创建自定义数据集"><a href="#Creating-a-custom-Dataset-class-创建自定义数据集" class="headerlink" title="Creating a custom Dataset class  创建自定义数据集"></a>Creating a custom Dataset class  创建自定义数据集</h2><p>In order to load our data, we will need to create our own Dataset subclass. Every segmentation dataset is stored differently, so PyTorch doesn’t have a specific class for that.</p>
+<p>创建一个pytorch数据集的类，我们需要完成的最基本的两个函数是 <strong><strong>len</strong></strong> 和 <strong><strong>getitem</strong></strong> 。 这样我们就可以使用len(mydataset) 和 mydataset[i] 这样的操作。</p>
+<p>As you can see in the code below, it is very easy to create a custom dataset class in PyTorch. All we need to implement are the <strong><strong>len</strong></strong> and <strong><strong>getitem</strong></strong> functions. <strong>len</strong> allows you to run len(mydataset), and <strong>getitem</strong> allows you to access dataset elements like this: <strong>mydataset[i]</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinarySegmentationDataset</span><span class="params">(torch.utils.data.Dataset)</span>:</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, img_dir, gt_dir)</span>:</span></span><br><span class="line">    </span><br><span class="line">    super().__init__()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># store directory names</span></span><br><span class="line">    self.img_dir = img_dir</span><br><span class="line">    self.gt_dir = gt_dir</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># use glob to get all image names</span></span><br><span class="line">    self.img_names = [x.split(<span class="string">"/"</span>)[<span class="number">1</span>] <span class="keyword">for</span> x <span class="keyword">in</span> glob.glob(img_dir + <span class="string">"/*"</span>)]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># PyTorch transforms</span></span><br><span class="line">    self.transform = transforms.Compose([transforms.ToTensor()])</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> len(self.img_names)</span><br><span class="line">    </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self,i)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self._read_img_and_gt(i)</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">_read_img_and_gt</span><span class="params">(self, i)</span>:</span></span><br><span class="line">    img = Image.open(self.img_dir + <span class="string">"/"</span> + self.img_names[i])</span><br><span class="line">    gt = Image.open(self.gt_dir + <span class="string">"/"</span> + self.img_names[i])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> self.transform(img),self.transform(gt)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chicago_data = BinarySegmentationDataset(<span class="string">"img_patches"</span>, <span class="string">"gt_patches"</span>)</span><br><span class="line">print(<span class="string">"Number of images in dataset:"</span>, len(chicago_data))</span><br><span class="line">print(chicago_data[<span class="number">3</span>])</span><br><span class="line">print(chicago_data[<span class="number">3</span>][<span class="number">0</span>].shape)</span><br><span class="line">print(chicago_data[<span class="number">3</span>][<span class="number">1</span>].shape)</span><br></pre></td></tr></table></figure>
+<pre><code>Number of images in dataset: 14400
+(tensor([[[0.5451, 0.5059, 0.5059,  ..., 0.5412, 0.5412, 0.5294],
+         [0.5255, 0.5098, 0.5451,  ..., 0.5373, 0.5608, 0.5216],
+         [0.5137, 0.5294, 0.5451,  ..., 0.5608, 0.5725, 0.5647],
+         ...,
+         [0.1176, 0.1216, 0.7098,  ..., 0.3882, 0.4431, 0.4706],
+         [0.1098, 0.2000, 0.6941,  ..., 0.1843, 0.1490, 0.1686],
+         [0.1373, 0.2078, 0.6000,  ..., 0.2353, 0.2118, 0.2196]],
+
+        [[0.5882, 0.5569, 0.5412,  ..., 0.5529, 0.5490, 0.5373],
+         [0.5569, 0.5412, 0.5686,  ..., 0.5451, 0.5647, 0.5294],
+         [0.5490, 0.5490, 0.5647,  ..., 0.5647, 0.5765, 0.5725],
+         ...,
+         [0.1412, 0.1373, 0.7216,  ..., 0.4000, 0.4510, 0.4824],
+         [0.1412, 0.2157, 0.7176,  ..., 0.2000, 0.1725, 0.1961],
+         [0.1294, 0.2078, 0.6157,  ..., 0.2980, 0.2745, 0.2980]],
+
+        [[0.4667, 0.4431, 0.4431,  ..., 0.4667, 0.4706, 0.4627],
+         [0.4706, 0.4431, 0.4784,  ..., 0.4667, 0.4784, 0.4588],
+         [0.4627, 0.4667, 0.4824,  ..., 0.4902, 0.5059, 0.5059],
+         ...,
+         [0.1294, 0.1333, 0.6353,  ..., 0.3804, 0.4196, 0.4431],
+         [0.1137, 0.1882, 0.6275,  ..., 0.1804, 0.1608, 0.1804],
+         [0.1294, 0.1922, 0.5412,  ..., 0.2667, 0.2510, 0.2627]]]), tensor([[[0., 0., 0.,  ..., 0., 0., 0.],
+         [0., 0., 0.,  ..., 0., 0., 0.],
+         [0., 0., 0.,  ..., 0., 0., 0.],
+         ...,
+         [0., 0., 0.,  ..., 1., 1., 1.],
+         [0., 0., 0.,  ..., 0., 0., 0.],
+         [0., 0., 0.,  ..., 0., 0., 0.]]]))
+torch.Size([3, 250, 250])
+torch.Size([1, 250, 250])
+</code></pre><h2 id="Q1-Displaying-some-data"><a href="#Q1-Displaying-some-data" class="headerlink" title="Q1: Displaying some data"></a>Q1: Displaying some data</h2><p>Using the <strong>display_tensor()</strong> function, display some patches and their associated ground truth.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">img, gt = chicago_data[<span class="number">1200</span>]</span><br><span class="line"></span><br><span class="line">display_tensor(img)</span><br><span class="line">display_tensor(gt)</span><br></pre></td></tr></table></figure>
+<p><img src="output_18_0.png" alt="png"></p>
+<p><img src="output_18_1.png" alt="png"></p>
+<h2 id="Q2-Data-augmentation"><a href="#Q2-Data-augmentation" class="headerlink" title="Q2: Data augmentation"></a>Q2: Data augmentation</h2><p>当数据不够多的时候，我们往往可以使用一些随机的变换来制造更多的数据。</p>
+<p>Since we do not have that much data, we need to “make” more. Data augmentation is very important in Deep Learning, because:</p>
+<ul>
+<li>There is never enough data</li>
+<li>Having more data makes the model more robust</li>
+<li>Having more data can make the training more stable</li>
+</ul>
+<p><strong>Modify the Dataset code to add some random transforms from torchvision.transforms, before the ToTensor transform.</strong></p>
+<p>The documentation is here: <a href="https://pytorch.org/docs/stable/torchvision/transforms.html#transforms-on-pil-image" target="_blank" rel="noopener">https://pytorch.org/docs/stable/torchvision/transforms.html#transforms-on-pil-image</a></p>
+<p>Use transforms such as random flips, random rotations, or anything you like. PyTorch allows you to chain a list of multiple transforms with <strong>transforms.Compose</strong>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BinarySegmentationDataset</span><span class="params">(torch.utils.data.Dataset)</span>:</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, img_dir, gt_dir)</span>:</span></span><br><span class="line">    </span><br><span class="line">    super().__init__()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># store directory names</span></span><br><span class="line">    self.img_dir = img_dir</span><br><span class="line">    self.gt_dir = gt_dir</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># use glob to get all image names</span></span><br><span class="line">    self.img_names = [x.split(<span class="string">"/"</span>)[<span class="number">1</span>] <span class="keyword">for</span> x <span class="keyword">in</span> glob.glob(img_dir + <span class="string">"/*"</span>)]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># PyTorch transforms</span></span><br><span class="line">    self.transform = transforms.Compose([transforms.RandomHorizontalFlip(p=<span class="number">0.5</span>),</span><br><span class="line">                                             transforms.RandomVerticalFlip(p=<span class="number">0.5</span>),</span><br><span class="line">                                             transforms.RandomRotation(<span class="number">10</span>),</span><br><span class="line">                                             transforms.ToTensor()])</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> len(self.img_names)</span><br><span class="line">    </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self,i)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self._read_img_and_gt(i)</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">_read_img_and_gt</span><span class="params">(self, i)</span>:</span></span><br><span class="line">    img = Image.open(self.img_dir + <span class="string">"/"</span> + self.img_names[i])</span><br><span class="line">    gt = Image.open(self.gt_dir + <span class="string">"/"</span> + self.img_names[i])</span><br><span class="line">    </span><br><span class="line">    seed = random.randint(<span class="number">0</span>,<span class="number">2</span>**<span class="number">32</span>) <span class="comment"># make a seed with numpy generator </span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">## use the same seed for both transforms</span></span><br><span class="line">    random.seed(seed)</span><br><span class="line">    img = self.transform(img)</span><br><span class="line">    </span><br><span class="line">    random.seed(seed)</span><br><span class="line">    gt = self.transform(gt)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> img, gt</span><br></pre></td></tr></table></figure>
+<h2 id="Q3-Check-that-your-data-augmentation-is-working"><a href="#Q3-Check-that-your-data-augmentation-is-working" class="headerlink" title="Q3: Check that your data augmentation is working"></a>Q3: Check that your data augmentation is working</h2><p>Display some augmented images in order to check that the images and masks are augmented in the same way. It is very important to do that, otherwise our training will not work properly! <strong>Display the “same” image and masks multiple times to see the effect of data augmentation</strong>. They should be different every time!</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">chicago_data = BinarySegmentationDataset(<span class="string">"img_patches"</span>, <span class="string">"gt_patches"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">  img, gt = chicago_data[<span class="number">1200</span>]</span><br><span class="line"></span><br><span class="line">  display_tensor(img)</span><br><span class="line">  display_tensor(gt)</span><br></pre></td></tr></table></figure>
+<p><img src="output_22_0.png" alt="png"></p>
+<p><img src="output_22_1.png" alt="png"></p>
+<p><img src="output_22_2.png" alt="png"></p>
+<p><img src="output_22_3.png" alt="png"></p>
+<p><img src="output_22_4.png" alt="png"></p>
+<p><img src="output_22_5.png" alt="png"></p>
+<p><img src="output_22_6.png" alt="png"></p>
+<p><img src="output_22_7.png" alt="png"></p>
+<p><img src="output_22_8.png" alt="png"></p>
+<p><img src="output_22_9.png" alt="png"></p>
+<h2 id="Q4-Split-the-data-into-train-val-and-test-sets"><a href="#Q4-Split-the-data-into-train-val-and-test-sets" class="headerlink" title="Q4: Split the data into train, val and test sets"></a>Q4: Split the data into train, val and test sets</h2><p>As in the previous lab, <strong>split the dataset into three subsets (train, val and test)</strong>, then, create DataLoaders for each of these sets.</p>
+<p>You can use 10% of the whole set as a test set, and 10% of the rest as the validation set, for example. Feel free to change these percentages!</p>
+<p>Pay attention to DataLoader parameters (batch_size, num_workers, shuffle). It is good to shuffle the training set, but useless to shuffle the other sets. “num_workers” allow PyTorch to process your data (and the augmentation) in parallel. This is important if you need to quickly feed data to your GPU to make your training faster.</p>
+<p>HINT: use torch.utils.data.random_split twice</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">test_split = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line">val_split = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line">N_test_samples = round(test_split * len(chicago_data))</span><br><span class="line">train_and_val_set, test_set = torch.utils.data.random_split(chicago_data, </span><br><span class="line">                                                            [len(chicago_data) - N_test_samples, N_test_samples])</span><br><span class="line"></span><br><span class="line">N_val_samples = round(val_split * len(train_and_val_set))</span><br><span class="line">train_set, val_set = torch.utils.data.random_split(train_and_val_set, </span><br><span class="line">                                                   [len(train_and_val_set) - N_val_samples, N_val_samples])</span><br><span class="line"></span><br><span class="line">print(len(test_set))</span><br><span class="line">print(len(train_set))</span><br><span class="line">print(len(val_set))</span><br><span class="line"></span><br><span class="line">train_dl = torch.utils.data.DataLoader(train_set, batch_size=<span class="number">32</span>, num_workers=<span class="number">2</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line">val_dl = torch.utils.data.DataLoader(val_set, batch_size=<span class="number">32</span>, num_workers=<span class="number">2</span>)</span><br><span class="line">test_dl = torch.utils.data.DataLoader(test_set, batch_size=<span class="number">32</span>, num_workers=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>1440
+11664
+1296
+</code></pre><h1 id="Part-2-Implementing-a-U-Net-实现C-UNet网络"><a href="#Part-2-Implementing-a-U-Net-实现C-UNet网络" class="headerlink" title="Part 2: Implementing a U-Net 实现C-UNet网络"></a>Part 2: Implementing a U-Net 实现C-UNet网络</h1><p>For our segmentation network, we will use the well known U-Net architecture (2015).</p>
+<p><img src="https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/u-net-architecture.png" alt="alt text"></p>
+<h2 id="A-compact-U-Net"><a href="#A-compact-U-Net" class="headerlink" title="A compact U-Net"></a>A compact U-Net</h2><p>However, since U-Net is quite big (millions of parameters) and can take days to train, we will use a modified version of a more compact version of it: C-UNet (<a href="https://hal.inria.fr/hal-02277061/document" target="_blank" rel="noopener">https://hal.inria.fr/hal-02277061/document</a>)</p>
+<p>Using a compact network will help us get a result faster during the lab. Feel free to implement the full U-Net architecture at home!</p>
+<p>Here are the modifications we will do:</p>
+<ul>
+<li>Use 3x3 standard padded convolutions</li>
+<li>Use skip connections</li>
+<li>Return raw logits (no Sigmoid or Softmax)</li>
+</ul>
+<p>Thus, our network has the following properties:</p>
+<ul>
+<li>Three “stages” for the encoder, with 2 normal 3x3 convolutions and a max pool for the first two stages</li>
+<li>Two “stages” for the decoder, with 1 transposed convolution and 2 3x3 convolutions per stage</li>
+<li>A non-linearity (ReLU) after each convolution (except the last one)</li>
+<li>Doubling of the number of feature maps at each stage (starting with 8)</li>
+<li>Skip connections (without cropping) between the two first encoder stages and the two decoder stages (see image above)</li>
+</ul>
+<p><img src="https://i.imgur.com/VavqNFk.png" alt="alt text"></p>
+<h2 id="Q5-Implement-the-neural-network-建立神经网络"><a href="#Q5-Implement-the-neural-network-建立神经网络" class="headerlink" title="Q5: Implement the neural network 建立神经网络"></a>Q5: Implement the neural network 建立神经网络</h2><p>Fill the code below to implement the network.</p>
+<p>Do not forget to add an activation layer after each convolution operation. You can use the classic ReLU or any similar activation (eLU, PReLU, etc.) <a href="https://pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity" target="_blank" rel="noopener">https://pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity</a></p>
+<p>Note that this time, instead of using a Softmax as the last layer, we are returning raw logits (you will see why later). This means that a value above zero is a building, and a value below zero is not a building. <strong>Do not use ReLU after the last convolution layer!</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompactUNet</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    super(CompactUNet, self).__init__()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Encoder</span></span><br><span class="line">    </span><br><span class="line">    self.conv1_1 = nn.Conv2d(<span class="number">3</span>, <span class="number">8</span>, <span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    self.conv1_2 = nn.Conv2d(<span class="number">8</span>, <span class="number">8</span>, <span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    self.conv2_1 = nn.Conv2d(<span class="number">8</span>, <span class="number">16</span>, <span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    self.conv2_2 = nn.Conv2d(<span class="number">16</span>, <span class="number">16</span>, <span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    self.conv3_1 = nn.Conv2d(<span class="number">16</span>, <span class="number">32</span>, <span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    self.conv3_2 = nn.Conv2d(<span class="number">32</span>, <span class="number">32</span>, <span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Decoder</span></span><br><span class="line">    </span><br><span class="line">    self.up_conv1 = nn.ConvTranspose2d(<span class="number">32</span>, <span class="number">16</span>, <span class="number">2</span>, stride=<span class="number">2</span>, output_padding=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    self.conv4_1 = nn.Conv2d(<span class="number">32</span>, <span class="number">16</span>, <span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    self.conv4_2 = nn.Conv2d(<span class="number">16</span>, <span class="number">16</span>, <span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    self.up_conv2 = nn.ConvTranspose2d(<span class="number">16</span>, <span class="number">8</span>, <span class="number">2</span>, stride=<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    self.conv5_1 = nn.Conv2d(<span class="number">16</span>, <span class="number">8</span>, <span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    self.conv5_2 = nn.Conv2d(<span class="number">8</span>, <span class="number">8</span>, <span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    self.conv1x1 = nn.Conv2d(<span class="number">8</span>, <span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Other layers</span></span><br><span class="line">    </span><br><span class="line">    self.relu = nn.ReLU()</span><br><span class="line">    </span><br><span class="line">    self.maxpool = nn.MaxPool2d(<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">##Encoder</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Stage 1</span></span><br><span class="line">    x = self.conv1_1(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    x = self.conv1_2(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    skip1 = x</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Stage 2</span></span><br><span class="line">    x = self.maxpool(x)</span><br><span class="line">    </span><br><span class="line">    x = self.conv2_1(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    x = self.conv2_2(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    skip2 = x</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Stage 3</span></span><br><span class="line">    x = self.maxpool(x)</span><br><span class="line">    </span><br><span class="line">    x = self.conv3_1(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    x = self.conv3_2(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">##Decoder</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Stage 4</span></span><br><span class="line">    x = self.up_conv1(x)</span><br><span class="line">    </span><br><span class="line">    x = torch.cat((skip2,x),<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    x = self.conv4_1(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    x = self.conv4_2(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Stage 5</span></span><br><span class="line">    x = self.up_conv2(x)</span><br><span class="line">    </span><br><span class="line">    x = torch.cat((skip1,x),<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    x = self.conv5_1(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    x = self.conv5_2(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Output</span></span><br><span class="line">    x = self.conv1x1(x)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p>Use the following line to make sure that the forward pass works. Also check that the output shapes are correct. Make sure you understand where the numbers of parameters come from.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary(CompactUNet().cuda(), (<span class="number">3</span>, <span class="number">250</span>, <span class="number">250</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1          [-1, 8, 250, 250]             224
+              ReLU-2          [-1, 8, 250, 250]               0
+            Conv2d-3          [-1, 8, 250, 250]             584
+              ReLU-4          [-1, 8, 250, 250]               0
+         MaxPool2d-5          [-1, 8, 125, 125]               0
+            Conv2d-6         [-1, 16, 125, 125]           1,168
+              ReLU-7         [-1, 16, 125, 125]               0
+            Conv2d-8         [-1, 16, 125, 125]           2,320
+              ReLU-9         [-1, 16, 125, 125]               0
+        MaxPool2d-10           [-1, 16, 62, 62]               0
+           Conv2d-11           [-1, 32, 62, 62]           4,640
+             ReLU-12           [-1, 32, 62, 62]               0
+           Conv2d-13           [-1, 32, 62, 62]           9,248
+             ReLU-14           [-1, 32, 62, 62]               0
+  ConvTranspose2d-15         [-1, 16, 125, 125]           2,064
+           Conv2d-16         [-1, 16, 125, 125]           4,624
+             ReLU-17         [-1, 16, 125, 125]               0
+           Conv2d-18         [-1, 16, 125, 125]           2,320
+             ReLU-19         [-1, 16, 125, 125]               0
+  ConvTranspose2d-20          [-1, 8, 250, 250]             520
+           Conv2d-21          [-1, 8, 250, 250]           1,160
+             ReLU-22          [-1, 8, 250, 250]               0
+           Conv2d-23          [-1, 8, 250, 250]             584
+             ReLU-24          [-1, 8, 250, 250]               0
+           Conv2d-25          [-1, 1, 250, 250]               9
+================================================================
+Total params: 29,465
+Trainable params: 29,465
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 0.72
+Forward/backward pass size (MB): 57.15
+Params size (MB): 0.11
+Estimated Total Size (MB): 57.98
+----------------------------------------------------------------
+</code></pre><h2 id="Q6-Testing-the-implementation"><a href="#Q6-Testing-the-implementation" class="headerlink" title="Q6: Testing the implementation"></a>Q6: Testing the implementation</h2><p>Try the network on a batch of training data. Also try to display an output mask. Since the network is not trained, the mask should be black.</p>
+<p>HINT: to get a single image from an output batch <strong>y</strong>, use y[0,:,:,:]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">net = CompactUNet()</span><br><span class="line"></span><br><span class="line">x = next(iter(train_dl))[<span class="number">0</span>]</span><br><span class="line">y = net(x)</span><br><span class="line"></span><br><span class="line">display_tensor(y[<span class="number">0</span>,:,:,:])</span><br></pre></td></tr></table></figure>
+<p><img src="output_31_0.png" alt="png"></p>
+<h1 id="Part-3-Training-a-segmentation-network"><a href="#Part-3-Training-a-segmentation-network" class="headerlink" title="Part 3: Training a segmentation network"></a>Part 3: Training a segmentation network</h1><p>Training a segmentation is not that much different from training a classifier. </p>
+<p>The type of output is different, so we will need new metrics and perhaps a new loss.</p>
+<h2 id="Specific-metrics-for-segmentation-使用特别的度量来评价语义分割"><a href="#Specific-metrics-for-segmentation-使用特别的度量来评价语义分割" class="headerlink" title="Specific metrics for segmentation 使用特别的度量来评价语义分割"></a>Specific metrics for segmentation 使用特别的度量来评价语义分割</h2><p>准确率对于语义分割来说并不是一个很好的度量，特别是当数据集不平衡的时候。举个例子，对医疗图片进行分割的时候，目标的大小通常远远小于图片的分辨率，所以我们很可能获得99%的正确率但却并没有区分出任何东西（网络可以把所有的像素都认为是假就获得99%的正确率）<br>As a metric, <strong>accuracy</strong> is not always very good, especially when your data is imbalanced (which happens a lot in real life). For example, with medical image segmentation, the objects to detect are often very small compared to the size of the image. So it is sometimes possible to get 99% accuracy by not segmenting anything. </p>
+<p>我们使用的芝加哥城市数据集有25%的建筑，所以也是不平衡，但并没有太严重。</p>
+<p>Our Chicago dataset has around 25% of building pixels, so it is <em>imbalanced</em> but not <em>too much</em>.</p>
+<p>Here is a good example of extreme imbalance. In this image, we are looking for a small tumor:</p>
+<p><img src="https://d3i71xaburhd42.cloudfront.net/1733583ca8de32ec5ff0526443b46db44f677b3e/3-Figure2-1.png" alt="alt text"></p>
+<p>这就是为什么我们需要其他的度量，例如交并比，精确率，召回率或特异度<br>This is why we need <strong>other metrics, such as IoU (Intersection over Union), Precision, Recall or Specificity,</strong> which are more representative of what is really happening.</p>
+<p><strong>IoU, also called Jaccard coefficient</strong>, is used a lot in (binary) segmentation, because it only takes into account the parts of the image that actually need to be segmented:</p>
+<p><img src="https://www.pyimagesearch.com/wp-content/uploads/2016/09/iou_equation.png" alt="alt text"></p>
+<p><img src="https://www.pyimagesearch.com/wp-content/uploads/2016/09/iou_examples.png" alt="alt text"></p>
+<p>The <strong>Dice coefficient</strong> is another widely used metric, similar to IoU: <a href="https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient</a></p>
+<p>Here is an implementation of IoU:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iou_metric</span><span class="params">(logits, target)</span>:</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">## get a bool array for logits and labels</span></span><br><span class="line">  <span class="comment"># for logits, above 0 is building, below 0 is non-building</span></span><br><span class="line">  logits = logits &gt; <span class="number">0</span></span><br><span class="line">  <span class="comment"># for labels (between 0 and 1), 1 is building, 0 is non-building</span></span><br><span class="line">  target = target &gt; <span class="number">0.5</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">#compute IoU</span></span><br><span class="line">  intersection = logits * target</span><br><span class="line">  union = logits + target</span><br><span class="line">  <span class="keyword">return</span> float(intersection.sum()) / float(union.sum())</span><br></pre></td></tr></table></figure>
+<h2 id="Loss-and-optimizer-损失函数和优化器"><a href="#Loss-and-optimizer-损失函数和优化器" class="headerlink" title="Loss and optimizer  损失函数和优化器"></a>Loss and optimizer  损失函数和优化器</h2><p>The output of our network is a single class, so we can use the <strong>Binary Cross Entropy loss</strong>. Since we did not put a sigmoid activation layer after the last convolutional layer, we will use <strong>BCEWithLogitsLoss</strong>. Otherwise, we would have to use BCELoss, which is less stable. It is good to look at the PyTorch documentation to know what’s what: <a href="https://pytorch.org/docs/stable/nn.html#bcewithlogitsloss" target="_blank" rel="noopener">https://pytorch.org/docs/stable/nn.html#bcewithlogitsloss</a></p>
+<p>I put <strong>Adam</strong> as the optimizer here, but you can try anything from torch.optim. <strong>Adam has an adaptive learning rate</strong> for each weight of the network. The original learning rate is just an upper bound. This optimizer can allow you to reach a better local minimum, sometimes. Check the original paper for more info: <a href="https://arxiv.org/abs/1412.6980" target="_blank" rel="noopener">https://arxiv.org/abs/1412.6980</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##RE-RUN THIS CODE TO GET A "NEW" NETWORK</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># feel free to change the learning rate!</span></span><br><span class="line">LEARNING_RATE = <span class="number">0.001</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Create an instance of our network</span></span><br><span class="line">net = CompactUNet()</span><br><span class="line"></span><br><span class="line"><span class="comment">## Move it to the GPU</span></span><br><span class="line">net = net.cuda()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Binary Cross Entropy loss</span></span><br><span class="line">bce_loss = nn.BCEWithLogitsLoss()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Adam optimizer. you can try another one if you want.</span></span><br><span class="line">optimizer = torch.optim.Adam(net.parameters(), lr=LEARNING_RATE)</span><br></pre></td></tr></table></figure>
+<h2 id="Q7-Training-loop"><a href="#Q7-Training-loop" class="headerlink" title="Q7: Training loop"></a>Q7: Training loop</h2><p>Fill the code below to create the training and validation loops.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## NUMBER OF EPOCHS TO TRAIN</span></span><br><span class="line">N_EPOCHS = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> range(N_EPOCHS):</span><br><span class="line">  </span><br><span class="line">  print(<span class="string">"EPOCH:"</span>,e)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">### TRAINING LOOP</span></span><br><span class="line">  running_loss = <span class="number">0</span></span><br><span class="line">  running_accuracy = <span class="number">0</span></span><br><span class="line">  running_iou = <span class="number">0</span></span><br><span class="line">  n_pixels = <span class="number">0</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">## Put the network in training mode</span></span><br><span class="line">  net.train()</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> i, batch <span class="keyword">in</span> enumerate(tqdm_notebook(train_dl)):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Get a batch from the dataloader</span></span><br><span class="line">    x = batch[<span class="number">0</span>]</span><br><span class="line">    labels = batch[<span class="number">1</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># move the batch to GPU</span></span><br><span class="line">    x = x.cuda()</span><br><span class="line">    labels = labels.cuda()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Compute the network output</span></span><br><span class="line">    y = net(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Compute the loss</span></span><br><span class="line">    loss = jaccard_bce_loss(y, labels)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Reset the gradients</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Compute the gradients</span></span><br><span class="line">    loss.backward()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Apply one step of the descent algorithm to update the weights</span></span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Compute some statistics</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">      running_loss += loss.item()</span><br><span class="line">      y_bool = y &gt; <span class="number">0</span></span><br><span class="line">      labels_bool = labels &gt; <span class="number">0.5</span></span><br><span class="line">      running_accuracy += (y_bool == labels_bool).sum().item()</span><br><span class="line">      n_pixels += np.prod(labels_bool.size())</span><br><span class="line">      </span><br><span class="line">      running_iou += iou_metric(y, labels)    </span><br><span class="line">    </span><br><span class="line">  print(<span class="string">"Training accuracy:"</span>, running_accuracy/n_pixels,</span><br><span class="line">        <span class="string">"Training loss:"</span>, running_loss/float(len(train_dl)),</span><br><span class="line">        <span class="string">"Training IoU:"</span>, running_iou/float(len(train_dl)))</span><br><span class="line">  </span><br><span class="line">  <span class="comment">### VALIDATION LOOP</span></span><br><span class="line">  <span class="comment">## Put the network in validation mode</span></span><br><span class="line">  net.eval()</span><br><span class="line">  </span><br><span class="line">  running_val_loss = <span class="number">0</span></span><br><span class="line">  running_val_accuracy = <span class="number">0</span></span><br><span class="line">  running_val_iou = <span class="number">0</span></span><br><span class="line">  n_pixels = <span class="number">0</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> i, batch <span class="keyword">in</span> enumerate(val_dl):</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">      <span class="comment"># Get a batch from the dataloader</span></span><br><span class="line">      x = batch[<span class="number">0</span>]</span><br><span class="line">      labels = batch[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">      <span class="comment"># move the batch to GPU</span></span><br><span class="line">      x = x.cuda()</span><br><span class="line">      labels = labels.cuda()</span><br><span class="line"></span><br><span class="line">      <span class="comment"># Compute the network output</span></span><br><span class="line">      y = net(x)</span><br><span class="line">      </span><br><span class="line">      <span class="comment"># Compute the loss</span></span><br><span class="line">      loss = jaccard_bce_loss(y, labels)</span><br><span class="line">      running_val_loss += loss.item()</span><br><span class="line">      </span><br><span class="line">      y_bool = y &gt; <span class="number">0</span></span><br><span class="line">      labels_bool = labels &gt; <span class="number">0.5</span></span><br><span class="line">      </span><br><span class="line">      running_val_accuracy += (y_bool == labels_bool).sum().item()</span><br><span class="line">      n_pixels += np.prod(labels_bool.size())</span><br><span class="line">      </span><br><span class="line">      running_val_iou += iou_metric(y, labels)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">  print(<span class="string">"Validation accuracy:"</span>, running_val_accuracy/(<span class="number">1e-7</span> + n_pixels),</span><br><span class="line">        <span class="string">"Validation loss:"</span>, running_val_loss/float(len(val_dl)),</span><br><span class="line">        <span class="string">"Validation IoU:"</span>, running_val_iou/float(len(val_dl)))</span><br></pre></td></tr></table></figure>
+<h2 id="Q8-Test-loop"><a href="#Q8-Test-loop" class="headerlink" title="Q8: Test loop"></a>Q8: Test loop</h2><p>Using the test dataloader you created, write a test loop (similar to a val loop). You should get about 85% accuracy.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">net.eval()</span><br><span class="line"></span><br><span class="line">test_loss = <span class="number">0</span></span><br><span class="line">test_accuracy = <span class="number">0</span></span><br><span class="line">n_pixels = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, batch <span class="keyword">in</span> enumerate(test_dl):</span><br><span class="line"></span><br><span class="line">  <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    <span class="comment"># Get a batch from the dataloader</span></span><br><span class="line">    x = batch[<span class="number">0</span>]</span><br><span class="line">    labels = batch[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># move the batch to GPU</span></span><br><span class="line">    x = x.cuda()</span><br><span class="line">    labels = labels.cuda()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Compute the network output</span></span><br><span class="line">    y = net(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Compute the loss</span></span><br><span class="line">    loss = bce_loss(y, labels)</span><br><span class="line">    y = y &gt; <span class="number">0.5</span></span><br><span class="line">    labels = labels &gt; <span class="number">0.5</span></span><br><span class="line">    test_loss += loss.item()</span><br><span class="line">    test_accuracy += (y == labels).sum().item()</span><br><span class="line">    n_pixels += np.prod(labels.size())</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Test accuracy:"</span>, test_accuracy/n_pixels,</span><br><span class="line">      <span class="string">"Test loss:"</span>, test_loss/float(len(test_dl)))</span><br></pre></td></tr></table></figure>
+<pre><code>Test accuracy: 0.8535168555555556 Test loss: 0.33079981009165443
+</code></pre><h2 id="Q9-Visualizing-some-test-results"><a href="#Q9-Visualizing-some-test-results" class="headerlink" title="Q9: Visualizing some test results"></a>Q9: Visualizing some test results</h2><p>Visualize a few images from the test set, along with the neural network output and the associated ground truth. </p>
+<p>注意网络的输出有负值，选择大于0的进行显示（大于0的值为建筑）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">iter_dl = iter(test_dl)</span><br><span class="line">batch = next(iter_dl)</span><br><span class="line">batch = next(iter_dl)</span><br><span class="line">y = net(batch[<span class="number">0</span>].cuda())</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">  display_tensor(batch[<span class="number">0</span>][i,:,:,:])</span><br><span class="line">  display_tensor(batch[<span class="number">1</span>][i,:,:,:])</span><br><span class="line">  display_tensor((y[i,:,:,:].cpu() &gt; <span class="number">0</span>).type(torch.FloatTensor))</span><br></pre></td></tr></table></figure>
+<p><img src="output_42_0.png" alt="png"></p>
+<p><img src="output_42_1.png" alt="png"></p>
+<p><img src="output_42_2.png" alt="png"></p>
+<p><img src="output_42_3.png" alt="png"></p>
+<p><img src="output_42_4.png" alt="png"></p>
+<p><img src="output_42_5.png" alt="png"></p>
+<p><img src="output_42_6.png" alt="png"></p>
+<p><img src="output_42_7.png" alt="png"></p>
+<p><img src="output_42_8.png" alt="png"></p>
+<p><img src="output_42_9.png" alt="png"></p>
+<p><img src="output_42_10.png" alt="png"></p>
+<p><img src="output_42_11.png" alt="png"></p>
+<p><img src="output_42_12.png" alt="png"></p>
+<p><img src="output_42_13.png" alt="png"></p>
+<p><img src="output_42_14.png" alt="png"></p>
+<p><img src="output_42_15.png" alt="png"></p>
+<p><img src="output_42_16.png" alt="png"></p>
+<p><img src="output_42_17.png" alt="png"></p>
+<p><img src="output_42_18.png" alt="png"></p>
+<p><img src="output_42_19.png" alt="png"></p>
+<p><img src="output_42_20.png" alt="png"></p>
+<p><img src="output_42_21.png" alt="png"></p>
+<p><img src="output_42_22.png" alt="png"></p>
+<p><img src="output_42_23.png" alt="png"></p>
+<p><img src="output_42_24.png" alt="png"></p>
+<p><img src="output_42_25.png" alt="png"></p>
+<p><img src="output_42_26.png" alt="png"></p>
+<p><img src="output_42_27.png" alt="png"></p>
+<p><img src="output_42_28.png" alt="png"></p>
+<p><img src="output_42_29.png" alt="png"></p>
+<h2 id="Specific-losses-for-segmentation-tasks-为分割任务专门定制的损失函数"><a href="#Specific-losses-for-segmentation-tasks-为分割任务专门定制的损失函数" class="headerlink" title="Specific losses for segmentation tasks 为分割任务专门定制的损失函数"></a>Specific losses for segmentation tasks 为分割任务专门定制的损失函数</h2><p>损失函数的选择对于深度学习来说至关重要，因为损失函数决定了我们优化的方向是什么。当我们使用binary cross entropy loss的时候，我们仅仅是在优化每一个像素的精确率。在我们这样一个平衡的数据集中，使用这样的损失函数可能行得通，但是在其他一些不平衡的数据集中可能效果就不好了。</p>
+<p>所以我们考虑使用一个基于IoU的损失函数，这样可以把IoU也加入到优化的目标中。</p>
+<p>此外还有一些损失函数，例如Focal loss，它专注于高难度样本的训练，同样可以在不平衡的数据集中有好的表现。<a href="https://arxiv.org/abs/1708.02002" target="_blank" rel="noopener">https://arxiv.org/abs/1708.02002</a></p>
+<p>The choice of the loss function is important in Deep learning, because <strong>it determines what we are optimizing for</strong>. In the case of binary cross-entropy, we are purely optimizing for the best pixel-by-pixel accuracy. While it works in our quite balanced dataset, it may not work in others.</p>
+<p>Since we are also measuring the IoU, it would be interesting to build an IoU-based loss function that tries to get us <strong>a better IoU</strong>.</p>
+<p>Some other loss functions, such as Focal Loss, focus the training on hard examples. This can also be good for unbalanced semantic segmentation <a href="https://arxiv.org/abs/1708.02002" target="_blank" rel="noopener">https://arxiv.org/abs/1708.02002</a></p>
+<h2 id="Q10-Jaccard-IoU-loss"><a href="#Q10-Jaccard-IoU-loss" class="headerlink" title="Q10: Jaccard (IoU) loss"></a>Q10: Jaccard (IoU) loss</h2><p>实现Jaccard loss</p>
+<p>Let’s implement the Jaccard loss. Fill the code below and replace the loss we used earlier (in the training loop) by the sum of binary cross entropy and jaccard loss. The loss looks like the metric we implemented earlier, except we are using 1 - “metric” because PyTorch tries to <strong>minimize</strong> a loss.</p>
+<script type="math/tex; mode=display">
+\operatorname{loss}=1-\frac{\sum y_{i j} t_{i j}}{\sum y_{i j}+\sum t_{i j}-\sum y_{i j} t_{i j}}</script><p>Please note that we are mixing the Jaccard loss with the Binary Cross Entropy loss with some <em>alpha</em> and <em>beta</em> coefficients. <strong>You can try to change them to give more importance to accuracy or to IoU</strong>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">jaccard_loss</span><span class="params">(logits, true)</span>:</span></span><br><span class="line">    eps = <span class="number">1e-7</span></span><br><span class="line"></span><br><span class="line">    iflat = logits.view(<span class="number">-1</span>)</span><br><span class="line">    tflat = true.view(<span class="number">-1</span>)</span><br><span class="line">    intersection = (iflat * tflat).sum()</span><br><span class="line">    union = iflat.sum() + tflat.sum() - intersection</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> - ((intersection) / (union + eps))</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">jaccard_bce_loss</span><span class="params">(logits, true, alpha=<span class="number">0.1</span>, beta=<span class="number">0.9</span>)</span>:</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> alpha * jaccard_loss(logits, true) + beta * bce_loss(logits, true)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/pytorch/" rel="tag"># pytorch</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/10/28/post/" rel="next" title="post">
+                <i class="fa fa-chevron-left"></i> post
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Classiczy">
+  <p class="site-author-name" itemprop="name">Classiczy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/wangzeyao" title="GitHub &rarr; https://github.com/wangzeyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:germany2o14@163.com" title="E-Mail &rarr; mailto:germany2o14@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.instagram.com/classicwzy/" title="Instagram &rarr; https://www.instagram.com/classicwzy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://space.bilibili.com/259378363/" title="Bilibili &rarr; https://space.bilibili.com/259378363/" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>Bilibili</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lab-2-Semantic-segmentation-with-Fully-Convolutional-Networks"><span class="nav-number">1.</span> <span class="nav-text">Lab 2: Semantic segmentation with Fully Convolutional Networks</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Semantic-segmentation-语义分割"><span class="nav-number">2.1.</span> <span class="nav-text">Semantic segmentation 语义分割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fully-Convolutional-Networks-全卷积网络"><span class="nav-number">2.2.</span> <span class="nav-text">Fully Convolutional Networks 全卷积网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Skip-connections"><span class="nav-number">2.3.</span> <span class="nav-text">Skip connections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-you-will-learn-in-this-lab"><span class="nav-number">2.4.</span> <span class="nav-text">What you will learn in this lab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU-Runtime"><span class="nav-number">2.5.</span> <span class="nav-text">GPU Runtime</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Importing-Libraries"><span class="nav-number">2.6.</span> <span class="nav-text">Importing Libraries</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-1-A-new-kind-of-dataset"><span class="nav-number">3.</span> <span class="nav-text">Part 1: A new kind of dataset</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Downloading-the-data"><span class="nav-number">3.1.</span> <span class="nav-text">Downloading the data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Creating-small-patches"><span class="nav-number">3.2.</span> <span class="nav-text">Creating small patches</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Creating-a-custom-Dataset-class-创建自定义数据集"><span class="nav-number">3.3.</span> <span class="nav-text">Creating a custom Dataset class  创建自定义数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q1-Displaying-some-data"><span class="nav-number">3.4.</span> <span class="nav-text">Q1: Displaying some data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q2-Data-augmentation"><span class="nav-number">3.5.</span> <span class="nav-text">Q2: Data augmentation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q3-Check-that-your-data-augmentation-is-working"><span class="nav-number">3.6.</span> <span class="nav-text">Q3: Check that your data augmentation is working</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q4-Split-the-data-into-train-val-and-test-sets"><span class="nav-number">3.7.</span> <span class="nav-text">Q4: Split the data into train, val and test sets</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2-Implementing-a-U-Net-实现C-UNet网络"><span class="nav-number">4.</span> <span class="nav-text">Part 2: Implementing a U-Net 实现C-UNet网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-compact-U-Net"><span class="nav-number">4.1.</span> <span class="nav-text">A compact U-Net</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q5-Implement-the-neural-network-建立神经网络"><span class="nav-number">4.2.</span> <span class="nav-text">Q5: Implement the neural network 建立神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q6-Testing-the-implementation"><span class="nav-number">4.3.</span> <span class="nav-text">Q6: Testing the implementation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-3-Training-a-segmentation-network"><span class="nav-number">5.</span> <span class="nav-text">Part 3: Training a segmentation network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Specific-metrics-for-segmentation-使用特别的度量来评价语义分割"><span class="nav-number">5.1.</span> <span class="nav-text">Specific metrics for segmentation 使用特别的度量来评价语义分割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loss-and-optimizer-损失函数和优化器"><span class="nav-number">5.2.</span> <span class="nav-text">Loss and optimizer  损失函数和优化器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q7-Training-loop"><span class="nav-number">5.3.</span> <span class="nav-text">Q7: Training loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q8-Test-loop"><span class="nav-number">5.4.</span> <span class="nav-text">Q8: Test loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q9-Visualizing-some-test-results"><span class="nav-number">5.5.</span> <span class="nav-text">Q9: Visualizing some test results</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Specific-losses-for-segmentation-tasks-为分割任务专门定制的损失函数"><span class="nav-number">5.6.</span> <span class="nav-text">Specific losses for segmentation tasks 为分割任务专门定制的损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q10-Jaccard-IoU-loss"><span class="nav-number">5.7.</span> <span class="nav-text">Q10: Jaccard (IoU) loss</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Classiczy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'fQrw7GPV8alSagiWukM9OIkd-MdYXbMMI',
+    appKey: 'F8sp1ceQPgwWeqJdMc3V82wr',
+    placeholder: 'Comments here',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'en' || 'zh-cn'
+  });
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>
