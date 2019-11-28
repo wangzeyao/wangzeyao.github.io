@@ -65,7 +65,7 @@
 <meta property="og:description" content="直方图和直方图均衡化(Histogram Equalization)图像直方(Image Histiograms)灰度直方图是对每一阶灰度的像素数量进行计数。像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://lh3.googleusercontent.com/IV5jbUqA-6VjQvSpisRCCT7N8OZywnVx80ZUOMrhe1AgN7UmBZXauTmzMm063yXZKPbk8k4pD7O3">
-<meta property="og:updated_time" content="2019-11-26T17:03:13.463Z">
+<meta property="og:updated_time" content="2019-11-28T15:20:02.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="直方图均衡化">
 <meta name="twitter:description" content="直方图和直方图均衡化(Histogram Equalization)图像直方(Image Histiograms)灰度直方图是对每一阶灰度的像素数量进行计数。像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数">
@@ -283,11 +283,21 @@
                 
               
 
-              <time title="Created: 26-11-2019 13:30:44 / Modified: 18:03:13" itemprop="dateCreated datePublished" datetime="2019-11-26T13:30:44+01:00">26-11-2019</time>
+              <time title="Created: 26-11-2019 13:30:44" itemprop="dateCreated datePublished" datetime="2019-11-26T13:30:44+01:00">26-11-2019</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 28-11-2019 16:20:02" itemprop="dateModified" datetime="2019-11-28T16:20:02+01:00">28-11-2019</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -376,6 +386,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2019/11/27/字母识别/" rel="prev" title="字母识别">
+                字母识别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -433,7 +447,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -654,6 +668,51 @@
 
 
 
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 

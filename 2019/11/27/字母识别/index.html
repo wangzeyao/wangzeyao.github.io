@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="Gesture recognition by Deep Neural NetworkPreviously on CamshiftIn the last TP, we used the camshift algorithme to track the hand and take picture of it. Then we resize the picture to 16X16 matrix and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字母识别">
+<meta property="og:url" content="http://yoursite.com/2019/11/27/字母识别/index.html">
+<meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="Gesture recognition by Deep Neural NetworkPreviously on CamshiftIn the last TP, we used the camshift algorithme to track the hand and take picture of it. Then we resize the picture to 16X16 matrix and">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://lh3.googleusercontent.com/6nrSCWnXf75wqYINjmOW35lKdmufyrk-GmxiSHLdex9ZjCvHKF6_qfRer5DcR2GRQJuv2JzzBUVd">
+<meta property="og:image" content="https://lh3.googleusercontent.com/1RgPvYWinIKGAq8gT-dp2bbEjkK-CE5ZGQ2SCHdWwyP6RxkrGUmnHwcEJM3OWcIsZaYcEBi0dfHh">
+<meta property="og:image" content="https://lh3.googleusercontent.com/QRqlWXPYOrnbFARfhTIHt93RToUQWclyRtHwgVCU00PbdzInz4g2Sgu-hVqTqF-p1P0s_ruHe2ii">
+<meta property="og:image" content="https://lh3.googleusercontent.com/9NbRfy0y4WcSKjE9OruHB866Oh_lLKqeQJs0gbLdFTr36fVeHRV6CMn2p-bG_4AIz4nsXu0SOdvm">
+<meta property="og:image" content="https://lh3.googleusercontent.com/0qRbLT9dibFRGUxa7fZUSrHjmtsyfp7tGJTsgEvhUxBZsG3rvR6xrTbY9IB5Y6q4-k8IPFKoMHUG">
+<meta property="og:image" content="https://lh3.googleusercontent.com/TliBjMrX1Cv45ZGJ_SuKgeciMf1MlXLNs1-AbdjzZ2n8S-C5lJCZUp1afqrOk_p_zl4lkRPeHzZi">
+<meta property="og:image" content="https://lh3.googleusercontent.com/q2BG9Du9r738zOU4a-LCh-8S0bKiilyIExf2J5IhlWCBbzNBVxY6QWqbyN5CEq0WKYBZt-WOM55d">
+<meta property="og:image" content="https://lh3.googleusercontent.com/9VFdWaogCnwwuUVK4nJfiywuQ8-OPRNZtgIjEi64K1xx0qmcD9Q3yEHFy6pB2jLAO1WzbO8oZiBV">
+<meta property="og:image" content="https://lh3.googleusercontent.com/Skv8zjUmN1JPYsgCy0IlR5ooad_xMbZ7mlLuBQ8w88g5eF44YtwrmjWlX6R5P2MsQo4BiV4TMvY9">
+<meta property="og:image" content="https://lh3.googleusercontent.com/pqqMhQKlkB1NqVVIX_OfVEcZGFBB6590zPcqXdRZ9YV5ZX3fp2a5LLWlDqLCEYFqohtLCcIZvKfN">
+<meta property="og:image" content="https://lh3.googleusercontent.com/Ax9P9w8tjMklfX0Hn5IDfbncF5eBa0t8OCYPO5-tfDNgQuPFs9mXnKP_kUVID2RT_NKgaPN3xUAJ">
+<meta property="og:image" content="https://lh3.googleusercontent.com/mKQCXtjXjAtK7u4o9qPy48eV_xaUJ1_vBG1kgd69J-cynyxuhHgY34lTupszi--fFKQdZjtVymMW">
+<meta property="og:image" content="https://lh3.googleusercontent.com/lCvVc4z0Ex9BVpn82AKafSRb5d4h8McJOtJZNi6b2VCgkBSDajOXARjrDae532z7jUV0kWb-3u7B">
+<meta property="og:image" content="https://lh3.googleusercontent.com/Mk3q2oDIHpkQKcoBupBc-k8I3nu19HytvKa5ztcXRN0SOGAhzkuNDA8s1Z0hgu4xeghYq4kEnzyu">
+<meta property="og:image" content="https://lh3.googleusercontent.com/D2PYrCeFkBBVi6QBA4MrpuKgfRQqwF8AkZ6iXRuuZsGWAFwwWojsB3suxDvG0x8U0jmuS7gxpOTz">
+<meta property="og:image" content="https://lh3.googleusercontent.com/oTJmYbdV3DoL5YKDXHTnv_EOp1IoQDr1xpqhl_NjSwn24XyDvBUKmX8Bg4Fm1Nz86EPnjkgR1Abn">
+<meta property="og:image" content="https://lh3.googleusercontent.com/EYcFVxOKt0RDmSSVL4aRFqlVhJ5WH5oXoY4rkqlq6x1FXIiwzvnBcqIknxeaM1XEZWebLVSqxqYl">
+<meta property="og:image" content="https://lh3.googleusercontent.com/mvsMVr46hR8sktpGTXPX7rX4JqKsella6NIo3qgps29jgH8jBr86JsGcneONtK8Mla1as-yzsZ9e">
+<meta property="og:image" content="https://lh3.googleusercontent.com/0ii84ywdaEGxNW11tm-duE32m_-vv_bjcz8uTI54MNsT5tiQOqjmoxOgz7kWavThnRg9pYARy3P0">
+<meta property="og:image" content="https://lh3.googleusercontent.com/sPUL3cZ7_wmHjjn8bUZnl9MdZI3euk9D0pva9oYu6kkhgAMaQpyCB5GR2XVBFtnmYabyg7mkbDgd">
+<meta property="og:image" content="https://lh3.googleusercontent.com/4zA-hfZR0rGgcceJWDu_Rl3V_h8vk05YGK290h0AW0KK9GxJhPdXU_j_aJhVycXYBmaDp_jQuhLh">
+<meta property="og:image" content="https://lh3.googleusercontent.com/PdxpmzWy2031tJGatiFJoBVuSaU4NO4baudxmUtbCX258CBtkdjC2CTNPetXQovljSL1WuUggkST">
+<meta property="og:image" content="https://lh3.googleusercontent.com/WQph9eqj0FrmNyjeP29CZtVoEGfhigB8qPwbYh5GTO2ty6xvlr0mzE6fdXaUBg95KYnlpVtdqDID">
+<meta property="og:image" content="https://lh3.googleusercontent.com/it-0MkDhfqrRbKZC8wsXPUkdlhb0GAXVPZ8ertGiaJ_alx86UFVGrSepmun59TfXEV_HEfr2m_Qc">
+<meta property="og:updated_time" content="2019-11-28T15:21:55.715Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字母识别">
+<meta name="twitter:description" content="Gesture recognition by Deep Neural NetworkPreviously on CamshiftIn the last TP, we used the camshift algorithme to track the hand and take picture of it. Then we resize the picture to 16X16 matrix and">
+<meta name="twitter:image" content="https://lh3.googleusercontent.com/6nrSCWnXf75wqYINjmOW35lKdmufyrk-GmxiSHLdex9ZjCvHKF6_qfRer5DcR2GRQJuv2JzzBUVd">
+  <link rel="canonical" href="http://yoursite.com/2019/11/27/字母识别/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>字母识别 | Classiczy</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Classiczy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-books">
+      
+    
+
+    <a href="/books/" rel="section"><i class="menu-item-icon fa fa-fw fa-book"></i> <br>books</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-movies">
+      
+    
+
+    <a href="/movies/" rel="section"><i class="menu-item-icon fa fa-fw fa-ticket-alt"></i> <br>movies</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/字母识别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">字母识别
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 27-11-2019 20:20:57" itemprop="dateCreated datePublished" datetime="2019-11-27T20:20:57+01:00">27-11-2019</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 28-11-2019 16:21:55" itemprop="dateModified" datetime="2019-11-28T16:21:55+01:00">28-11-2019</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/11/27/字母识别/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/27/字母识别/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Gesture-recognition-by-Deep-Neural-Network"><a href="#Gesture-recognition-by-Deep-Neural-Network" class="headerlink" title="Gesture recognition by Deep Neural Network"></a>Gesture recognition by Deep Neural Network</h1><h2 id="Previously-on-Camshift"><a href="#Previously-on-Camshift" class="headerlink" title="Previously on Camshift"></a>Previously on Camshift</h2><p>In the last TP, we used the camshift algorithme to track the hand and take picture of it. Then we resize the picture to 16X16 matrix and store it as the data set to train our neural network.<br>I spend an hour to capture the gesture of my hand and I only got like 1500 pictures. So in order to have more data to train the network. I randomly select 1000 pictures I have and rotate each of them with a random angle and add them into the data.(The code for selecting and rotating them is <a href="https://github.com/wangzeyao/ComputerVision/blob/master/TP2/img_process.py" target="_blank" rel="noopener">here</a>). So now I have a data set with 2500 pictures.<br><img src="https://lh3.googleusercontent.com/6nrSCWnXf75wqYINjmOW35lKdmufyrk-GmxiSHLdex9ZjCvHKF6_qfRer5DcR2GRQJuv2JzzBUVd" alt="The data set we have" title="The data set"><br>We have four letters to predict C,V,I and O<br>We will use two kinds of Network, MLP and CNN<br><a id="more"></a></p>
+<h2 id="1-Multilayer-Perceptron"><a href="#1-Multilayer-Perceptron" class="headerlink" title="1.Multilayer Perceptron"></a>1.Multilayer Perceptron</h2><p>A <strong>multilayer perceptron</strong> (MLP) is a class of feedforward artificial neural network. A MLP consists of at least three layers of nodes: an input layer, a hidden layer and an output layer. For MLP, we will using an existing python file in the sample of openCV <em>letter_recog.py</em></p>
+<h3 id="1-1-Load-data-and-preprocessing"><a href="#1-1-Load-data-and-preprocessing" class="headerlink" title="1.1 Load data and preprocessing"></a>1.1 Load data and preprocessing</h3><p>First, we define a function to load the data and do some preprocessing.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_base</span><span class="params">(path)</span>:</span>  </span><br><span class="line">    data = np.loadtxt(path, np.float32, delimiter=<span class="string">','</span>, converters=&#123;<span class="number">0</span>: <span class="keyword">lambda</span> ch : convertFun(ord(ch))&#125;)  </span><br><span class="line">    index = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(len(data))]  </span><br><span class="line">    np.random.shuffle(index)  </span><br><span class="line">    data = data[index]  </span><br><span class="line">    samples, responses = data[:,<span class="number">1</span>:], data[:,<span class="number">0</span>]  </span><br><span class="line">    <span class="keyword">return</span> samples, responses</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convertFun</span><span class="params">(letter)</span>:</span>  </span><br><span class="line">    <span class="keyword">if</span> chr(letter) == <span class="string">'C'</span>:  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>  </span><br><span class="line">  <span class="keyword">elif</span> chr(letter) == <span class="string">'V'</span>:  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>  </span><br><span class="line">  <span class="keyword">elif</span> chr(letter) == <span class="string">'I'</span>:  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>  </span><br><span class="line">  <span class="keyword">elif</span> chr(letter) == <span class="string">'O'</span>:  </span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<p>We first load the data from .txt file and use a convert function to transfer letter to numbers. Then we split the data into <strong>samples</strong> and <strong>responses</strong> or you can call it X and Y.<br>Then in class <strong>LetterStatModel</strong>, I modified the function <strong>unroll_responses</strong> in order to create the one-hot array for dimension 4(the previous code is for 26 letters,but now i only have 4) with the help of <em>np_utils.to_categorical()</em> in <em>keras.utils</em><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">unroll_responses</span><span class="params">(self, responses)</span>:</span>  </span><br><span class="line">    new_responses = responses  </span><br><span class="line">    new_responses = np_utils.to_categorical(responses, <span class="number">4</span>)  </span><br><span class="line">    <span class="keyword">return</span> new_responses</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-2-Structure-of-the-neural-network"><a href="#1-2-Structure-of-the-neural-network" class="headerlink" title="1.2 Structure of the neural network"></a>1.2 Structure of the neural network</h3><p>We can only modify two things for this MLP, the number of hidden layer and how many neurons in each layer. Since there are simple pictures and we only have four letters, I tried one and two layers with number of neurons equals to (5,10,15,20,…..200)</p>
+<h4 id="single-hidden-layer"><a href="#single-hidden-layer" class="headerlink" title="single hidden layer"></a>single hidden layer</h4><p><img src="https://lh3.googleusercontent.com/1RgPvYWinIKGAq8gT-dp2bbEjkK-CE5ZGQ2SCHdWwyP6RxkrGUmnHwcEJM3OWcIsZaYcEBi0dfHh" alt="enter image description here"><br>For the single layer MLP with 40 nerons, we have the best result of 90.89% accuracy in the validation. And with the number of nerons becomes lager, the accuracy decreases.</p>
+<h4 id="two-hidden-layer"><a href="#two-hidden-layer" class="headerlink" title="two hidden layer"></a>two hidden layer</h4><p><img src="https://lh3.googleusercontent.com/QRqlWXPYOrnbFARfhTIHt93RToUQWclyRtHwgVCU00PbdzInz4g2Sgu-hVqTqF-p1P0s_ruHe2ii" alt="enter image description here"><br>For two hidden layers, the best result showed up at 55 nerons for each layers and its accuracy was 91.29%. We don’t see too much difference with the two kind of MLP but I still choose to use the second one.</p>
+<p>The code for train the MLP is here</p>
+<h2 id="2-Convolutional-Neural-Network"><a href="#2-Convolutional-Neural-Network" class="headerlink" title="2. Convolutional Neural Network"></a>2. Convolutional Neural Network</h2><p>The introduction for CNN is in my another <a href="https://github.com/wangzeyao/ComputerVision/blob/master/Markdowns/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md" target="_blank" rel="noopener">markdown</a><br>This time I used keras with backend tensorflow to build the CNN.</p>
+<h3 id="2-1-Load-data-and-preprocessing"><a href="#2-1-Load-data-and-preprocessing" class="headerlink" title="2.1 Load data and preprocessing"></a>2.1 Load data and preprocessing</h3><p>It’s the same with MLP for data loading but a little bit difference in preprocessing. This time we will have more works to do.</p>
+<h4 id="shuffle-and-split-the-data"><a href="#shuffle-and-split-the-data" class="headerlink" title="shuffle and split the data"></a>shuffle and split the data</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data = np.loadtxt(path, np.float32, delimiter=<span class="string">','</span>, converters=&#123;<span class="number">0</span>: <span class="keyword">lambda</span> ch : convertFun(ord(ch))&#125;)  </span><br><span class="line">index = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(len(data))]  </span><br><span class="line">np.random.shuffle(index)  </span><br><span class="line">data = data[index]  </span><br><span class="line">x_train, y_train = data[:<span class="number">2000</span>,<span class="number">1</span>:], data[:<span class="number">2000</span>,<span class="number">0</span>]  </span><br><span class="line">x_test, y_test = data[<span class="number">2000</span>:<span class="number">2521</span>,<span class="number">1</span>:], data[<span class="number">2000</span>:<span class="number">2521</span>,<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<p>The most important part here is to <strong>shuffle</strong> the data. When I first try to use the CNN and the results were not satisfying. I tried to modifer everything but none of them worked. Then I realised that when I took the picture, I usually press like 50 times button C to store the gesture of C and 50 times for O, and V and so on. So the data I feed to the network are in orderded, that may influence the performence of the network. So I tried to shuffle the data first and the accuracy becames much better than before.<br>After the shuffling, I split the data so that I have 80% data for training and 20% of data for testing.</p>
+<h4 id="reshape-the-format-of-the-picture"><a href="#reshape-the-format-of-the-picture" class="headerlink" title="reshape the format of the picture"></a>reshape the format of the picture</h4><p>For a set of pictures, we have two kinds of format to represent it. One is <strong>channels_first</strong>, like this (100,3,16,16). The first number represent the number of samples, second one is the number of channels, and the last two is the lenght and height of the picture.<br>But we still have <strong>channels_last</strong> format like (100,16,16,3) which the number of the channels is the last one.<br>After that, I convert the data into float32, and do the normalization in order to speed up the compute.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> backend <span class="keyword">as</span> K  </span><br><span class="line">img_row, img_col = <span class="number">16</span>,<span class="number">16</span>  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span> K.image_data_format() == <span class="string">'channels_first'</span>:  </span><br><span class="line">    shape_ord = (<span class="number">1</span>,img_row,img_col)  </span><br><span class="line"><span class="keyword">else</span>:  </span><br><span class="line">    shape_ord = (img_row,img_col,<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">x_train = x_train.reshape((x_train.shape[<span class="number">0</span>],)+shape_ord)  </span><br><span class="line">x_test = x_test.reshape((x_test.shape[<span class="number">0</span>],)+shape_ord)  </span><br><span class="line">x_train = x_train.astype(np.float32)  </span><br><span class="line">x_test = x_test.astype(np.float32)  </span><br><span class="line">x_train /= <span class="number">255</span>  </span><br><span class="line">x_test /= <span class="number">255</span></span><br></pre></td></tr></table></figure></p>
+<p>Then I convert the Y into one-hot encoding<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nb_class = <span class="number">4</span>  </span><br><span class="line">y_train = np_utils.to_categorical(y_train,nb_class)  </span><br><span class="line">y_test = np_utils.to_categorical(y_test,nb_class)</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-2-Structure-of-the-neural-network"><a href="#2-2-Structure-of-the-neural-network" class="headerlink" title="2.2 Structure of the neural network"></a>2.2 Structure of the neural network</h3><p>For CNN I tried two structure, one is quit simple with only one convolution layer(call it simple CNN),the other is the classic LeNet.</p>
+<h4 id="simple-CNN"><a href="#simple-CNN" class="headerlink" title="simple CNN"></a>simple CNN</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">simpleCNN</span><span class="params">(kernel_size=<span class="params">(<span class="number">3</span>,<span class="number">3</span>)</span>,activation=<span class="string">'relu'</span>)</span>:</span>  </span><br><span class="line">	model = Sequential()  </span><br><span class="line">	model.add(Conv2D(nb_filter,  </span><br><span class="line">			kernel_size=kernel_size,  </span><br><span class="line">			padding=<span class="string">'valid'</span>,  </span><br><span class="line">			input_shape=shape_ord,  </span><br><span class="line">			activation=activation))  </span><br><span class="line">	model.add(MaxPooling2D(pool_size=(nb_pool,nb_pool)))  </span><br><span class="line">	model.add(Dropout(<span class="number">0.2</span>))  </span><br><span class="line">	model.add(Flatten())  </span><br><span class="line">	model.add(Dense(units=<span class="number">128</span>,activation=activation))  </span><br><span class="line">	model.add(Dense(units=<span class="number">4</span>,activation=<span class="string">'softmax'</span>))  </span><br><span class="line">	<span class="keyword">return</span> model</span><br></pre></td></tr></table></figure>
+<p>As we can see it’s quit simple.  One Conv2d with 16 kernels, one Maxpooling and one Dense with 128 units. The kernel size is 3X3</p>
+<h4 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">LeNet</span><span class="params">(kernel_size=<span class="params">(<span class="number">5</span>,<span class="number">5</span>)</span>,activation=<span class="string">'relu'</span>)</span>:</span>  </span><br><span class="line">	model = Sequential()  </span><br><span class="line">	model.add(Conv2D(filters=<span class="number">6</span>,  </span><br><span class="line">			kernel_size=kernel_size,  </span><br><span class="line">			strides=(<span class="number">1</span>, <span class="number">1</span>),  </span><br><span class="line">			padding=<span class="string">'valid'</span>,  </span><br><span class="line">			input_shape=shape_ord,  </span><br><span class="line">			activation=activation,  </span><br><span class="line">			name=<span class="string">'Conv1'</span>))  </span><br><span class="line"></span><br><span class="line">	model.add(AveragePooling2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>),  </span><br><span class="line">			strides=(<span class="number">1</span>, <span class="number">1</span>),  </span><br><span class="line">			padding=<span class="string">'valid'</span>))  </span><br><span class="line"></span><br><span class="line">	model.add(Conv2D(<span class="number">16</span>,  </span><br><span class="line">			kernel_size=kernel_size,  </span><br><span class="line">			strides=(<span class="number">1</span>, <span class="number">1</span>),  </span><br><span class="line">			padding=<span class="string">'valid'</span>,  </span><br><span class="line">			activation=activation,  </span><br><span class="line">			name=<span class="string">'Conv2'</span>))  </span><br><span class="line"></span><br><span class="line">	model.add(AveragePooling2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>),  </span><br><span class="line">			strides=(<span class="number">2</span>, <span class="number">2</span>),  </span><br><span class="line">			padding=<span class="string">'valid'</span>))  </span><br><span class="line"></span><br><span class="line">	model.add(Conv2D(<span class="number">120</span>,  </span><br><span class="line">			kernel_size=(<span class="number">5</span>, <span class="number">5</span>),  </span><br><span class="line">			strides=(<span class="number">1</span>, <span class="number">1</span>),  </span><br><span class="line">			padding=<span class="string">'valid'</span>,  </span><br><span class="line">			activation=activation,  </span><br><span class="line">			name=<span class="string">'Conv3'</span>))  </span><br><span class="line"></span><br><span class="line">	model.add(Flatten())  </span><br><span class="line"></span><br><span class="line">	model.add(Dense(units=<span class="number">120</span>,  </span><br><span class="line">			activation=<span class="string">'tanh'</span>))  </span><br><span class="line"></span><br><span class="line">	model.add(Dense(units=<span class="number">84</span>,  </span><br><span class="line">			activation=<span class="string">'tanh'</span>))  </span><br><span class="line"></span><br><span class="line">	model.add(Dense(units=<span class="number">4</span>,  </span><br><span class="line">			activation=<span class="string">'softmax'</span>))  </span><br><span class="line">	<span class="keyword">return</span> model</span><br></pre></td></tr></table></figure>
+<p>click here to see the svg picture of the network.<br>It has 3 Conv2d layer, 2 average pooling layer and 2 dense layer.</p>
+<h3 id="2-3-choose-of-epoch"><a href="#2-3-choose-of-epoch" class="headerlink" title="2.3 choose of epoch"></a>2.3 choose of epoch</h3><p>In order to prevent them from overfitting, I tried to train both of them 100 epoch and observr at which epoch the accuracy of validation stop to increase.</p>
+<p>LeNet<br><img src="https://lh3.googleusercontent.com/9NbRfy0y4WcSKjE9OruHB866Oh_lLKqeQJs0gbLdFTr36fVeHRV6CMn2p-bG_4AIz4nsXu0SOdvm" alt="enter image description here"></p>
+<p>Simple CNN<br><img src="https://lh3.googleusercontent.com/0qRbLT9dibFRGUxa7fZUSrHjmtsyfp7tGJTsgEvhUxBZsG3rvR6xrTbY9IB5Y6q4-k8IPFKoMHUG" alt="enter image description here"><br>So for LeNet, it stopped increasing at 30th epoch. So I decided to train LeNet and simple CNN with  30 epoches.</p>
+<h3 id="2-4-choose-of-parameters"><a href="#2-4-choose-of-parameters" class="headerlink" title="2.4 choose of parameters"></a>2.4 choose of parameters</h3><p>Here I want to difference performence between the different optimizer and different kernel size.</p>
+<h4 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h4><p>For the introduciton of different gradient decent method, see my other <a href="https://github.com/wangzeyao/ComputerVision/blob/master/Markdowns/%E5%B8%B8%E7%94%A8%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%96%B9%E6%B3%95.md" target="_blank" rel="noopener">markdown</a>.<br>Here I tried sgd and adam.</p>
+<h5 id="1-SGD"><a href="#1-SGD" class="headerlink" title="1. SGD"></a>1. SGD</h5><p><img src="https://lh3.googleusercontent.com/TliBjMrX1Cv45ZGJ_SuKgeciMf1MlXLNs1-AbdjzZ2n8S-C5lJCZUp1afqrOk_p_zl4lkRPeHzZi" alt="enter image description here"><br><img src="https://lh3.googleusercontent.com/q2BG9Du9r738zOU4a-LCh-8S0bKiilyIExf2J5IhlWCBbzNBVxY6QWqbyN5CEq0WKYBZt-WOM55d" alt="enter image description here"></p>
+<h5 id="2-ADAM"><a href="#2-ADAM" class="headerlink" title="2.ADAM"></a>2.ADAM</h5><p><img src="https://lh3.googleusercontent.com/9VFdWaogCnwwuUVK4nJfiywuQ8-OPRNZtgIjEi64K1xx0qmcD9Q3yEHFy6pB2jLAO1WzbO8oZiBV" alt="enter image description here"><br><img src="https://lh3.googleusercontent.com/Skv8zjUmN1JPYsgCy0IlR5ooad_xMbZ7mlLuBQ8w88g5eF44YtwrmjWlX6R5P2MsQo4BiV4TMvY9" alt="enter image description here"></p>
+<p>We can see that SGD converge faster, but adam is much smoother and more stable.</p>
+<h4 id="Kernel-size"><a href="#Kernel-size" class="headerlink" title="Kernel size"></a>Kernel size</h4><p>I tried 3 x 3 and 5 x 5 kernel for the two sturcture.<br>BUT for LeNet I have to modify the last convolution layer if the padding option is <em>valide</em><br>The formula to calculate the out put size for each layer is:<br>FOR valid</p>
+<script type="math/tex; mode=display">
+\left\lceil\frac{(W-F+1)}{S}\right\rceil</script><p> FOR same</p>
+<script type="math/tex; mode=display">
+\left\lceil\frac{W}{S}\right\rceil</script><p> W is the input size, F is the size of kernel, S is the strde.</p>
+<h5 id="3-X-3-kernel"><a href="#3-X-3-kernel" class="headerlink" title="3 X 3 kernel"></a>3 X 3 kernel</h5><p>Conv1:$\left\lceil\frac{(16-3+1)}{1}\right\rceil=14$</p>
+<p>Averagepool1:$\left\lceil\frac{(14-2+1)}{1}\right\rceil=13$</p>
+<p>Conv2:$\left\lceil\frac{(13-3+1)}{1}\right\rceil=11$</p>
+<p>Averagepool2:$\left\lceil\frac{(11-2+1)}{2}\right\rceil=5$</p>
+<p>Conv3:$\left\lceil\frac{(5-5+1)}{1}\right\rceil=1$</p>
+<p><img src="https://lh3.googleusercontent.com/pqqMhQKlkB1NqVVIX_OfVEcZGFBB6590zPcqXdRZ9YV5ZX3fp2a5LLWlDqLCEYFqohtLCcIZvKfN" alt="enter image description here"><br><img src="https://lh3.googleusercontent.com/Ax9P9w8tjMklfX0Hn5IDfbncF5eBa0t8OCYPO5-tfDNgQuPFs9mXnKP_kUVID2RT_NKgaPN3xUAJ" alt="enter image description here"></p>
+<h5 id="5-X-5-kernel"><a href="#5-X-5-kernel" class="headerlink" title="5 X 5 kernel"></a>5 X 5 kernel</h5><p>Conv1:$\left\lceil\frac{(16-5+1)}{1}\right\rceil=12$<br>Averagepool1:$\left\lceil\frac{(12-2+1)}{1}\right\rceil=11$<br>Conv2:$\left\lceil\frac{(11-5+1)}{1}\right\rceil=7$<br>Averagepool2:$\left\lceil\frac{(7-2+1)}{2}\right\rceil=3$<br>Conv3:$\left\lceil\frac{(3-3+1)}{1}\right\rceil=1$</p>
+<p><img src="https://lh3.googleusercontent.com/mKQCXtjXjAtK7u4o9qPy48eV_xaUJ1_vBG1kgd69J-cynyxuhHgY34lTupszi--fFKQdZjtVymMW" alt="enter image description here"><br><img src="https://lh3.googleusercontent.com/lCvVc4z0Ex9BVpn82AKafSRb5d4h8McJOtJZNi6b2VCgkBSDajOXARjrDae532z7jUV0kWb-3u7B" alt="enter image description here"></p>
+<p>But I don’t see any evident difference for 5x5 kernel and 3x3 kernel.</p>
+<h3 id="2-5-K-fold-Cross-Validation"><a href="#2-5-K-fold-Cross-Validation" class="headerlink" title="2.5  K-fold Cross-Validation"></a>2.5  K-fold Cross-Validation</h3><p>I used k-fold cross validation to test the models.</p>
+<p><img src="https://lh3.googleusercontent.com/Mk3q2oDIHpkQKcoBupBc-k8I3nu19HytvKa5ztcXRN0SOGAhzkuNDA8s1Z0hgu4xeghYq4kEnzyu" alt="enter image description here"><br>K-fold cross validation</p>
+<ol>
+<li>Split the data into k parts(usually 5 or 10)</li>
+<li>Pick one part as test set and others as training set</li>
+<li>Compute the mse for this iteration</li>
+<li>Compute the average mse for k mse</li>
+</ol>
+<p>I first tried to use the function in package scikitlearn called <em><del>StratifiedKFold().split()</del>（should use function kfold() instead, thanks to melissa）</em> to split the data in k parts but it turns out that this function can only handle binary or multiclass so it didn’t work.<br>So I have to write it by myself, fortunately it isn’t diffcult.(If I wrote it right)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kfoldSplit</span><span class="params">(X,Y,k=<span class="number">10</span>)</span>:</span>  </span><br><span class="line">    total_size = X.shape[<span class="number">0</span>]  </span><br><span class="line">    precentage = <span class="number">1</span>/k  </span><br><span class="line">    size = int(total_size * precentage)  </span><br><span class="line">    start = <span class="number">0</span>  </span><br><span class="line">    end = size  </span><br><span class="line">    x_train = []  </span><br><span class="line">    y_train = []  </span><br><span class="line">    x_test = []  </span><br><span class="line">    y_test = []  </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):  </span><br><span class="line">        x_test.append(X[start:end,:,:,:])  </span><br><span class="line">        x_train.append(np.concatenate((X[:start,:,:,:],X[end:<span class="number">2522</span>,:,:,:]),axis=<span class="number">0</span>))  </span><br><span class="line">        y_test.append(Y[start:end, :])  </span><br><span class="line">        y_train.append(np.concatenate((Y[:start,:],Y[end:<span class="number">2522</span>,:]),axis=<span class="number">0</span>))  </span><br><span class="line">        start = end  </span><br><span class="line">        end += size  </span><br><span class="line">    <span class="keyword">return</span> [x_train,y_train,x_test,y_test]</span><br></pre></td></tr></table></figure></p>
+<p>and with this function I can apply the k-fold cross validation.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(k):  </span><br><span class="line">    model = CNN.LeNet()  </span><br><span class="line">    model.compile(loss=<span class="string">'categorical_crossentropy'</span>,  </span><br><span class="line">		      optimizer=CNN.adam,  </span><br><span class="line">			  metrics=[<span class="string">'accuracy'</span>]  <span class="comment"># 评价函数  </span></span><br><span class="line">			  )  </span><br><span class="line">    model.fit(kfold[<span class="number">0</span>][i],kfold[<span class="number">1</span>][i],  </span><br><span class="line">			  epochs=e,  </span><br><span class="line">		      batch_size=size,  </span><br><span class="line">		      verbose=<span class="number">0</span>)  </span><br><span class="line">    score = model.evaluate(kfold[<span class="number">2</span>][i],kfold[<span class="number">3</span>][i],verbose=<span class="number">0</span>)  </span><br><span class="line">    print(<span class="string">"%s: %.2f%%"</span> % (model.metrics_names[<span class="number">1</span>], score[<span class="number">1</span>] * <span class="number">100</span>))  </span><br><span class="line">    cv_scores.append(score[<span class="number">1</span>]*<span class="number">100</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="Evaluation-the-two-CNN-models-I-saved-before-k-5"><a href="#Evaluation-the-two-CNN-models-I-saved-before-k-5" class="headerlink" title="Evaluation the two CNN models I saved before(k=5):"></a>Evaluation the two CNN models I saved before(k=5):</h4><p><img src="https://lh3.googleusercontent.com/D2PYrCeFkBBVi6QBA4MrpuKgfRQqwF8AkZ6iXRuuZsGWAFwwWojsB3suxDvG0x8U0jmuS7gxpOTz" alt="enter image description here"></p>
+<h4 id="Using-cross-validation-to-find-hyper-parameters"><a href="#Using-cross-validation-to-find-hyper-parameters" class="headerlink" title="Using cross-validation to find hyper parameters"></a>Using cross-validation to find hyper parameters</h4><p>We can also using the kfold validation to find the best hyper parameter for the model.<br>I tried to find best batch size with best epoch by grid search:</p>
+<p><img src="https://lh3.googleusercontent.com/oTJmYbdV3DoL5YKDXHTnv_EOp1IoQDr1xpqhl_NjSwn24XyDvBUKmX8Bg4Fm1Nz86EPnjkgR1Abn" alt="enter image description here"></p>
+<p>The result is evident. But the question is why none of them can compare with the 2 models I built before even with the same parameters.(Haven’t figure it out)</p>
+<h3 id="2-5-Visualization"><a href="#2-5-Visualization" class="headerlink" title="2.5 Visualization"></a>2.5 Visualization</h3><h4 id="Test-Visualization"><a href="#Test-Visualization" class="headerlink" title="Test Visualization"></a>Test Visualization</h4><p>Randomly chose 5 pics from the test set and make the prediction</p>
+<p><img src="https://lh3.googleusercontent.com/EYcFVxOKt0RDmSSVL4aRFqlVhJ5WH5oXoY4rkqlq6x1FXIiwzvnBcqIknxeaM1XEZWebLVSqxqYl" alt="enter image description here"></p>
+<h4 id="Output-of-Convolution-layer"><a href="#Output-of-Convolution-layer" class="headerlink" title="Output of Convolution layer"></a>Output of Convolution layer</h4><p>Output of the first Conv2d</p>
+<p><img src="https://lh3.googleusercontent.com/mvsMVr46hR8sktpGTXPX7rX4JqKsella6NIo3qgps29jgH8jBr86JsGcneONtK8Mla1as-yzsZ9e" alt="enter image description here"></p>
+<p>Output of the second Conv2d</p>
+<p><img src="https://lh3.googleusercontent.com/0ii84ywdaEGxNW11tm-duE32m_-vv_bjcz8uTI54MNsT5tiQOqjmoxOgz7kWavThnRg9pYARy3P0" alt="enter image description here"></p>
+<p>Output of the third Conv2d</p>
+<p><img src="https://lh3.googleusercontent.com/sPUL3cZ7_wmHjjn8bUZnl9MdZI3euk9D0pva9oYu6kkhgAMaQpyCB5GR2XVBFtnmYabyg7mkbDgd" alt="enter image description here"></p>
+<h2 id="3-Apply-the-model-on-Camshift"><a href="#3-Apply-the-model-on-Camshift" class="headerlink" title="3. Apply the model on Camshift"></a>3. Apply the model on Camshift</h2><p>After I had the model it’s easy to apply it on the camshift<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> letter_recog_NN <span class="keyword">as</span> lcn</span><br><span class="line"><span class="keyword">elif</span> ch == ord(<span class="string">'p'</span>):  </span><br><span class="line">    xs0, ys0, xs1, ys1 = self.track_window  </span><br><span class="line">    small_pic = cv.resize(prob[ys0:ys1 + ys0, xs0:xs1 + xs0], dsize=(<span class="number">16</span>, <span class="number">16</span>))  </span><br><span class="line">    small_pic = small_pic.astype(np.float32)  </span><br><span class="line">    lcn.showResult(small_pic)</span><br></pre></td></tr></table></figure></p>
+<p>code in letter_recog_NN is <a href="https://github.com/wangzeyao/ComputerVision/blob/master/TP2/letter_recog.py" target="_blank" rel="noopener">here</a></p>
+<p>So now I can make a gesture and press button p to make the prediction by the two nerual network,MLP and CNN. And the result is the captured picture with the prediction on the top.<br><img src="https://lh3.googleusercontent.com/4zA-hfZR0rGgcceJWDu_Rl3V_h8vk05YGK290h0AW0KK9GxJhPdXU_j_aJhVycXYBmaDp_jQuhLh" alt="enter image description here"><br><img src="https://lh3.googleusercontent.com/PdxpmzWy2031tJGatiFJoBVuSaU4NO4baudxmUtbCX258CBtkdjC2CTNPetXQovljSL1WuUggkST" alt="enter image description here"><br><img src="https://lh3.googleusercontent.com/WQph9eqj0FrmNyjeP29CZtVoEGfhigB8qPwbYh5GTO2ty6xvlr0mzE6fdXaUBg95KYnlpVtdqDID" alt="enter image description here"><br><img src="https://lh3.googleusercontent.com/it-0MkDhfqrRbKZC8wsXPUkdlhb0GAXVPZ8ertGiaJ_alx86UFVGrSepmun59TfXEV_HEfr2m_Qc" alt="enter image description here"></p>
+<h3 id="Problems"><a href="#Problems" class="headerlink" title="Problems"></a>Problems</h3><p><strong>Why the accuracy is worse when I using LeNet than using the SimpleCNN with only one convolution layer?</strong></p>
+<p>It may because my data set was gathered under the same light conditon,or I have few letters(Just four). So the “function” I want to fit is simple(for exemple a stright line). With more Convolution layer(or other layer), I have more parameters. So what I’m doing is to use a comlicated function to simulate a simple one, which means many of the parameters are useless and should be set to zero. And I don’t have enough data to train them to zero.<br>So, if I want the LeNet model to have the same performance of the simpleCNN, what I can do are</p>
+<ul>
+<li>Gathering more data under the light conditon, so that I will have enought data to force some parameters to zero. But I think this can only make the LeNet getting closer to the simpleCNN but it will never perform better than simple one.</li>
+<li>Make the function more complicated. Since the cause of my problem is the function is too simple, I can make the funcion more complex by adding more letters or taking more photos in different light conditions. And in this case the LeNet could get better generalization ability than the simple one which is what I’m looking for.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/11/26/直方图均衡化/" rel="next" title="直方图均衡化">
+                <i class="fa fa-chevron-left"></i> 直方图均衡化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Classiczy">
+  <p class="site-author-name" itemprop="name">Classiczy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/wangzeyao" title="GitHub &rarr; https://github.com/wangzeyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:germany2o14@163.com" title="E-Mail &rarr; mailto:germany2o14@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.instagram.com/classicwzy/" title="Instagram &rarr; https://www.instagram.com/classicwzy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://space.bilibili.com/259378363/" title="Bilibili &rarr; https://space.bilibili.com/259378363/" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>Bilibili</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gesture-recognition-by-Deep-Neural-Network"><span class="nav-number">1.</span> <span class="nav-text">Gesture recognition by Deep Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Previously-on-Camshift"><span class="nav-number">1.1.</span> <span class="nav-text">Previously on Camshift</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Multilayer-Perceptron"><span class="nav-number">1.2.</span> <span class="nav-text">1.Multilayer Perceptron</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Load-data-and-preprocessing"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1 Load data and preprocessing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Structure-of-the-neural-network"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2 Structure of the neural network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#single-hidden-layer"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">single hidden layer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#two-hidden-layer"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">two hidden layer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Convolutional-Neural-Network"><span class="nav-number">1.3.</span> <span class="nav-text">2. Convolutional Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Load-data-and-preprocessing"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.1 Load data and preprocessing</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shuffle-and-split-the-data"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">shuffle and split the data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reshape-the-format-of-the-picture"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">reshape the format of the picture</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Structure-of-the-neural-network"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2 Structure of the neural network</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#simple-CNN"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">simple CNN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LeNet"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">LeNet</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-choose-of-epoch"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3 choose of epoch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-choose-of-parameters"><span class="nav-number">1.3.4.</span> <span class="nav-text">2.4 choose of parameters</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Optimizer"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">Optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-SGD"><span class="nav-number">1.3.4.1.1.</span> <span class="nav-text">1. SGD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-ADAM"><span class="nav-number">1.3.4.1.2.</span> <span class="nav-text">2.ADAM</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kernel-size"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">Kernel size</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-X-3-kernel"><span class="nav-number">1.3.4.2.1.</span> <span class="nav-text">3 X 3 kernel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-X-5-kernel"><span class="nav-number">1.3.4.2.2.</span> <span class="nav-text">5 X 5 kernel</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-K-fold-Cross-Validation"><span class="nav-number">1.3.5.</span> <span class="nav-text">2.5  K-fold Cross-Validation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Evaluation-the-two-CNN-models-I-saved-before-k-5"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">Evaluation the two CNN models I saved before(k=5):</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-cross-validation-to-find-hyper-parameters"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">Using cross-validation to find hyper parameters</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Visualization"><span class="nav-number">1.3.6.</span> <span class="nav-text">2.5 Visualization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Test-Visualization"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">Test Visualization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Output-of-Convolution-layer"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">Output of Convolution layer</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Apply-the-model-on-Camshift"><span class="nav-number">1.4.</span> <span class="nav-text">3. Apply the model on Camshift</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problems"><span class="nav-number">1.4.1.</span> <span class="nav-text">Problems</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Classiczy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'fQrw7GPV8alSagiWukM9OIkd-MdYXbMMI',
+    appKey: 'F8sp1ceQPgwWeqJdMc3V82wr',
+    placeholder: 'Comments here',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'en' || 'zh-cn'
+  });
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>
