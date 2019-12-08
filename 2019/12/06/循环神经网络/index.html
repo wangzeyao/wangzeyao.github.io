@@ -74,7 +74,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/细胞状态.png">
 <meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/输入门.png">
 <meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/输出门.png">
-<meta property="og:updated_time" content="2019-12-07T15:59:42.504Z">
+<meta property="og:updated_time" content="2019-12-08T18:11:30.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环神经网络">
 <meta name="twitter:description" content="循环神经网络基本的循环神经网络它由输入层、一个隐藏层和一个输出层组成：  x是一个向量，它表示输入层的值 s是一个向量，它表示隐藏层的值（这里隐藏层面画了一个节点，你也可以想象这一层其实是多个节点，节点数与向量s的维度相同）； U是输入层到隐藏层的权重矩阵 o也是一个向量，它表示输出层的值； V是隐藏层到输出层的权重矩阵 循环神经网络的隐藏层的值s不仅仅取决于当前这次的输入x，还取决于上一次隐藏层">
@@ -283,7 +283,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 07-12-2019 16:59:42" itemprop="dateModified" datetime="2019-12-07T16:59:42+01:00">07-12-2019</time>
+                <time title="Modified: 08-12-2019 19:11:30" itemprop="dateModified" datetime="2019-12-08T19:11:30+01:00">08-12-2019</time>
               </span>
             
           
@@ -469,7 +469,10 @@ C^{(t)}=C^{(t-1)} \odot f^{(t)}+i^{(t)} \odot a^{(t)}</script><p>其中$\odot$�
 <h3 id="LSTM输出门"><a href="#LSTM输出门" class="headerlink" title="LSTM输出门"></a>LSTM输出门</h3><p><img src="输出门.png" alt="png"></p>
 <p>从图中可以看出，隐藏状态$h_{t}$的更新由两部分组成，第一部分是$o_{t}$, 它由上一序列的隐藏状态$h_{t-1}$和本序列数据$x_{t}$，以及激活函数sigmoid得到，第二部分由隐藏状态$C_{t}$和tanh激活函数组成, 即：</p>
 <script type="math/tex; mode=display">
-\begin{aligned} o^{(t)} &=\sigma\left(W_{o} h^{(t-1)}+U_{o} x^{(t)}+b_{o}\right) \\ & h^{(t)}=o^{(t)} \odot \tanh \left(C^{(t)}\right) \end{aligned}</script>
+\begin{aligned} o^{(t)} &=\sigma\left(W_{o} h^{(t-1)}+U_{o} x^{(t)}+b_{o}\right) \\ & h^{(t)}=o^{(t)} \odot \tanh \left(C^{(t)}\right) \end{aligned}</script><p>参考：</p>
+<p><a href="https://zybuluo.com/hanbingtao/note/541458" target="_blank" rel="noopener">https://zybuluo.com/hanbingtao/note/541458</a></p>
+<p><a href="https://www.cnblogs.com/pinard/p/6519110.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/6519110.html</a></p>
+
     </div>
 
     
@@ -488,6 +491,10 @@ C^{(t)}=C^{(t-1)} \odot f^{(t)}+i^{(t)} \odot a^{(t)}</script><p>其中$\odot$�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2019/12/08/eymol/" rel="prev" title="eymol">
+                eymol <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -545,7 +552,7 @@ C^{(t)}=C^{(t-1)} \odot f^{(t)}+i^{(t)} \odot a^{(t)}</script><p>其中$\odot$�
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -576,7 +583,9 @@ C^{(t)}=C^{(t-1)} \odot f^{(t)}+i^{(t)} \odot a^{(t)}</script><p>其中$\odot$�
         
           
         
-        <span class="site-state-item-count">8</span>
+          
+        
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -619,9 +628,7 @@ C^{(t)}=C^{(t-1)} \odot f^{(t)}+i^{(t)} \odot a^{(t)}</script><p>其中$\odot$�
         
           
         
-          
-        
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
