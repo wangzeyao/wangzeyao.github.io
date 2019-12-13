@@ -66,8 +66,8 @@
 <meta property="og:description" content="目标检测：R-CNN最近实习的时候接触了目标检测类的任务，在使用这些算法的同时了解一下算法整体的流程和内容。作为RCNN算法系列的开山鼻祖，采用了CNN网络用于图像特征的提取，而不是之前的人工设定的特征提取。但是RCNN应该有很多细节都被后面的算法改进了（产生了一系列RCNN的算法）。所以这里只对算法的流程做一个大概的理解。 RCNN的基本流程RCNN算法有4个步骤：  候选区域生成： 一张图像生">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/12/10/RCNN/AlexNet.png">
-<meta property="og:image" content="http://yoursite.com/2019/12/10/RCNN/RCNN.png">
-<meta property="og:updated_time" content="2019-12-11T18:14:59.379Z">
+<meta property="og:image" content="http://yoursite.com/2019/12/10/RCNN/回归器.png">
+<meta property="og:updated_time" content="2019-12-13T18:06:56.689Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目标检测：R-CNN">
 <meta name="twitter:description" content="目标检测：R-CNN最近实习的时候接触了目标检测类的任务，在使用这些算法的同时了解一下算法整体的流程和内容。作为RCNN算法系列的开山鼻祖，采用了CNN网络用于图像特征的提取，而不是之前的人工设定的特征提取。但是RCNN应该有很多细节都被后面的算法改进了（产生了一系列RCNN的算法）。所以这里只对算法的流程做一个大概的理解。 RCNN的基本流程RCNN算法有4个步骤：  候选区域生成： 一张图像生">
@@ -276,7 +276,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 11-12-2019 19:14:59" itemprop="dateModified" datetime="2019-12-11T19:14:59+01:00">11-12-2019</time>
+                <time title="Modified: 13-12-2019 19:06:56" itemprop="dateModified" datetime="2019-12-13T19:06:56+01:00">13-12-2019</time>
               </span>
             
           
@@ -411,10 +411,10 @@
 <p>这里我一开始有一个疑问，既然在<strong>特定样本下的微调</strong>已经训练了网络进行21分类，为什么不直接使用这个结果，而是fc7输出的特征给SVM再进行分类呢？后来在查找资料的时候看到了这样一段话：</p>
 <p>因为微调时和训练SVM时所采用的正负样本阈值不同，微调阶段正样本定义并不强调精准的位置，而SVM正样本只有Ground Truth；并且微调阶段的负样本是随机抽样的，而SVM的负样本是经过hard negative mining方法筛选的；导致在采用SoftMax会使PSACAL VOC 2007测试集上mAP从54.2%降低到50.9%。</p>
 <h3 id="步骤三：类别判断"><a href="#步骤三：类别判断" class="headerlink" title="步骤三：类别判断"></a>步骤三：类别判断</h3><p>现在通过CNN获得了候选区域的特征，即一个$2000 \times 4096$的矩阵，下面就是使用SVM对2000个候选区域进行分类。SVM组成的权值矩阵为$4096 \times 20$，那么最后获得一个$2000 \times 20$的矩阵，表示每个候选区域是某种类别的得分。</p>
-<p>这里对SVM的训练：<br>| 样本 | 来源 |<br>| —- | ——|<br>|正样本|Ground Truth|<br>|负样本|与Ground Truth相交IoU＜0.3的建议框|</p>
+<p>这里对SVM的训练：<br>| 样本 | 来源 |<br>| —- | —— |<br>|正样本|Ground Truth|<br>|负样本|与Ground Truth相交IoU＜0.3的建议框|</p>
 <h3 id="步骤四：位置精修"><a href="#步骤四：位置精修" class="headerlink" title="步骤四：位置精修"></a>步骤四：位置精修</h3><p>在使用回归器精细修正候选框位置修正位置之前，我们需要使用NMS剔除重叠的候选区域，因为同一个物体可能被多个候选区域覆盖，NMS就是找到对每个物体置信度最高的那个候选区域，并去掉置信度低的。</p>
 <p>然后就可以使用回归器来对BBox进行校正。</p>
-<p><img src="RCNN.png" alt="png"></p>
+<p><img src="回归器.png" alt="png"></p>
 <p>如上图，黄色框口P表示建议框Region Proposal，绿色窗口G表示实际框Ground Truth，红色窗口$\hat{G}$表示Region Proposal进行回归后的预测窗口，现在的目标是找到P到$\hat{G}$的线性变换,，使得$\hat{G}$与G越相近。</p>
 <p>先来定义P窗口的数学表达式：</p>
 <script type="math/tex; mode=display">
@@ -526,7 +526,7 @@ d_{x}(P), d_{y}(P), d_{w}(P), d_{h}(P)</script><p>$d_{x}(P)$和$d_{y}(P)$通过�
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
