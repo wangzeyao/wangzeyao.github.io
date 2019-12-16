@@ -57,14 +57,20 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Classiczy">
-<meta property="og:url" content="http://yoursite.com/categories/python/index.html">
+  <meta name="description" content="Single Shot MultiBox Detector目标检测的算法主要分为两个：  two-stage算法，比如RCNN系列。需要先生成候选区域，再对候选区域进行分类和回归。 one-stage 比如yolo和SSD， 不需要先生成候选区域，而是直接从图片上进行不同尺度(scale)和长宽比(aspect ratio)的抽样，然后经由CNN提取特征后直接进行分类和回归。这种方法的优势是速度快">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目标检测:SSD">
+<meta property="og:url" content="http://yoursite.com/2019/12/16/SSD/index.html">
 <meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="Single Shot MultiBox Detector目标检测的算法主要分为两个：  two-stage算法，比如RCNN系列。需要先生成候选区域，再对候选区域进行分类和回归。 one-stage 比如yolo和SSD， 不需要先生成候选区域，而是直接从图片上进行不同尺度(scale)和长宽比(aspect ratio)的抽样，然后经由CNN提取特征后直接进行分类和回归。这种方法的优势是速度快">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/12/16/SSD/网络结构.png">
+<meta property="og:updated_time" content="2019-12-16T15:53:29.415Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Classiczy">
-  <link rel="canonical" href="http://yoursite.com/categories/python/">
+<meta name="twitter:title" content="目标检测:SSD">
+<meta name="twitter:description" content="Single Shot MultiBox Detector目标检测的算法主要分为两个：  two-stage算法，比如RCNN系列。需要先生成候选区域，再对候选区域进行分类和回归。 one-stage 比如yolo和SSD， 不需要先生成候选区域，而是直接从图片上进行不同尺度(scale)和长宽比(aspect ratio)的抽样，然后经由CNN提取特征后直接进行分类和回归。这种方法的优势是速度快">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/16/SSD/网络结构.png">
+  <link rel="canonical" href="http://yoursite.com/2019/12/16/SSD/">
 
 
 <script id="page.configurations">
@@ -73,7 +79,7 @@
   };
 </script>
 
-  <title>Category: python | Classiczy</title>
+  <title>目标检测:SSD | Classiczy</title>
   
 
 
@@ -112,7 +118,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -178,7 +184,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
       
     
 
@@ -210,107 +216,135 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>python<small>Category</small>
-        </h1>
-      </div>
-        
+  <div id="posts" class="posts-expand">
+    
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/SSD/">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/15/collection学习/" itemprop="url">
-            
-              <span itemprop="name">Python collecitons学习</span>
-            
-          </a>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">目标检测:SSD
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-15T21:47:42+02:00"
-              content="15-10-2019">
-          10-15
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
 
+              
+                
+              
+
+              <time title="Created: 16-12-2019 16:44:39 / Modified: 16:53:29" itemprop="dateCreated datePublished" datetime="2019-12-16T16:44:39+01:00">16-12-2019</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/12/16/SSD/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/16/SSD/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="Single-Shot-MultiBox-Detector"><a href="#Single-Shot-MultiBox-Detector" class="headerlink" title="Single Shot MultiBox Detector"></a>Single Shot MultiBox Detector</h1><p>目标检测的算法主要分为两个：</p>
+<ol>
+<li><strong>two-stage</strong>算法，比如RCNN系列。需要先生成候选区域，再对候选区域进行分类和回归。</li>
+<li><strong>one-stage</strong> 比如yolo和SSD， 不需要先生成候选区域，而是直接从图片上进行不同尺度(scale)和长宽比(aspect ratio)的抽样，然后经由CNN提取特征后直接进行分类和回归。这种方法的优势是速度快。</li>
+</ol>
+<h3 id="SSD网络的结构"><a href="#SSD网络的结构" class="headerlink" title="SSD网络的结构"></a>SSD网络的结构</h3><p><img src="网络结构.png" alt="png"></p>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/15/numpy学习/" itemprop="url">
-            
-              <span itemprop="name">numpy学习</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-15T21:47:42+02:00"
-              content="15-10-2019">
-          10-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
     </div>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/12/12/Faster-RCNN/" rel="next" title="Faster-RCNN">
+                <i class="fa fa-chevron-left"></i> Faster-RCNN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/12/16/SSD/SSD/" rel="prev" title="目标检测:SSD">
+                目标检测:SSD <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+    
+    <div class="comments" id="comments"></div>
+  
+
 
         </div>
           
@@ -325,8 +359,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -480,6 +523,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Single-Shot-MultiBox-Detector"><span class="nav-number">1.</span> <span class="nav-text">Single Shot MultiBox Detector</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSD网络的结构"><span class="nav-number">1.0.1.</span> <span class="nav-text">SSD网络的结构</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -537,6 +597,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.3.0"></script>
 
@@ -553,6 +617,51 @@
 
 
 
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
