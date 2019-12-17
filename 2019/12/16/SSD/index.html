@@ -65,7 +65,11 @@
 <meta property="og:description" content="Single Shot MultiBox Detector目标检测的算法主要分为两个：  two-stage算法，比如RCNN系列。需要先生成候选区域，再对候选区域进行分类和回归。 one-stage 比如yolo和SSD， 不需要先生成候选区域，而是直接从图片上进行不同尺度(scale)和长宽比(aspect ratio)的抽样，然后经由CNN提取特征后直接进行分类和回归。这种方法的优势是速度快">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/12/16/SSD/网络结构.png">
-<meta property="og:updated_time" content="2019-12-16T15:53:29.415Z">
+<meta property="og:image" content="http://yoursite.com/2019/12/16/SSD/详细结构1.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/16/SSD/anchor生成.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/16/SSD/bbox回归和分类.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/16/SSD/数据增强.jpg">
+<meta property="og:updated_time" content="2019-12-17T09:28:14.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目标检测:SSD">
 <meta name="twitter:description" content="Single Shot MultiBox Detector目标检测的算法主要分为两个：  two-stage算法，比如RCNN系列。需要先生成候选区域，再对候选区域进行分类和回归。 one-stage 比如yolo和SSD， 不需要先生成候选区域，而是直接从图片上进行不同尺度(scale)和长宽比(aspect ratio)的抽样，然后经由CNN提取特征后直接进行分类和回归。这种方法的优势是速度快">
@@ -261,12 +265,44 @@
                 
               
 
-              <time title="Created: 16-12-2019 16:44:39 / Modified: 16:53:29" itemprop="dateCreated datePublished" datetime="2019-12-16T16:44:39+01:00">16-12-2019</time>
+              <time title="Created: 16-12-2019 16:44:39" itemprop="dateCreated datePublished" datetime="2019-12-16T16:44:39+01:00">16-12-2019</time>
             </span>
           
             
 
             
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 17-12-2019 10:28:14" itemprop="dateModified" datetime="2019-12-17T10:28:14+01:00">17-12-2019</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -303,7 +339,42 @@
 <li><strong>two-stage</strong>算法，比如RCNN系列。需要先生成候选区域，再对候选区域进行分类和回归。</li>
 <li><strong>one-stage</strong> 比如yolo和SSD， 不需要先生成候选区域，而是直接从图片上进行不同尺度(scale)和长宽比(aspect ratio)的抽样，然后经由CNN提取特征后直接进行分类和回归。这种方法的优势是速度快。</li>
 </ol>
-<h3 id="SSD网络的结构"><a href="#SSD网络的结构" class="headerlink" title="SSD网络的结构"></a>SSD网络的结构</h3><p><img src="网络结构.png" alt="png"></p>
+<a id="more"></a>
+<h2 id="SSD网络的结构"><a href="#SSD网络的结构" class="headerlink" title="SSD网络的结构"></a>SSD网络的结构</h2><p><img src="网络结构.png" alt="png"></p>
+<p>从结构图中可以看出，网络的前半部分采用了VGG网络进行特征提取，SSD网络又在VGG后面添加了几个卷积层。不同的卷积层对应着不同的大小的特征图，然后在不同大小的特征图上生成anchor来进行分类和回归。这就是论文中的<strong>Multi-scale feature maps for detection</strong>多尺度特征图检测，网络的层数越深，特征图越小，感受野越大，检测的目标越大。下面就通过例子来详细看一下整个过程：</p>
+<p><img src="详细结构1.png" alt="png"></p>
+<p>我们选择第四个特征图，它的大小是$5 \times 5$,通道数为256。对于这样一个特征图，我们可以理解为在它后面接上三个并行的层，分别用于生成anchor，bbox回归和分类。 SSD直接采用卷积($3\times 3$的卷积核)来对特征图的检测结果进行提取。我们假设在这一层，特征图上的每一个点有3个anchor。</p>
+<h3 id="anchor生成"><a href="#anchor生成" class="headerlink" title="anchor生成"></a>anchor生成</h3><p><img src="anchor生成.png" alt="png"></p>
+<p>将特征图上的点映射回原图坐标，并且根据不同的scale和aspect ratio生成bbox。那么如何来确定scale和aspect ratio呢？</p>
+<p>对于scale，最小值文中设置为0.2，也就是感受野最小的特征图的anchor对应的scale为0.2，最大的scale为0.9。处于这中间的可以由下面的式子来计算：</p>
+<script type="math/tex; mode=display">
+s_{k}=s_{\min }+\frac{s_{m a x}-s_{m i n}}{m-1}(k-1), k \in[1, m]</script><p>其中m为特征图的数量</p>
+<p>而aspect ratio设置为:$\{1,2,3,\frac{1}{2},\frac{1}{3}\}$</p>
+<p>那么anchor的长宽就为 $w_{k}^{a}=s_{k} \sqrt{a}_{r}$ 和 $h_{k}^{a}=s_{k} / \sqrt{a}_{r}$</p>
+<h3 id="bbox回归和分类"><a href="#bbox回归和分类" class="headerlink" title="bbox回归和分类"></a>bbox回归和分类</h3><p>如图：</p>
+<p><img src="bbox回归和分类.png" alt="png"></p>
+<ul>
+<li>bbox回归:每个点3个anchor，每个anchor有四个线性变换用于回归，结果为$5\times5\times12$</li>
+<li>bbox分类:每个点3个anchor，每个anchor有20+1(背景也算一类)个类别，结果为$5\times5\times63$</li>
+</ul>
+<p>当然，在每个特征图回归后，使用nms筛选bbox，并且在所有特征图预测后再进行一个nms过滤bbox。</p>
+<h2 id="网络的训练"><a href="#网络的训练" class="headerlink" title="网络的训练"></a>网络的训练</h2><p>在了解网络的结构后看来看一下网络是如何训练的。</p>
+<h3 id="Ground-truth和bbox（先验框）的匹配"><a href="#Ground-truth和bbox（先验框）的匹配" class="headerlink" title="Ground truth和bbox（先验框）的匹配"></a>Ground truth和bbox（先验框）的匹配</h3><p>为了进行训练，我们首先要知道从网络生成出来的先验框应该和哪个ground truh进行匹配。在SSD中有两个原则:</p>
+<ol>
+<li>对于图片中每个ground truth，找到与其IOU最大的先验框，该先验框与其匹配</li>
+<li>对于剩余的未匹配先验框，若某个ground truth的 IoU 大于某个阈值（一般是0.5），那么该先验框也与这个ground truth进行匹配</li>
+</ol>
+<p>这意味着某个ground truth可能与多个先验框匹配，但反过来却不可以。</p>
+<p>同时，因为正负样本是数量的极不平衡，SSD采用hard negative mining，就是对负样本进行抽样，抽样时按照置信度误差（预测背景的置信度越小，误差越大）进行降序排列，选取误差的较大的top-k作为训练的负样本，以保证正负样本比例接近1:3。</p>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>损失函数定义为位置误差（locatization loss， loc）与置信度误差（confidence loss, conf）的加权和：</p>
+<script type="math/tex; mode=display">
+L(x, c, l, g)=\frac{1}{N}\left(L_{\operatorname{con} f}(x, c)+\alpha L_{\operatorname{loc}}(x, l, g)\right)</script><p>其中 N 是先验框的正样本数量。这里 $x$ 为一个指示参数，当 $x^{p}_{ij} = 1$ 时表示第 $i$ 个先验框与第 $j$ 个ground truth匹配，并且ground truth的类别为 $p$ 。 $c$ 为类别置信度预测值。 $l$ 为先验框的所对应边界框的位置预测值，而 $g$ 是ground truth的位置参数。位置误差同样使用smoothL1，分类误差采用softmax loss</p>
+<h3 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h3><p>主要采用的技术有水平翻转（horizontal flip），随机裁剪加颜色扭曲（random crop &amp; color distortion），随机采集块域（Randomly sample a patch）（获取小目标训练样本），如下图所示：</p>
+<p><img src="数据增强.jpg" alt="jpg"></p>
+<p>参考资料:</p>
+<p><a href="https://arxiv.org/pdf/1512.02325.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1512.02325.pdf</a></p>
+<p><a href="https://arleyzhang.github.io/articles/786f1ca3/" target="_blank" rel="noopener">https://arleyzhang.github.io/articles/786f1ca3/</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/33544892" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/33544892</a></p>
 
     </div>
 
@@ -314,8 +385,8 @@
     <footer class="post-footer">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/12/12/Faster-RCNN/" rel="next" title="Faster-RCNN">
-                <i class="fa fa-chevron-left"></i> Faster-RCNN
+              <a href="/2019/12/12/Faster-RCNN/" rel="next" title="目标检测：Faster-RCNN">
+                <i class="fa fa-chevron-left"></i> 目标检测：Faster-RCNN
               </a>
             
           </div>
@@ -323,10 +394,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/12/16/SSD/SSD/" rel="prev" title="目标检测:SSD">
-                目标检测:SSD <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -384,7 +451,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -421,7 +488,9 @@
         
           
         
-        <span class="site-state-item-count">11</span>
+          
+        
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -533,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Single-Shot-MultiBox-Detector"><span class="nav-number">1.</span> <span class="nav-text">Single Shot MultiBox Detector</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSD网络的结构"><span class="nav-number">1.0.1.</span> <span class="nav-text">SSD网络的结构</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Single-Shot-MultiBox-Detector"><span class="nav-number">1.</span> <span class="nav-text">Single Shot MultiBox Detector</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSD网络的结构"><span class="nav-number">1.1.</span> <span class="nav-text">SSD网络的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#anchor生成"><span class="nav-number">1.1.1.</span> <span class="nav-text">anchor生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bbox回归和分类"><span class="nav-number">1.1.2.</span> <span class="nav-text">bbox回归和分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络的训练"><span class="nav-number">1.2.</span> <span class="nav-text">网络的训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ground-truth和bbox（先验框）的匹配"><span class="nav-number">1.2.1.</span> <span class="nav-text">Ground truth和bbox（先验框）的匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据增强"><span class="nav-number">1.2.3.</span> <span class="nav-text">数据增强</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -60,7 +60,7 @@
   <meta name="description" content="Fast-RCNN回顾RCNNRCNN网络的不足：  在RCNN网络的训练和测试都很慢，因为每一张图片都需要先经过selective search去选择约2k个候选框（而且这些候选框很多都是重叠的），然后再对候选框通过CNN网络进行特征提取，这个过程是很冗余的，因为相当于我们对很多重复的区域进行了特征提取。 其次我们在训练的时候步骤非常繁琐。不仅仅是CNN的特征提取，还有SVM的分类器（20个），">
 <meta name="keywords" content="目标检测">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fast-RCNN">
+<meta property="og:title" content="目标检测：Fast-RCNN">
 <meta property="og:url" content="http://yoursite.com/2019/12/11/Fast-RCNN/index.html">
 <meta property="og:site_name" content="Classiczy">
 <meta property="og:description" content="Fast-RCNN回顾RCNNRCNN网络的不足：  在RCNN网络的训练和测试都很慢，因为每一张图片都需要先经过selective search去选择约2k个候选框（而且这些候选框很多都是重叠的），然后再对候选框通过CNN网络进行特征提取，这个过程是很冗余的，因为相当于我们对很多重复的区域进行了特征提取。 其次我们在训练的时候步骤非常繁琐。不仅仅是CNN的特征提取，还有SVM的分类器（20个），">
@@ -71,9 +71,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/12/11/Fast-RCNN/maxPooling反向传播.png">
 <meta property="og:image" content="http://yoursite.com/2019/12/11/Fast-RCNN/RoiPooling前向传播.png">
 <meta property="og:image" content="http://yoursite.com/2019/12/11/Fast-RCNN/RoiPooling反向传播.png">
-<meta property="og:updated_time" content="2019-12-12T09:45:11.924Z">
+<meta property="og:updated_time" content="2019-12-17T09:28:52.636Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fast-RCNN">
+<meta name="twitter:title" content="目标检测：Fast-RCNN">
 <meta name="twitter:description" content="Fast-RCNN回顾RCNNRCNN网络的不足：  在RCNN网络的训练和测试都很慢，因为每一张图片都需要先经过selective search去选择约2k个候选框（而且这些候选框很多都是重叠的），然后再对候选框通过CNN网络进行特征提取，这个过程是很冗余的，因为相当于我们对很多重复的区域进行了特征提取。 其次我们在训练的时候步骤非常繁琐。不仅仅是CNN的特征提取，还有SVM的分类器（20个），">
 <meta name="twitter:image" content="http://yoursite.com/2019/12/11/Fast-RCNN/网络结构.png">
   <link rel="canonical" href="http://yoursite.com/2019/12/11/Fast-RCNN/">
@@ -85,7 +85,7 @@
   };
 </script>
 
-  <title>Fast-RCNN | Classiczy</title>
+  <title>目标检测：Fast-RCNN | Classiczy</title>
   
 
 
@@ -247,7 +247,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Fast-RCNN
+          <h1 class="post-title" itemprop="name headline">目标检测：Fast-RCNN
 
               
             
@@ -280,7 +280,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 12-12-2019 10:45:11" itemprop="dateModified" datetime="2019-12-12T10:45:11+01:00">12-12-2019</time>
+                <time title="Modified: 17-12-2019 10:28:52" itemprop="dateModified" datetime="2019-12-17T10:28:52+01:00">17-12-2019</time>
               </span>
             
           
@@ -299,7 +299,14 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
 
                 
                 
@@ -422,8 +429,8 @@ L_{l o c}\left(t^{u}, v\right)=\sum_{i \in\{x, y, w, h\}} \operatorname{smooth}_
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/12/12/Faster-RCNN/" rel="prev" title="Faster-RCNN">
-                Faster-RCNN <i class="fa fa-chevron-right"></i>
+              <a href="/2019/12/12/Faster-RCNN/" rel="prev" title="目标检测：Faster-RCNN">
+                目标检测：Faster-RCNN <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -483,7 +490,7 @@ L_{l o c}\left(t^{u}, v\right)=\sum_{i \in\{x, y, w, h\}} \operatorname{smooth}_
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -520,7 +527,9 @@ L_{l o c}\left(t^{u}, v\right)=\sum_{i \in\{x, y, w, h\}} \operatorname{smooth}_
         
           
         
-        <span class="site-state-item-count">11</span>
+          
+        
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
