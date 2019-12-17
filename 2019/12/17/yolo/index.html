@@ -57,18 +57,23 @@
   };
 </script>
 
-  <meta name="description" content="Adaboost假设我们的训练集样本是  T=\left\{\left(x, y_{1}\right),\left(x_{2}, y_{2}\right), \ldots\left(x_{m}, y_{m}\right)\right\}训练集的在第k个弱学习器的输出权重为  D(k)=\left(w_{k 1}, w_{k 2}, \ldots w_{k m}\right) ; \quad w_{">
+  <meta name="description" content="目标检测：YOLO简介对yolo的印象就是快，yolo把整个目标检测（分类和定位）当作一个回归问题，直接从图像像素输出bbox坐标和类别，如下图:  yolo使用一个卷积神经网络同时预测多个检测目标。它首先把图像resize到$448 \times 448$，图像通过卷积网络后生成bbox坐标和分类，然后用NMS进行筛选。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Adaboost">
-<meta property="og:url" content="http://yoursite.com/2019/12/03/Adaboost/index.html">
+<meta property="og:title" content="目标检测：YOLO">
+<meta property="og:url" content="http://yoursite.com/2019/12/17/yolo/index.html">
 <meta property="og:site_name" content="Classiczy">
-<meta property="og:description" content="Adaboost假设我们的训练集样本是  T=\left\{\left(x, y_{1}\right),\left(x_{2}, y_{2}\right), \ldots\left(x_{m}, y_{m}\right)\right\}训练集的在第k个弱学习器的输出权重为  D(k)=\left(w_{k 1}, w_{k 2}, \ldots w_{k m}\right) ; \quad w_{">
+<meta property="og:description" content="目标检测：YOLO简介对yolo的印象就是快，yolo把整个目标检测（分类和定位）当作一个回归问题，直接从图像像素输出bbox坐标和类别，如下图:  yolo使用一个卷积神经网络同时预测多个检测目标。它首先把图像resize到$448 \times 448$，图像通过卷积网络后生成bbox坐标和分类，然后用NMS进行筛选。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-03T21:13:27.141Z">
+<meta property="og:image" content="http://yoursite.com/2019/12/17/yolo/yolo1_detection_system.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/17/yolo/算法流程.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/17/yolo/网络结构.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/17/yolo/损失函数.png">
+<meta property="og:updated_time" content="2019-12-17T11:58:45.715Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Adaboost">
-<meta name="twitter:description" content="Adaboost假设我们的训练集样本是  T=\left\{\left(x, y_{1}\right),\left(x_{2}, y_{2}\right), \ldots\left(x_{m}, y_{m}\right)\right\}训练集的在第k个弱学习器的输出权重为  D(k)=\left(w_{k 1}, w_{k 2}, \ldots w_{k m}\right) ; \quad w_{">
-  <link rel="canonical" href="http://yoursite.com/2019/12/03/Adaboost/">
+<meta name="twitter:title" content="目标检测：YOLO">
+<meta name="twitter:description" content="目标检测：YOLO简介对yolo的印象就是快，yolo把整个目标检测（分类和定位）当作一个回归问题，直接从图像像素输出bbox坐标和类别，如下图:  yolo使用一个卷积神经网络同时预测多个检测目标。它首先把图像resize到$448 \times 448$，图像通过卷积网络后生成bbox坐标和分类，然后用NMS进行筛选。">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/17/yolo/yolo1_detection_system.png">
+  <link rel="canonical" href="http://yoursite.com/2019/12/17/yolo/">
 
 
 <script id="page.configurations">
@@ -77,7 +82,7 @@
   };
 </script>
 
-  <title>Adaboost | Classiczy</title>
+  <title>目标检测：YOLO | Classiczy</title>
   
 
 
@@ -225,7 +230,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/Adaboost/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/yolo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -239,7 +244,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Adaboost
+          <h1 class="post-title" itemprop="name headline">目标检测：YOLO
 
               
             
@@ -259,7 +264,7 @@
                 
               
 
-              <time title="Created: 03-12-2019 22:12:40 / Modified: 22:13:27" itemprop="dateCreated datePublished" datetime="2019-12-03T22:12:40+01:00">03-12-2019</time>
+              <time title="Created: 17-12-2019 11:13:10 / Modified: 12:58:45" itemprop="dateCreated datePublished" datetime="2019-12-17T11:13:10+01:00">17-12-2019</time>
             </span>
           
             
@@ -274,7 +279,21 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/集成学习/" itemprop="url" rel="index"><span itemprop="name">集成学习</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
 
                 
                 
@@ -294,8 +313,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2019/12/03/Adaboost/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/Adaboost/" itemprop="commentCount"></span>
+    <a href="/2019/12/17/yolo/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/17/yolo/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -311,56 +330,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Adaboost"><a href="#Adaboost" class="headerlink" title="Adaboost"></a>Adaboost</h1><p>假设我们的训练集样本是</p>
-<script type="math/tex; mode=display">
-T=\left\{\left(x, y_{1}\right),\left(x_{2}, y_{2}\right), \ldots\left(x_{m}, y_{m}\right)\right\}</script><p>训练集的在第k个弱学习器的输出权重为</p>
-<script type="math/tex; mode=display">
-D(k)=\left(w_{k 1}, w_{k 2}, \ldots w_{k m}\right) ; \quad w_{1 i}=\frac{1}{m} ; \quad i=1,2 \ldots m</script> <a id="more"></a>
-<h2 id="二元分类"><a href="#二元分类" class="headerlink" title="二元分类"></a>二元分类</h2><h3 id="弱学习器误差"><a href="#弱学习器误差" class="headerlink" title="弱学习器误差"></a>弱学习器误差</h3><p> 对于二元分类问题，输出为${-1,1}$，则第k个弱分类器$G_{k}(x)$在训练集上的加权误差率为</p>
-<script type="math/tex; mode=display">
-e_{k}=P\left(G_{k}\left(x_{i}\right) \neq y_{i}\right)=\sum_{i=1}^{m} w_{ki} I\left(G_{k}\left(x_{i}\right) \neq y_{i}\right)</script><h3 id="弱学习器权重"><a href="#弱学习器权重" class="headerlink" title="弱学习器权重"></a>弱学习器权重</h3><p>接着我们看弱学习器权重系数,对于二元分类问题，第k个弱分类器Gk(x)的权重系数为</p>
-<script type="math/tex; mode=display">
-\alpha_{k}=\frac{1}{2} \log \frac{1-e_{k}}{e_{k}}</script><p> 从上式可以看出，如果分类误差率ek越大，则对应的弱分类器权重系数αk越小。也就是说，误差率小的弱分类器权重系数越大。</p>
-<h3 id="更新样本权重"><a href="#更新样本权重" class="headerlink" title="更新样本权重"></a>更新样本权重</h3><p>第三个问题，更新更新样本权重D。假设第k个弱分类器的样本集权重系数为$D(k)=\left(w_{k 1}, w_{k 2}, \ldots w_{k m}\right)$，则对应的第k+1个弱分类器的样本集权重系数为</p>
-<script type="math/tex; mode=display">
-w_{k+1, i}=\frac{w_{k i}}{Z_{K}} \exp \left(-\alpha_{k} y_{i} G_{k}\left(x_{i}\right)\right)</script><p> 这里Zk是规范化因子<br> 如果第i个样本分类错误，则$y_{i} G_{k}\left(x_{i}\right)&lt;0$，导致样本的权重在第k+1个弱分类器中增大，如果分类正确，则权重在第k+1个弱分类器中减少.</p>
-<h3 id="集合成强学习器"><a href="#集合成强学习器" class="headerlink" title="集合成强学习器"></a>集合成强学习器</h3><p>最后一个问题是集合策略。Adaboost分类采用的是加权表决法，最终的强分类器为</p>
-<script type="math/tex; mode=display">
-f(x)=\operatorname{sign}\left(\sum_{k=1}^{K} \alpha_{k} G_{k}(x)\right)</script><p> 其中sign函数为符号函数：</p>
-<script type="math/tex; mode=display">
-\operatorname{sign} x=\left\{\begin{array}{ccc}{-1} & { :} & {x<0} \\ {0} & { :} & {x=0} \\ {1} & { :} & {x>0}\end{array}\right.</script><h2 id="回归问题"><a href="#回归问题" class="headerlink" title="回归问题"></a>回归问题</h2><h3 id="弱学习器误差-1"><a href="#弱学习器误差-1" class="headerlink" title="弱学习器误差"></a>弱学习器误差</h3><p>我们先看看回归问题的误差率的问题，对于第k个弱学习器，计算他在训练集上的最大误差</p>
-<script type="math/tex; mode=display">
-E_{k}=\max \left|y_{i}-G_{k}\left(x_{i}\right)\right| i=1,2 \ldots m</script><p> 然后计算每个样本的相对误差</p>
-<script type="math/tex; mode=display">
-e_{k i}=\frac{\left|y_{i}-G_{k}\left(x_{i}\right)\right|}{E_{k}}</script><p>最终得到第k个弱学习器的 误差率</p>
-<script type="math/tex; mode=display">
-e_{k}=\sum_{i=1}^{m} w_{k i} e_{k i}</script><h3 id="弱学习器权重-1"><a href="#弱学习器权重-1" class="headerlink" title="弱学习器权重"></a>弱学习器权重</h3><p> 我们再来看看如何得到弱学习器权重系数α。这里有：</p>
-<script type="math/tex; mode=display">
-\alpha_{k}=\frac{e_{k}}{1-e_{k}}</script><h3 id="更新样本权重-1"><a href="#更新样本权重-1" class="headerlink" title="更新样本权重"></a>更新样本权重</h3><p>对于更新更新样本权重D，第k+1个弱学习器的样本集权重系数为</p>
-<script type="math/tex; mode=display">
-w_{k+1, i}=\frac{w_{k i}}{Z_{k}} \alpha_{k}^{1-e_{k i}}</script><h3 id="集成强回归器"><a href="#集成强回归器" class="headerlink" title="集成强回归器"></a>集成强回归器</h3><script type="math/tex; mode=display">
-f_{M}(x)=\sum_{m=1}^{M} \ln \left(\frac{1}{\alpha_{m}}\right) G_{m}(x)</script><h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>我们的算法是通过一轮轮的弱学习器学习，利用前一个弱学习器的结果来更新后一个弱学习器的训练集权重。也就是说，第k-1轮的强学习器为</p>
-<script type="math/tex; mode=display">
-f_{k-1}(x)=\sum_{i=1}^{k-1} \alpha_{i} G_{i}(x)</script><p> 而第k轮的强学习器为</p>
-<script type="math/tex; mode=display">
-f_{k}(x)=\sum_{i=1}^{k} \alpha_{i} G_{i}(x)</script><p> 上两式一比较可以得到</p>
-<script type="math/tex; mode=display">
-f_{k}(x)=f_{k-1}(x)+\alpha_{k} G_{k}(x)</script><p> 可见强学习器的确是通过前向分步学习算法一步步而得到的。</p>
-<p>Adaboost损失函数为指数函数，即定义损失函数为</p>
-<script type="math/tex; mode=display">
-\arg \min \sum_{i=1}^{m} \exp \left(-y_{i} f_{k}(x)\right)</script><p> 利用前向分步学习算法的关系可以得到损失函数为</p>
-<script type="math/tex; mode=display">
-\left(\alpha_{k}, G_{k}(x)\right)=\arg \min \sum_{i=1}^{m} \exp \left[\left(-y_{i}\right)\left(f_{k-1}(x)+\alpha G(x)\right)\right]</script><p> 令$w_{k j}=\exp \left(-y_{i} f_{k-1}(x)\right)$，它的值不依赖于$\alpha,G$,因此与最小化无关。</p>
-<p> 将这个式子带入损失函数,损失函数转化为</p>
-<script type="math/tex; mode=display">
-\left(\alpha_{k}, G_{k}(x)\right)=\arg \min _{\alpha, G} \sum_{i=1}^{m} w_{k i} \exp \left[-y_{i} \alpha G(x)\right]</script><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里对Adaboost算法的优缺点做一个总结。</p>
-<p>　　　　Adaboost的主要优点有：</p>
-<p>　　　　1）Adaboost作为分类器时，分类精度很高</p>
-<p>　　　　2）在Adaboost的框架下，可以使用各种回归分类模型来构建弱学习器，非常灵活。</p>
-<p>　　　　3）作为简单的二元分类器时，构造简单，结果可理解。</p>
-<p>　　　　4）不容易发生过拟合</p>
-<p>　　　　Adaboost的主要缺点有：</p>
-<p>　　　　1）对异常样本敏感，异常样本在迭代中可能会获得较高的权重，影响最终的强学习器的预测准确性。</p>
+        <h1 id="目标检测：YOLO"><a href="#目标检测：YOLO" class="headerlink" title="目标检测：YOLO"></a>目标检测：YOLO</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>对yolo的印象就是快，yolo把整个目标检测（分类和定位）当作一个回归问题，直接从图像像素输出bbox坐标和类别，如下图:</p>
+<p><img src="yolo1_detection_system.png" alt="png"></p>
+<p>yolo使用一个卷积神经网络同时预测多个检测目标。它首先把图像resize到$448 \times 448$，图像通过卷积网络后生成bbox坐标和分类，然后用NMS进行筛选。<br><a id="more"></a></p>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><p><img src="算法流程.png" alt="png"></p>
+<ul>
+<li>将输入的图片分为$S \times S$个网格单元，如果一个目标的中心在某个网格单元中，这个网格单元就将负责检测这个目标</li>
+<li>每个网格单元将会预测$B$个bbox和他们的置信分数 $\operatorname{Pr}(\text { Object }) *IOU$ 其中$\operatorname{Pr}$为0或1，取决于有没有物体</li>
+<li>每个bbox有5个预测值：$x,y,w,h,score$ 分别为中心坐标离网格单元的边界的偏移值，bbox长宽相较于输入图像的比值和置信分数（IOU）。</li>
+<li>每个bbox还会预测$C$个条件概率$\operatorname{Pr}\left(\text { Class }_{i} | \text { Object }\right)$，为网格单元包含一个目标的概率。不管这个网格单元预测多少个bbox，始终只会只预测一组概率。（这样的话，似乎每一个网格单元只能预测一个目标，如果一个网格单元中有多个目标的话就不行了）</li>
+<li>对于每个bbox，最终的置信分数为 $\operatorname{Pr}\left(\text { Class }_{i} | \text { Object }\right) <em> \operatorname{Pr}(\text { Object }) </em>$  $IOU=\operatorname{Pr}\left(\text { Class }_{i}\right) *IOU$</li>
+<li>在evaluate的时候使用了 S= 7,B=2,PASCAL VOC有20个类别，所以C = 20.那么总的来说，对于一张图片，输出的预测为$7\times7\times30$</li>
+</ul>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p><img src="网络结构.png" alt="png"></p>
+<p>网络有24个卷积层和2个全连接层。使用交替的$1\times1$卷积层来减少前面层的特征空间。网络使用ImageNet进行预训练（仅仅用了一半的分辨率$224\times224$)</p>
+<h2 id="网络训练"><a href="#网络训练" class="headerlink" title="网络训练"></a>网络训练</h2><p>先在ImageNet上做了预训练。使用上图网络结构中的前20个卷积层，后面接一个average-pooling层和全连接层，在ImageNet 1000类数据集上训练了一周，达到了88%的top-5准确率。</p>
+<p>由于Ren的论文提到给预训练的模型加上额外的卷积层和全连接层能够提升性能，所以加上了剩下的4个卷积层和2个全连接层，权值为随机初始化。同时，我们把网络输入的分辨率提高到$448\times448$</p>
+<p>网络的最后一层输出bbox坐标和分类概率。bbox长宽除以原图长宽，使其分布到0，1之间。同样中心坐标也被化为某个网格单元位置的偏移量，也分布在0，1之间。</p>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>优化目标是一个平方和损失函数（回归问题），但是有如下问题：</p>
+<ol>
+<li>位置误差和分类误差占有同样的比重。同时还有正负样本不均衡的问题。为了解决这个问题，在损失前面加系数，文中设置为$\lambda_{\text {coord }}=5$ 和 $\lambda_{\text {noobj }}=0.5$分别为位置损失系数和负样本的损失系数</li>
+<li>如果直接使用长宽wh的话，会在bbox大小不同的时候不平衡，所以使用$\sqrt{w} 和 \sqrt{h}$代替w，h</li>
+<li>每一个bbox对应于其拥有最高IoU的ground truth。</li>
+</ol>
+<p>完整的损失如下：</p>
+<p><img src="损失函数.png" alt="png"></p>
+<p>上面仅仅是yolo v1的内容，后面有空再看看后续改进的方面</p>
 
     </div>
 
@@ -371,8 +366,8 @@ f_{k}(x)=f_{k-1}(x)+\alpha_{k} G_{k}(x)</script><p> 可见强学习器的确是�
     <footer class="post-footer">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/12/03/集成学习/" rel="next" title="集成学习">
-                <i class="fa fa-chevron-left"></i> 集成学习
+              <a href="/2019/12/16/SSD/" rel="next" title="目标检测:SSD">
+                <i class="fa fa-chevron-left"></i> 目标检测:SSD
               </a>
             
           </div>
@@ -380,10 +375,6 @@ f_{k}(x)=f_{k-1}(x)+\alpha_{k} G_{k}(x)</script><p> 可见强学习器的确是�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/12/06/循环神经网络/" rel="prev" title="循环神经网络">
-                循环神经网络 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
@@ -594,7 +585,7 @@ f_{k}(x)=f_{k-1}(x)+\alpha_{k} G_{k}(x)</script><p> 可见强学习器的确是�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Adaboost"><span class="nav-number">1.</span> <span class="nav-text">Adaboost</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二元分类"><span class="nav-number">1.1.</span> <span class="nav-text">二元分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#弱学习器误差"><span class="nav-number">1.1.1.</span> <span class="nav-text">弱学习器误差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弱学习器权重"><span class="nav-number">1.1.2.</span> <span class="nav-text">弱学习器权重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新样本权重"><span class="nav-number">1.1.3.</span> <span class="nav-text">更新样本权重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合成强学习器"><span class="nav-number">1.1.4.</span> <span class="nav-text">集合成强学习器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回归问题"><span class="nav-number">1.2.</span> <span class="nav-text">回归问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#弱学习器误差-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">弱学习器误差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弱学习器权重-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">弱学习器权重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新样本权重-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">更新样本权重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成强回归器"><span class="nav-number">1.2.4.</span> <span class="nav-text">集成强回归器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#损失函数"><span class="nav-number">1.3.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目标检测：YOLO"><span class="nav-number">1.</span> <span class="nav-text">目标检测：YOLO</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法流程"><span class="nav-number">1.2.</span> <span class="nav-text">算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络结构"><span class="nav-number">1.3.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络训练"><span class="nav-number">1.4.</span> <span class="nav-text">网络训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">1.4.1.</span> <span class="nav-text">损失函数</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
