@@ -57,20 +57,20 @@
   };
 </script>
 
-  <meta name="description" content="过采样随机过采样从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。 SMOTESMOTE (synthetic minority oversampling technique) 的思想概括起来就是在少数类样本之间进行插值来产生额外的样本。具体地，对于一个少数类样本xi使用K近邻法(k值需要提前指定)，求出离xi距离最近的">
+  <meta name="description" content="过采样随机过采样从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="样本不平衡">
 <meta property="og:url" content="http://yoursite.com/2020/01/07/样本不平衡/index.html">
 <meta property="og:site_name" content="Classiczy">
-<meta property="og:description" content="过采样随机过采样从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。 SMOTESMOTE (synthetic minority oversampling technique) 的思想概括起来就是在少数类样本之间进行插值来产生额外的样本。具体地，对于一个少数类样本xi使用K近邻法(k值需要提前指定)，求出离xi距离最近的">
+<meta property="og:description" content="过采样随机过采样从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2020/01/07/样本不平衡/SMOTE.png">
 <meta property="og:image" content="http://yoursite.com/2020/01/07/样本不平衡/过采样效果.png">
 <meta property="og:image" content="http://yoursite.com/2020/01/07/样本不平衡/TomekLink.png">
-<meta property="og:updated_time" content="2020-01-07T15:55:30.241Z">
+<meta property="og:updated_time" content="2020-01-09T15:38:02.949Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="样本不平衡">
-<meta name="twitter:description" content="过采样随机过采样从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。 SMOTESMOTE (synthetic minority oversampling technique) 的思想概括起来就是在少数类样本之间进行插值来产生额外的样本。具体地，对于一个少数类样本xi使用K近邻法(k值需要提前指定)，求出离xi距离最近的">
+<meta name="twitter:description" content="过采样随机过采样从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。">
 <meta name="twitter:image" content="http://yoursite.com/2020/01/07/样本不平衡/SMOTE.png">
   <link rel="canonical" href="http://yoursite.com/2020/01/07/样本不平衡/">
 
@@ -263,11 +263,21 @@
                 
               
 
-              <time title="Created: 07-01-2020 16:52:34 / Modified: 16:55:30" itemprop="dateCreated datePublished" datetime="2020-01-07T16:52:34+01:00">07-01-2020</time>
+              <time title="Created: 07-01-2020 16:52:34" itemprop="dateCreated datePublished" datetime="2020-01-07T16:52:34+01:00">07-01-2020</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09-01-2020 16:38:02" itemprop="dateModified" datetime="2020-01-09T16:38:02+01:00">09-01-2020</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -315,7 +325,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="过采样"><a href="#过采样" class="headerlink" title="过采样"></a>过采样</h2><h4 id="随机过采样"><a href="#随机过采样" class="headerlink" title="随机过采样"></a>随机过采样</h4><p>从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。</p>
+        <h2 id="过采样"><a href="#过采样" class="headerlink" title="过采样"></a>过采样</h2><h4 id="随机过采样"><a href="#随机过采样" class="headerlink" title="随机过采样"></a>随机过采样</h4><p>从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。<br><a id="more"></a></p>
 <h4 id="SMOTE"><a href="#SMOTE" class="headerlink" title="SMOTE"></a>SMOTE</h4><p>SMOTE (synthetic minority oversampling technique) 的思想概括起来就是在少数类样本之间进行插值来产生额外的样本。具体地，对于一个少数类样本xi使用K近邻法(k值需要提前指定)，求出离xi距离最近的k个少数类样本，其中距离定义为样本之间n维特征空间的欧氏距离。然后从k个近邻点中随机选取一个，使用下列公式生成新样本：</p>
 <script type="math/tex; mode=display">
 \mathbf{x}_{n e w}=\mathbf{x}_{i}+\left(\hat{\mathbf{x}}_{i}-\mathbf{x}_{i}\right) \times \delta</script><p>其中$\hat{x}$为选出的k邻近点，$\delta \in[0,1]$是一个随机数。</p>
