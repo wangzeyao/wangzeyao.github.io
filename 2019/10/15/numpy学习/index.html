@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Classiczy">
 <meta property="og:description" content="Numpy 学习记录np.where()用法 np.where(condition, x, y)，满足条件(condition)，输出x，不满足输出y。123456&amp;gt;&amp;gt;&amp;gt; np.where([[True,False], [True,True]],             [[1,2], [3,4]],             [[9,8], [7,6]])输出：array([[1">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-15T22:23:12.211Z">
+<meta property="og:updated_time" content="2020-01-10T19:51:08.617Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="numpy学习">
 <meta name="twitter:description" content="Numpy 学习记录np.where()用法 np.where(condition, x, y)，满足条件(condition)，输出x，不满足输出y。123456&amp;gt;&amp;gt;&amp;gt; np.where([[True,False], [True,True]],             [[1,2], [3,4]],             [[9,8], [7,6]])输出：array([[1">
@@ -273,7 +273,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 16-10-2019 00:23:12" itemprop="dateModified" datetime="2019-10-16T00:23:12+02:00">16-10-2019</time>
+                <time title="Modified: 10-01-2020 20:51:08" itemprop="dateModified" datetime="2020-01-10T20:51:08+01:00">10-01-2020</time>
               </span>
             
           
@@ -328,8 +328,10 @@
 </ol>
 <p>那么第一列是在1和9之间选择，为True所以选1。 第二列在2和8之间选择，因为是False所以选8，后面的以此类推</p>
 <ol>
-<li>np.where(condition)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">10</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.where(a &gt; <span class="number">5</span>)             <span class="comment"># 返回索引</span></span><br><span class="line">(array([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]),)   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[np.where(a &gt; <span class="number">5</span>)]              <span class="comment"># 等价于 a[a&gt;5]</span></span><br><span class="line">array([ <span class="number">6</span>,  <span class="number">8</span>, <span class="number">10</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.where([[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">0</span>]])</span><br><span class="line">(array([<span class="number">0</span>, <span class="number">1</span>]), array([<span class="number">1</span>, <span class="number">0</span>])) <span class="comment"># 输出的为两个1的坐标</span></span><br></pre></td></tr></table></figure></li>
+<li>np.where(condition)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">10</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.where(a &gt; <span class="number">5</span>)             <span class="comment"># 返回索引</span></span><br><span class="line">(array([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]),)   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[np.where(a &gt; <span class="number">5</span>)]              <span class="comment"># 等价于 a[a&gt;5]</span></span><br><span class="line">array([ <span class="number">6</span>,  <span class="number">8</span>, <span class="number">10</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.where([[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">0</span>]])</span><br><span class="line">(array([<span class="number">0</span>, <span class="number">1</span>]), array([<span class="number">1</span>, <span class="number">0</span>])) <span class="comment"># 输出的为两个1的坐标</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
+<h2 id="np-zero-like"><a href="#np-zero-like" class="headerlink" title="np.zero_like()"></a>np.zero_like()</h2><p>np.zeros_like(W);其维度与矩阵W一致，并为其初始化为全0；这个函数方便的构造了新矩阵，无需参数指定shape大小；</p>
 
     </div>
 
@@ -346,8 +348,8 @@
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/10/15/collection学习/" rel="next" title="Python collecitons学习">
-                <i class="fa fa-chevron-left"></i> Python collecitons学习
+              <a href="/2019/10/11/accuracy/" rel="next" title="准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线">
+                <i class="fa fa-chevron-left"></i> 准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线
               </a>
             
           </div>
@@ -355,8 +357,8 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/10/28/pytorch2/" rel="prev" title="Pytorch入门学习-2">
-                Pytorch入门学习-2 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/15/collection学习/" rel="prev" title="Python collecitons学习">
+                Python collecitons学习 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -416,7 +418,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -573,7 +575,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Numpy-学习记录"><span class="nav-number">1.</span> <span class="nav-text">Numpy 学习记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#np-where-用法"><span class="nav-number">1.1.</span> <span class="nav-text">np.where()用法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Numpy-学习记录"><span class="nav-number">1.</span> <span class="nav-text">Numpy 学习记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#np-where-用法"><span class="nav-number">1.1.</span> <span class="nav-text">np.where()用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#np-zero-like"><span class="nav-number">1.2.</span> <span class="nav-text">np.zero_like()</span></a></li></ol></li></ol></div>
             
 
           </div>

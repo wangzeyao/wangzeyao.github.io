@@ -67,7 +67,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/12/10/RCNN/AlexNet.png">
 <meta property="og:image" content="http://yoursite.com/2019/12/10/RCNN/回归器.png">
-<meta property="og:updated_time" content="2019-12-17T09:28:33.362Z">
+<meta property="og:updated_time" content="2020-01-12T15:10:50.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目标检测：R-CNN">
 <meta name="twitter:description" content="目标检测：R-CNN最近实习的时候接触了目标检测类的任务，在使用这些算法的同时了解一下算法整体的流程和内容。作为RCNN算法系列的开山鼻祖，采用了CNN网络用于图像特征的提取，而不是之前的人工设定的特征提取。但是RCNN应该有很多细节都被后面的算法改进了（产生了一系列RCNN的算法）。所以这里只对算法的流程做一个大概的理解。 RCNN的基本流程RCNN算法有4个步骤：  候选区域生成： 一张图像生">
@@ -276,7 +276,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 17-12-2019 10:28:33" itemprop="dateModified" datetime="2019-12-17T10:28:33+01:00">17-12-2019</time>
+                <time title="Modified: 12-01-2020 16:10:50" itemprop="dateModified" datetime="2020-01-12T16:10:50+01:00">12-01-2020</time>
               </span>
             
           
@@ -434,7 +434,7 @@ d_{x}(P), d_{y}(P), d_{w}(P), d_{h}(P)</script><p>$d_{x}(P)$和$d_{y}(P)$通过�
 <script type="math/tex; mode=display">
 \text {Loss }=\operatorname{argmin} \sum_{i=0}^{N}\left(t_{*}^{i}-\hat{w}_{*}^{T} \phi_{5}\left(P^{i}\right)\right)^{2}+\lambda\left\|\hat{w}_{*}\right\|^{2}</script><p>其中，回归目标$t_{*}$由训练输入对按下式计算得来：</p>
 <script type="math/tex; mode=display">
-\begin{aligned} t_{x} &=\left(G_{x}-P_{x}\right) / P_{w} \\ t_{y} &=\left(G_{y}-P_{y}\right) / P_{h} \\ t_{w} &=\log \left(G_{w} / P_{w}\right) \\ t_{h} &=\log \left(G_{h} / P_{h}\right) \end{aligned}</script><p>从上面的式子可以看出来，优化的目标是让变换函数$d_{<em>}(P)$趋近于偏移值$\Delta$，也就是$t_{</em>}$。至于$t$的定义中为什么要除以高或者宽，网上资料有认为是为了消除BBox大小对于偏移值的影响（较大的bbox偏移值也可能更大，都除以bbox的宽或高后相当于转换成一种相对的偏移值）。</p>
+\begin{aligned} t_{x} &=\left(G_{x}-P_{x}\right) / P_{w} \\ t_{y} &=\left(G_{y}-P_{y}\right) / P_{h} \\ t_{w} &=\log \left(G_{w} / P_{w}\right) \\ t_{h} &=\log \left(G_{h} / P_{h}\right) \end{aligned}</script><p>从上面的式子可以看出来，优化的目标是让变换函数$d_{*}(P)$趋近于偏移值$\Delta$，也就是$t_{*}$。至于$t$的定义中为什么要除以高或者宽，网上资料有认为是为了消除BBox大小对于偏移值的影响（较大的bbox偏移值也可能更大，都除以bbox的宽或高后相当于转换成一种相对的偏移值）。</p>
 <p>而宽高的尺度加$log$可能是需要限制缩放尺度必需大于0，所以在偏移值上加了exp函数，那么反推回来在t上就是log函数。</p>
 <p>另外，在看资料的时候一直有点困惑，为什么$\hat{G}_{x} =P_{w} d_{x}(P)+P_{x}$ 要在$d_{x}(P)$上乘一个$P_{w}$而不是直接是$\hat{G}_{x} = d_{x}(P)+P_{x}$。现在大概可以按照这样的思路来理清一下：</p>
 <ol>
@@ -533,7 +533,7 @@ d_{x}(P), d_{y}(P), d_{w}(P), d_{h}(P)</script><p>$d_{x}(P)$和$d_{y}(P)$通过�
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
