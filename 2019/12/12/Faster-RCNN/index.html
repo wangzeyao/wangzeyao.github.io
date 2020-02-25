@@ -70,7 +70,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/12/12/Faster-RCNN/anchor.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/12/12/Faster-RCNN/区域分类.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/12/12/Faster-RCNN/bbox回归.jpg">
-<meta property="og:updated_time" content="2019-12-17T09:29:05.310Z">
+<meta property="og:updated_time" content="2020-02-23T10:41:09.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目标检测：Faster-RCNN">
 <meta name="twitter:description" content="Faster-RCNNFast-RCNN回顾尽管相比起RCNN，Fast-RCNN网络中有许多改进。但是对于候选区域的生成仍然使用selective search这一十分耗时的方法。 而在Faster-RCNN中对这一项进行了改进。 Faster-RCNN我们先来看看Faster-RCNN整个网络的结构：  整个网络被分为两个部分，上半部分就是我们在Fast-RCNN中熟悉过的网络结构（除去候选区">
@@ -279,7 +279,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 17-12-2019 10:29:05" itemprop="dateModified" datetime="2019-12-17T10:29:05+01:00">17-12-2019</time>
+                <time title="Modified: 23-02-2020 11:41:09" itemprop="dateModified" datetime="2020-02-23T11:41:09+01:00">23-02-2020</time>
               </span>
             
           
@@ -350,7 +350,7 @@
 <p>看一下RPN网络的内部结构：</p>
 <p><img src="RPN.jpg" alt="jpg"></p>
 <p>可以看到RPN网络实际分为2条线，上面一条通过softmax分类anchors获得positive和negative分类，下面一条用于计算对于anchors的bounding box regression偏移量，以获得精确的proposal。而最后的Proposal层则负责综合positive anchors和对应bounding box regression偏移量获取proposals，同时剔除太小和超出边界的proposals。</p>
-<h4 id="1-滑动窗口"><a href="#1-滑动窗口" class="headerlink" title="1.滑动窗口"></a>1.滑动窗口</h4><p>RPN网络的第一部分，也就是在共享卷积层最后一层conv5之后做了一个$3 \times 3$的卷积，相当于融合了周围$3 \times 3$的空间信息，同时通道数保持256-d不变。注意这里的卷积都采用了$3 \times 3$的卷积核，padding为1，stride也为1。那么 $out = \frac{I-2 \times 1 - 3}{1}=I$ 所以输出的特征图大小不变。</p>
+<h4 id="1-滑动窗口"><a href="#1-滑动窗口" class="headerlink" title="1.滑动窗口"></a>1.滑动窗口</h4><p>RPN网络的第一部分，也就是在共享卷积层最后一层conv5之后做了一个$3 \times 3$的卷积，相当于融合了周围$3 \times 3$的空间信息，同时通道数保持256-d不变。注意这里的卷积都采用了$3 \times 3$的卷积核，padding为1，stride也为1。那么 $out = \frac{I+2 \times 1 - 3}{1} + 1=I$ 所以输出的特征图大小不变。</p>
 <h4 id="2-Anchors"><a href="#2-Anchors" class="headerlink" title="2.Anchors"></a>2.Anchors</h4><p>所谓Anchors就是一系列的矩形（9个）长宽比为大约为$\{1: 1,1: 2,2: 1\}$三种，这就是检测中常用的多尺度方法。</p>
 <p><img src="anchors.jpg" alt="jpg"></p>
 <p>那么这9个anchors是做什么的呢？如下图，我们在特征图上的每一个点都使用这9中anchors作为检测框。假设特征图的大小为 $M \times N$ ，那么我们可以把这 $M\times N \times 9$ 个检测框类比为Fast-RCNN中selective search算法在区域合并后，NMS之前的检测框，这些检测框的位置都十分不准确，但是我们后面还会有两次bbox回归来调整位置。</p>
@@ -484,7 +484,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -574,7 +574,9 @@
         
           
         
-        <span class="site-state-item-count">15</span>
+          
+        
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
