@@ -72,9 +72,10 @@
 <meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/循环层.png">
 <meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/LSTM.png">
 <meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/细胞状态.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/遗忘门.png">
 <meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/输入门.png">
 <meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/输出门.png">
-<meta property="og:updated_time" content="2019-12-08T18:11:30.631Z">
+<meta property="og:updated_time" content="2020-02-26T19:20:06.138Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环神经网络">
 <meta name="twitter:description" content="循环神经网络基本的循环神经网络它由输入层、一个隐藏层和一个输出层组成：  x是一个向量，它表示输入层的值 s是一个向量，它表示隐藏层的值（这里隐藏层面画了一个节点，你也可以想象这一层其实是多个节点，节点数与向量s的维度相同）； U是输入层到隐藏层的权重矩阵 o也是一个向量，它表示输出层的值； V是隐藏层到输出层的权重矩阵 循环神经网络的隐藏层的值s不仅仅取决于当前这次的输入x，还取决于上一次隐藏层">
@@ -283,7 +284,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 08-12-2019 19:11:30" itemprop="dateModified" datetime="2019-12-08T19:11:30+01:00">08-12-2019</time>
+                <time title="Modified: 26-02-2020 20:20:06" itemprop="dateModified" datetime="2020-02-26T20:20:06+01:00">26-02-2020</time>
               </span>
             
           
@@ -454,7 +455,7 @@ s_n^{t-1}\\
 <p>我可以看到，比起原始的RNN网络结构，LSTM在每个序列索引位置t时刻向前传播的除了和RNN一样的隐藏状态$h_{t}$，还多了另一个隐藏状态，如图中上面的长横线。这个隐藏状态我们一般称为细胞状态(Cell State)，记为$c_{t}$。如下图所示：</p>
 <p><img src="细胞状态.png" alt="png"></p>
 <h3 id="LSTM遗忘门"><a href="#LSTM遗忘门" class="headerlink" title="LSTM遗忘门"></a>LSTM遗忘门</h3><p>遗忘门是控制是否遗忘的，在LSTM中即以一定的概率控制是否遗忘上一层的隐藏细胞状态。遗忘门子结构如下图所示：</p>
-<p>！<a href="遗忘门.png">png</a></p>
+<p><img src="遗忘门.png" alt="png"></p>
 <p>图中输入的有上一序列的隐藏状态$h_{t-1}$和本序列数据$x_{t}$，通过一个激活函数，一般是sigmoid，得到遗忘门的输出$f_{t}$。由于sigmoid的输出$f_{t}$在[0,1]之间，因此这里的输出$f_{t}$代表了遗忘上一层隐藏细胞状态的概率。用数学表达式即为：</p>
 <script type="math/tex; mode=display">
 f^{(t)}=\sigma\left(W_{f} h^{(t-1)}+U_{f} x^{(t)}+b_{f}\right)</script><p>其中$W_{f}, U_{f}, b_{f}$为系数矩阵和bias，和RNN中的类似。$\sigma$为sigmoid激活函数。</p>
@@ -482,8 +483,8 @@ C^{(t)}=C^{(t-1)} \odot f^{(t)}+i^{(t)} \odot a^{(t)}</script><p>其中$\odot$�
     <footer class="post-footer">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/12/03/Adaboost/" rel="next" title="Adaboost">
-                <i class="fa fa-chevron-left"></i> Adaboost
+              <a href="/2019/12/06/循环神经网络/循环神经网络/" rel="next" title="循环神经网络">
+                <i class="fa fa-chevron-left"></i> 循环神经网络
               </a>
             
           </div>
@@ -491,8 +492,8 @@ C^{(t)}=C^{(t-1)} \odot f^{(t)}+i^{(t)} \odot a^{(t)}</script><p>其中$\odot$�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/12/06/循环神经网络/循环神经网络/" rel="prev" title="循环神经网络">
-                循环神经网络 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/12/08/eymol/" rel="prev" title="Gravitational Laws of Focus of Attention的粗略理解">
+                Gravitational Laws of Focus of Attention的粗略理解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
