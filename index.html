@@ -220,6 +220,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/08/论文解读-连续进化搜索算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/04/08/论文解读-连续进化搜索算法/" class="post-title-link" itemprop="url">论文解读-连续进化搜索算法</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 08-04-2020 23:12:22 / Modified: 23:16:59" itemprop="dateCreated datePublished" datetime="2020-04-08T23:12:22+08:00">08-04-2020</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/神经网络结构搜索/" itemprop="url" rel="index"><span itemprop="name">神经网络结构搜索</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2020/04/08/论文解读-连续进化搜索算法/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/08/论文解读-连续进化搜索算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"><a href="#自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS" class="headerlink" title="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"></a>自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可以利用上一轮进化的参数或者结构来构造超网来实现参数共享，再从超网中生成子网，并对其进行排序，从而选择优异的网络。这种算法整体耗时仅仅需要0.4 GPU day，优化了进化算法在神经网络结构搜索时候选网络训练时间过长的问题。</p>
+<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>人工神经网络的应用使得计算机视觉任务取得了巨大的进步，但网络的设计却很大程度上依赖于人类的经验，且会耗费大量时间和经历。而神经网络结构搜索（Neural Architecture Search，NAS）可以通过设计不同的搜索算法来自动获得泛化能力强，硬件要求低的网络结构，是目前自动机器学习（AutoML）领域的热点问题之一。目前神经网络结构搜索的搜索策略可以分为三种：</p>
+<ul>
+<li>基于强化学习（Reinforcement Learning，RL）</li>
+<li>基于进化算法（Evolution Algorithm，EA）</li>
+<li>基于梯度的方法（gradient based）</li>
+</ul>
+<p>有研究表明，论文中涉及的进化算法能得到比强化学习更好的模型，但由于进化算法中的个体网络都是独立验证，导致其需要耗费大量的时间。论文因此提出一种修改的进化算法——连续进化网络结构神经网络搜索(continuous evolution architecture search，CARS)来最大限度的利用上一代进化过程中的知识，从而提高算法的效率。</p>
+<h2 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h2><h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>首先初始化一个具有大量cells和blocks的超网（SuperNet），超网通过一些基准操作（交叉和变异）来生成进化算法中的个体，也就是子网。接着再使用非支配排序（Non-dominated sort）来选取一些不同大小和准确率的优秀模型，并更新这些子网对应的超网中的cells以便于随后的优化。在下一代的进化算法中，会继续基于更新后的超网和非支配排序得到的多目标解集来进行。 论文使用基因算法（Genetic Algorithm，GA）来进化网络的结构，并且使用一个超网 N在不同的结构中共享权重，从而大大降低了计算复杂度。</p>
+<h4 id="CARS中的超网："><a href="#CARS中的超网：" class="headerlink" title="CARS中的超网："></a>CARS中的超网：</h4><p>不同的网络N_i是从超网N中采样而来，每个网络 $N_i$ 可以由全精度参数 $W_i$ 和二值连接参数（也就是{0，1}）$C_i$ 来表示。$C_i=0$ 代表网络没有此连接，$C_i=1$反之，所以每个子网 $N_i$ 可以表示为 $Wi$,$Ci$ 对。<br>全精度参数W在网络集合中共享，如果网络结构固定则可以使用反向传播来优化W,优化后的W适用于所有的N_i以提高识别性能。在参数收敛后，我们就可以用基因算法去优化二值连接C_i</p>
+<h4 id="参数优化"><a href="#参数优化" class="headerlink" title="参数优化"></a>参数优化</h4><p>$W$为网络中所有参数，有$W_i=W\odot C_i$其中 $\odot$ 为mask操作。<br>参数$W$适用于全部子网，所以用全部子网来计算参数的梯度，公式如下</p>
+<script type="math/tex; mode=display">
+dW_i=\frac{\partial L_i}{\partial W_i}=\frac{\partial L_i}{\partial W}\odot C_i
+dW=\frac{1}{P}\sum_{i=1}^{P}dW_i=\frac{1}{P}\sum_{i=1}^{P}\frac{\partial L_i}{\partial W}\odot C_i</script><p>其中$L_i=\mathcal{H}\left(\mathcal{N}_\mathcal{i}\left(X\right),Y\right)$为损失值，Y为目标值，H为损失函数。再借鉴SGD的思想，用小批量的网络来接近整体网络的梯度，达到优化性能的目的，公式如下：</p>
+<script type="math/tex; mode=display">
+dW\approx\frac{1}{B}\sum_{j=1}^{B}\frac{\partial L_{n_j}}{\partial W_{n_j}}</script><p>其中B小于P。</p>
+<h4 id="结构优化"><a href="#结构优化" class="headerlink" title="结构优化"></a>结构优化</h4><p>结构优化使用进化算法配合NSGA-III的非支配排序。支配的定义是什么呢？简单的说，如果两个子网络$N_i$和$N_j$符合以下两个条件，那么就称为$N_i$支配$N_j$:</p>
+<ul>
+<li>在任何指标中$N_i$都不差于$N_j$</li>
+<li>存在至少一个指标，使得$N_i$的表现超过$N_j$<br>如果$N_i$支配$N_j$，那么在进化过程中就可以用$N_i$取代$N_j$，通过不断的使用支配就可以在当前一代的种群中选出优秀的子网，这些优秀子网就可以接着被用于更新超网中相关的参数。<br>与此同时，在非支配排序使用NSGA-III算法的时候，依然会遇到小模型陷阱现象（small model trap phenomenon）。论文中提出了NSGA-III的改进算法pNSGA-III，改进点在于把准确率和参数数量的增加速度纳入考虑中，而不只局限于验证时的准确率和参数的数量，再同时参考两种非支配排序。</li>
+</ul>
+<p><img src="1.png" alt="png"></p>
+<p>结果如图所示，使用pNSGA-III算法最终保留了的模型大小范围更广，分布更为均匀，而NSGA-III在20代的时候保留模型的大小多集中于0.15MB到0.20MB，同时Top-1准确率比起NSGA-III甚至略有优势。</p>
+<h4 id="优化策略"><a href="#优化策略" class="headerlink" title="优化策略"></a>优化策略</h4><p>参数预热（Parameter Warmup）：因为超网的共享权重是随机初始化的，所以如果子网也是随机初始化，就会导致出现次数多的会比其他的训练的次数多。因此，论文中使用了均匀采样策略来初始化超网中的参数，这样就能以相同的概率公平的训练所有可能的网络。<br>结构优化（Architecture Optimization）：在初始化超网后，首先随机选择P个不同的结构作为进化算法的父代个体。在后续的进化算法过程中，先生成$t\ \times P$个子代，再使用pNSGA-III从$\ \left(t+1\right)\times P$个个体中选择P个来作为下一代的父亲个体。</p>
+<p>搜索时间分析：<br>训练集用于更新网络参数，测试集用来更新网络结构。网络的最终搜索时间计算如下：</p>
+<p> $\begin{aligned} T_{\text {total}}=&amp; T_{\text {warm}}+T_{\text {evo}} \\=&amp; E_{\text {warm}} \times T_{\text {tr}}+\\ &amp; E_{\text {evo}} \times\left(E_{\text {param}} \times T_{t r} \times B+T_{\text {val}}\right) \end{aligned}$</p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>为了阐释论文中方法的有效性，实验设置使用了被广泛运用的DARTS搜索空间。DARTS包含的操作有四种卷积，两种池化，skip连接和无链接。<br>在CIFAR-10上的实验</p>
+<h3 id="小模型陷阱"><a href="#小模型陷阱" class="headerlink" title="小模型陷阱"></a>小模型陷阱</h3><p><img src="小模型陷阱.png" alt="png"></p>
+<p>实验结果显示了小模型陷阱和使用pNSGA-III的必要性。由图可知，最终模型C取得了最好的top-1准确率，但是如果使用NSGA-III算法，模型C在前50轮就会被淘汰掉。</p>
+<h3 id="使用CIFAR-10搜索"><a href="#使用CIFAR-10搜索" class="headerlink" title="使用CIFAR-10搜索"></a>使用CIFAR-10搜索</h3><p>论文中实验将CIFAR-10数据集分为两部分，包括25000张图片用于训练，25000张图片用于验证。分割训练和验证集的策略余DARTS和SNAS相同。实验一共搜索500个epochs，warmup阶段为50个epochs。然后初始化一个包括128个不同子网的种群，在网络参数每更新10次以后，使用pNSGA-III更新网络结构。</p>
+<h3 id="使用CIFAR-10验证"><a href="#使用CIFAR-10验证" class="headerlink" title="使用CIFAR-10验证"></a>使用CIFAR-10验证</h3><p><img src="验证.png" alt="png"><br>搜索的验证结果表如上图，可以看到搜索用时仅为0.4 GPU days，且最好的结果为CARS-I网络，测试错误了仅为2.62%。无论是搜索用时还是网络性能都十分优异。此外，模型的大小分布较广且比较均为，从2.4M到3.6M都有。可以说，CARS用更小的模型，更少的时间获得了更好的性能。</p>
+<p>使用ILSVRC2012验证：<br>论文实验还将用CIFAR-10搜索的模型迁移到ILSVRC2012，结果表明模型的迁移性也相当不错。</p>
+<h3 id="使用ILSVRC2012验证"><a href="#使用ILSVRC2012验证" class="headerlink" title="使用ILSVRC2012验证"></a>使用ILSVRC2012验证</h3><p>论文实验还将用CIFAR-10搜索的模型迁移到ILSVRC2012，结果表明模型的迁移性也相当不错。<br><img src="验证2.png" alt="png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>进化算法在神经网络搜索领域有相当不错的表现，但是搜索时间却很长。这篇论文提出的连续进化网络结构搜索算法（continuous evolution architecture search，CARS），最大化利用上一轮进化的结构和参数，很大程度上减少了网络搜索和训练的用时，在CIFAR-10数据集的实验仅仅用时0.4 GPU day的同时，也取得了相当高的准确率和不错的模型大小。最近神经网络结构搜索越来越热门，但是其庞大的资源和时间消耗却限制了很高的门槛，CNRS的方法或许可以让更多的人能体验到自动机器学习的魅力。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/23/pyStr技巧/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -256,7 +413,7 @@
                 
               
 
-              <time title="Created: 23-02-2020 17:48:01" itemprop="dateCreated datePublished" datetime="2020-02-23T17:48:01+01:00">23-02-2020</time>
+              <time title="Created: 23-02-2020 17:48:01" itemprop="dateCreated datePublished" datetime="2020-02-23T17:48:01+08:00">23-02-2020</time>
             </span>
           
             
@@ -269,7 +426,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 26-02-2020 21:33:22" itemprop="dateModified" datetime="2020-02-26T21:33:22+01:00">26-02-2020</time>
+                <time title="Modified: 27-02-2020 04:33:22" itemprop="dateModified" datetime="2020-02-27T04:33:22+08:00">27-02-2020</time>
               </span>
             
           
@@ -381,7 +538,7 @@
                 
               
 
-              <time title="Created: 22-02-2020 15:34:47" itemprop="dateCreated datePublished" datetime="2020-02-22T15:34:47+01:00">22-02-2020</time>
+              <time title="Created: 22-02-2020 15:34:47" itemprop="dateCreated datePublished" datetime="2020-02-22T15:34:47+08:00">22-02-2020</time>
             </span>
           
             
@@ -394,7 +551,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 26-02-2020 21:32:53" itemprop="dateModified" datetime="2020-02-26T21:32:53+01:00">26-02-2020</time>
+                <time title="Modified: 27-02-2020 04:32:53" itemprop="dateModified" datetime="2020-02-27T04:32:53+08:00">27-02-2020</time>
               </span>
             
           
@@ -521,7 +678,7 @@
                 
               
 
-              <time title="Created: 09-01-2020 16:10:30 / Modified: 16:14:27" itemprop="dateCreated datePublished" datetime="2020-01-09T16:10:30+01:00">09-01-2020</time>
+              <time title="Created: 09-01-2020 16:10:30 / Modified: 23:14:27" itemprop="dateCreated datePublished" datetime="2020-01-09T16:10:30+08:00">09-01-2020</time>
             </span>
           
             
@@ -630,7 +787,7 @@
                 
               
 
-              <time title="Created: 07-01-2020 16:52:34" itemprop="dateCreated datePublished" datetime="2020-01-07T16:52:34+01:00">07-01-2020</time>
+              <time title="Created: 07-01-2020 16:52:34" itemprop="dateCreated datePublished" datetime="2020-01-07T16:52:34+08:00">07-01-2020</time>
             </span>
           
             
@@ -643,7 +800,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 09-01-2020 16:38:02" itemprop="dateModified" datetime="2020-01-09T16:38:02+01:00">09-01-2020</time>
+                <time title="Modified: 09-01-2020 23:38:02" itemprop="dateModified" datetime="2020-01-09T23:38:02+08:00">09-01-2020</time>
               </span>
             
           
@@ -763,11 +920,21 @@
                 
               
 
-              <time title="Created: 06-01-2020 20:18:31 / Modified: 20:20:50" itemprop="dateCreated datePublished" datetime="2020-01-06T20:18:31+01:00">06-01-2020</time>
+              <time title="Created: 06-01-2020 20:18:31" itemprop="dateCreated datePublished" datetime="2020-01-06T20:18:31+08:00">06-01-2020</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 07-01-2020 03:20:50" itemprop="dateModified" datetime="2020-01-07T03:20:50+08:00">07-01-2020</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -864,155 +1031,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/yolo/yolo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/12/17/yolo/yolo/" class="post-title-link" itemprop="url">目标检测：YOLO</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 17-12-2019 11:13:10" itemprop="dateCreated datePublished" datetime="2019-12-17T11:13:10+01:00">17-12-2019</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 18-12-2019 12:29:58" itemprop="dateModified" datetime="2019-12-18T12:29:58+01:00">18-12-2019</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2019/12/17/yolo/yolo/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/17/yolo/yolo/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="目标检测：YOLO"><a href="#目标检测：YOLO" class="headerlink" title="目标检测：YOLO"></a>目标检测：YOLO</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>对yolo的印象就是快，yolo把整个目标检测（分类和定位）当作一个回归问题，直接从图像像素输出bbox坐标和类别，如下图:</p>
-<p><img src="yolo1_detection_system.png" alt="png"></p>
-<p>yolo使用一个卷积神经网络同时预测多个检测目标。它首先把图像resize到$448 \times 448$，图像通过卷积网络后生成bbox坐标和分类，然后用NMS进行筛选。<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/12/17/yolo/yolo/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/yolo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1049,7 +1067,7 @@
                 
               
 
-              <time title="Created: 17-12-2019 11:13:10" itemprop="dateCreated datePublished" datetime="2019-12-17T11:13:10+01:00">17-12-2019</time>
+              <time title="Created: 17-12-2019 11:13:10" itemprop="dateCreated datePublished" datetime="2019-12-17T11:13:10+08:00">17-12-2019</time>
             </span>
           
             
@@ -1062,7 +1080,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 18-12-2019 12:29:58" itemprop="dateModified" datetime="2019-12-18T12:29:58+01:00">18-12-2019</time>
+                <time title="Modified: 18-12-2019 19:29:58" itemprop="dateModified" datetime="2019-12-18T19:29:58+08:00">18-12-2019</time>
               </span>
             
           
@@ -1162,6 +1180,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/yolo/yolo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/12/17/yolo/yolo/" class="post-title-link" itemprop="url">目标检测：YOLO</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 17-12-2019 11:13:10" itemprop="dateCreated datePublished" datetime="2019-12-17T11:13:10+08:00">17-12-2019</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 18-12-2019 19:29:58" itemprop="dateModified" datetime="2019-12-18T19:29:58+08:00">18-12-2019</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/12/17/yolo/yolo/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/17/yolo/yolo/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="目标检测：YOLO"><a href="#目标检测：YOLO" class="headerlink" title="目标检测：YOLO"></a>目标检测：YOLO</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>对yolo的印象就是快，yolo把整个目标检测（分类和定位）当作一个回归问题，直接从图像像素输出bbox坐标和类别，如下图:</p>
+<p><img src="yolo1_detection_system.png" alt="png"></p>
+<p>yolo使用一个卷积神经网络同时预测多个检测目标。它首先把图像resize到$448 \times 448$，图像通过卷积网络后生成bbox坐标和分类，然后用NMS进行筛选。<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/12/17/yolo/yolo/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/SSD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1198,7 +1365,7 @@
                 
               
 
-              <time title="Created: 16-12-2019 16:44:39" itemprop="dateCreated datePublished" datetime="2019-12-16T16:44:39+01:00">16-12-2019</time>
+              <time title="Created: 16-12-2019 16:44:39" itemprop="dateCreated datePublished" datetime="2019-12-16T16:44:39+08:00">16-12-2019</time>
             </span>
           
             
@@ -1211,7 +1378,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 17-12-2019 10:28:14" itemprop="dateModified" datetime="2019-12-17T10:28:14+01:00">17-12-2019</time>
+                <time title="Modified: 17-12-2019 17:28:14" itemprop="dateModified" datetime="2019-12-17T17:28:14+08:00">17-12-2019</time>
               </span>
             
           
@@ -1342,7 +1509,7 @@
                 
               
 
-              <time title="Created: 12-12-2019 11:53:34" itemprop="dateCreated datePublished" datetime="2019-12-12T11:53:34+01:00">12-12-2019</time>
+              <time title="Created: 12-12-2019 11:53:34" itemprop="dateCreated datePublished" datetime="2019-12-12T11:53:34+08:00">12-12-2019</time>
             </span>
           
             
@@ -1355,7 +1522,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 23-02-2020 11:41:09" itemprop="dateModified" datetime="2020-02-23T11:41:09+01:00">23-02-2020</time>
+                <time title="Modified: 23-02-2020 18:41:09" itemprop="dateModified" datetime="2020-02-23T18:41:09+08:00">23-02-2020</time>
               </span>
             
           
@@ -1449,158 +1616,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/11/Fast-RCNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/12/11/Fast-RCNN/" class="post-title-link" itemprop="url">目标检测：Fast-RCNN</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 11-12-2019 19:13:08" itemprop="dateCreated datePublished" datetime="2019-12-11T19:13:08+01:00">11-12-2019</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 17-12-2019 10:28:52" itemprop="dateModified" datetime="2019-12-17T10:28:52+01:00">17-12-2019</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2019/12/11/Fast-RCNN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/11/Fast-RCNN/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Fast-RCNN"><a href="#Fast-RCNN" class="headerlink" title="Fast-RCNN"></a>Fast-RCNN</h1><h2 id="回顾RCNN"><a href="#回顾RCNN" class="headerlink" title="回顾RCNN"></a>回顾RCNN</h2><p>RCNN网络的不足：</p>
-<ol>
-<li>在RCNN网络的训练和测试都很慢，因为每一张图片都需要先经过selective search去选择约2k个候选框（而且这些候选框很多都是重叠的），然后再对候选框通过CNN网络进行特征提取，这个过程是很冗余的，因为相当于我们对很多重复的区域进行了特征提取。</li>
-<li>其次我们在训练的时候步骤非常繁琐。不仅仅是CNN的特征提取，还有SVM的分类器（20个），Bounding Box的回归器（20个）需要训练。同时在训练分类器和回归器的是，特征都需要存储在本地，占用大量的存储空间</li>
-</ol>
-<h2 id="Fast-RCNN-1"><a href="#Fast-RCNN-1" class="headerlink" title="Fast-RCNN"></a>Fast-RCNN</h2><p>那么作为RCNN的改进型，Fast-RCNN是如何改进上述的不足呢？先来看看FRCNN网络的结构:<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/12/11/Fast-RCNN/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1641,7 +1656,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1686,7 +1701,9 @@
         
           
         
-        <span class="site-state-item-count">15</span>
+          
+        
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -1733,7 +1750,9 @@
         
           
         
-        <span class="site-state-item-count">16</span>
+          
+        
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

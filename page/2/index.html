@@ -220,6 +220,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/11/Fast-RCNN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/12/11/Fast-RCNN/" class="post-title-link" itemprop="url">目标检测：Fast-RCNN</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 11-12-2019 19:13:08" itemprop="dateCreated datePublished" datetime="2019-12-11T19:13:08+08:00">11-12-2019</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 17-12-2019 17:28:52" itemprop="dateModified" datetime="2019-12-17T17:28:52+08:00">17-12-2019</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/12/11/Fast-RCNN/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/11/Fast-RCNN/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Fast-RCNN"><a href="#Fast-RCNN" class="headerlink" title="Fast-RCNN"></a>Fast-RCNN</h1><h2 id="回顾RCNN"><a href="#回顾RCNN" class="headerlink" title="回顾RCNN"></a>回顾RCNN</h2><p>RCNN网络的不足：</p>
+<ol>
+<li>在RCNN网络的训练和测试都很慢，因为每一张图片都需要先经过selective search去选择约2k个候选框（而且这些候选框很多都是重叠的），然后再对候选框通过CNN网络进行特征提取，这个过程是很冗余的，因为相当于我们对很多重复的区域进行了特征提取。</li>
+<li>其次我们在训练的时候步骤非常繁琐。不仅仅是CNN的特征提取，还有SVM的分类器（20个），Bounding Box的回归器（20个）需要训练。同时在训练分类器和回归器的是，特征都需要存储在本地，占用大量的存储空间</li>
+</ol>
+<h2 id="Fast-RCNN-1"><a href="#Fast-RCNN-1" class="headerlink" title="Fast-RCNN"></a>Fast-RCNN</h2><p>那么作为RCNN的改进型，Fast-RCNN是如何改进上述的不足呢？先来看看FRCNN网络的结构:<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/12/11/Fast-RCNN/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/RCNN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -256,7 +408,7 @@
                 
               
 
-              <time title="Created: 10-12-2019 15:04:44" itemprop="dateCreated datePublished" datetime="2019-12-10T15:04:44+01:00">10-12-2019</time>
+              <time title="Created: 10-12-2019 15:04:44" itemprop="dateCreated datePublished" datetime="2019-12-10T15:04:44+08:00">10-12-2019</time>
             </span>
           
             
@@ -269,7 +421,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 23-02-2020 16:19:31" itemprop="dateModified" datetime="2020-02-23T16:19:31+01:00">23-02-2020</time>
+                <time title="Modified: 23-02-2020 23:19:31" itemprop="dateModified" datetime="2020-02-23T23:19:31+08:00">23-02-2020</time>
               </span>
             
           
@@ -410,7 +562,7 @@
                 
               
 
-              <time title="Created: 10-12-2019 11:55:46 / Modified: 12:57:21" itemprop="dateCreated datePublished" datetime="2019-12-10T11:55:46+01:00">10-12-2019</time>
+              <time title="Created: 10-12-2019 11:55:46 / Modified: 19:57:21" itemprop="dateCreated datePublished" datetime="2019-12-10T11:55:46+08:00">10-12-2019</time>
             </span>
           
             
@@ -535,11 +687,21 @@
                 
               
 
-              <time title="Created: 08-12-2019 18:26:32 / Modified: 19:52:55" itemprop="dateCreated datePublished" datetime="2019-12-08T18:26:32+01:00">08-12-2019</time>
+              <time title="Created: 08-12-2019 18:26:32" itemprop="dateCreated datePublished" datetime="2019-12-08T18:26:32+08:00">08-12-2019</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 09-12-2019 02:52:55" itemprop="dateModified" datetime="2019-12-09T02:52:55+08:00">09-12-2019</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -658,7 +820,7 @@
                 
               
 
-              <time title="Created: 06-12-2019 19:02:17" itemprop="dateCreated datePublished" datetime="2019-12-06T19:02:17+01:00">06-12-2019</time>
+              <time title="Created: 06-12-2019 19:02:17" itemprop="dateCreated datePublished" datetime="2019-12-06T19:02:17+08:00">06-12-2019</time>
             </span>
           
             
@@ -671,7 +833,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 26-02-2020 20:20:06" itemprop="dateModified" datetime="2020-02-26T20:20:06+01:00">26-02-2020</time>
+                <time title="Modified: 27-02-2020 03:20:06" itemprop="dateModified" datetime="2020-02-27T03:20:06+08:00">27-02-2020</time>
               </span>
             
           
@@ -798,7 +960,7 @@
                 
               
 
-              <time title="Created: 06-12-2019 19:02:17" itemprop="dateCreated datePublished" datetime="2019-12-06T19:02:17+01:00">06-12-2019</time>
+              <time title="Created: 06-12-2019 19:02:17" itemprop="dateCreated datePublished" datetime="2019-12-06T19:02:17+08:00">06-12-2019</time>
             </span>
           
             
@@ -811,7 +973,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 14-01-2020 17:24:17" itemprop="dateModified" datetime="2020-01-14T17:24:17+01:00">14-01-2020</time>
+                <time title="Modified: 15-01-2020 00:24:17" itemprop="dateModified" datetime="2020-01-15T00:24:17+08:00">15-01-2020</time>
               </span>
             
           
@@ -938,11 +1100,21 @@
                 
               
 
-              <time title="Created: 03-12-2019 22:12:40 / Modified: 22:13:27" itemprop="dateCreated datePublished" datetime="2019-12-03T22:12:40+01:00">03-12-2019</time>
+              <time title="Created: 03-12-2019 22:12:40" itemprop="dateCreated datePublished" datetime="2019-12-03T22:12:40+08:00">03-12-2019</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 04-12-2019 05:13:27" itemprop="dateModified" datetime="2019-12-04T05:13:27+08:00">04-12-2019</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1065,11 +1237,21 @@ D(k)=\left(w_{k 1}, w_{k 2}, \ldots w_{k m}\right) ; \quad w_{1 i}=\frac{1}{m} ;
                 
               
 
-              <time title="Created: 03-12-2019 21:36:12 / Modified: 21:50:09" itemprop="dateCreated datePublished" datetime="2019-12-03T21:36:12+01:00">03-12-2019</time>
+              <time title="Created: 03-12-2019 21:36:12" itemprop="dateCreated datePublished" datetime="2019-12-03T21:36:12+08:00">03-12-2019</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 04-12-2019 04:50:09" itemprop="dateModified" datetime="2019-12-04T04:50:09+08:00">04-12-2019</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1188,11 +1370,21 @@ D(k)=\left(w_{k 1}, w_{k 2}, \ldots w_{k m}\right) ; \quad w_{1 i}=\frac{1}{m} ;
                 
               
 
-              <time title="Created: 28-11-2019 17:56:12 / Modified: 18:00:46" itemprop="dateCreated datePublished" datetime="2019-11-28T17:56:12+01:00">28-11-2019</time>
+              <time title="Created: 28-11-2019 17:56:12" itemprop="dateCreated datePublished" datetime="2019-11-28T17:56:12+08:00">28-11-2019</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 29-11-2019 01:00:46" itemprop="dateModified" datetime="2019-11-29T01:00:46+08:00">29-11-2019</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1312,11 +1504,21 @@ D(k)=\left(w_{k 1}, w_{k 2}, \ldots w_{k m}\right) ; \quad w_{1 i}=\frac{1}{m} ;
                 
               
 
-              <time title="Created: 28-11-2019 17:05:30 / Modified: 18:00:49" itemprop="dateCreated datePublished" datetime="2019-11-28T17:05:30+01:00">28-11-2019</time>
+              <time title="Created: 28-11-2019 17:05:30" itemprop="dateCreated datePublished" datetime="2019-11-28T17:05:30+08:00">28-11-2019</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 29-11-2019 01:00:49" itemprop="dateModified" datetime="2019-11-29T01:00:49+08:00">29-11-2019</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1399,139 +1601,6 @@ l(\theta)=p(D | \theta)=p\left(x_{1}, x_{2}, \cdots, x_{N} | \theta\right)=\prod
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/字母识别/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/27/字母识别/" class="post-title-link" itemprop="url">字母识别</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 27-11-2019 20:20:57" itemprop="dateCreated datePublished" datetime="2019-11-27T20:20:57+01:00">27-11-2019</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 28-11-2019 16:21:55" itemprop="dateModified" datetime="2019-11-28T16:21:55+01:00">28-11-2019</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2019/11/27/字母识别/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/27/字母识别/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Gesture-recognition-by-Deep-Neural-Network"><a href="#Gesture-recognition-by-Deep-Neural-Network" class="headerlink" title="Gesture recognition by Deep Neural Network"></a>Gesture recognition by Deep Neural Network</h1><h2 id="Previously-on-Camshift"><a href="#Previously-on-Camshift" class="headerlink" title="Previously on Camshift"></a>Previously on Camshift</h2><p>In the last TP, we used the camshift algorithme to track the hand and take picture of it. Then we resize the picture to 16X16 matrix and store it as the data set to train our neural network.<br>I spend an hour to capture the gesture of my hand and I only got like 1500 pictures. So in order to have more data to train the network. I randomly select 1000 pictures I have and rotate each of them with a random angle and add them into the data.(The code for selecting and rotating them is <a href="https://github.com/wangzeyao/ComputerVision/blob/master/TP2/img_process.py" target="_blank" rel="noopener">here</a>). So now I have a data set with 2500 pictures.<br><img src="https://lh3.googleusercontent.com/6nrSCWnXf75wqYINjmOW35lKdmufyrk-GmxiSHLdex9ZjCvHKF6_qfRer5DcR2GRQJuv2JzzBUVd" alt="The data set we have" title="The data set"><br>We have four letters to predict C,V,I and O<br>We will use two kinds of Network, MLP and CNN<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/11/27/字母识别/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1572,7 +1641,7 @@ l(\theta)=p(D | \theta)=p\left(x_{1}, x_{2}, \cdots, x_{N} | \theta\right)=\prod
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1617,7 +1686,9 @@ l(\theta)=p(D | \theta)=p\left(x_{1}, x_{2}, \cdots, x_{N} | \theta\right)=\prod
         
           
         
-        <span class="site-state-item-count">15</span>
+          
+        
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -1664,7 +1735,9 @@ l(\theta)=p(D | \theta)=p\left(x_{1}, x_{2}, \cdots, x_{N} | \theta\right)=\prod
         
           
         
-        <span class="site-state-item-count">16</span>
+          
+        
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
