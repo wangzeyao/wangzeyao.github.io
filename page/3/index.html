@@ -220,160 +220,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/RCNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/12/10/RCNN/" class="post-title-link" itemprop="url">目标检测：R-CNN</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 10-12-2019 15:04:44" itemprop="dateCreated datePublished" datetime="2019-12-10T15:04:44+08:00">10-12-2019</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 23-02-2020 23:19:32" itemprop="dateModified" datetime="2020-02-23T23:19:32+08:00">23-02-2020</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2019/12/10/RCNN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/10/RCNN/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="目标检测：R-CNN"><a href="#目标检测：R-CNN" class="headerlink" title="目标检测：R-CNN"></a>目标检测：R-CNN</h1><p>最近实习的时候接触了目标检测类的任务，在使用这些算法的同时了解一下算法整体的流程和内容。作为RCNN算法系列的开山鼻祖，采用了CNN网络用于图像特征的提取，而不是之前的人工设定的特征提取。但是RCNN应该有很多细节都被后面的算法改进了（产生了一系列RCNN的算法）。所以这里只对算法的流程做一个大概的理解。</p>
-<h2 id="RCNN的基本流程"><a href="#RCNN的基本流程" class="headerlink" title="RCNN的基本流程"></a>RCNN的基本流程</h2><p>RCNN算法有4个步骤：</p>
-<ol>
-<li>候选区域生成： 一张图像生成约2K个候选区域 （Selective Search 方法）</li>
-<li>特征提取： 对每个候选区域，使用深度卷积网络提取特征</li>
-<li>类别判断： 特征送入每一类的SVM 分类器，判别是否属于该类</li>
-<li>位置精修： 使用回归器精细修正候选框位置</li>
-</ol>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/12/10/RCNN/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/光流法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1582,6 +1428,139 @@ l(\theta)=p(D | \theta)=p\left(x_{1}, x_{2}, \cdots, x_{N} | \theta\right)=\prod
   </article>
 
     
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/直方图均衡化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/26/直方图均衡化/" class="post-title-link" itemprop="url">直方图均衡化</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 26-11-2019 13:30:44" itemprop="dateCreated datePublished" datetime="2019-11-26T13:30:44+08:00">26-11-2019</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 28-11-2019 23:20:04" itemprop="dateModified" datetime="2019-11-28T23:20:04+08:00">28-11-2019</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/11/26/直方图均衡化/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/直方图均衡化/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="直方图和直方图均衡化-Histogram-Equalization"><a href="#直方图和直方图均衡化-Histogram-Equalization" class="headerlink" title="直方图和直方图均衡化(Histogram Equalization)"></a>直方图和直方图均衡化(Histogram Equalization)</h1><h3 id="图像直方-Image-Histiograms"><a href="#图像直方-Image-Histiograms" class="headerlink" title="图像直方(Image Histiograms)"></a>图像直方(Image Histiograms)</h3><p>灰度直方图是对每一阶灰度的像素数量进行计数。<br>像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/11/26/直方图均衡化/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
   </section>
 
   
@@ -1622,7 +1601,7 @@ l(\theta)=p(D | \theta)=p\left(x_{1}, x_{2}, \cdots, x_{N} | \theta\right)=\prod
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1669,9 +1648,7 @@ l(\theta)=p(D | \theta)=p\left(x_{1}, x_{2}, \cdots, x_{N} | \theta\right)=\prod
         
           
         
-          
-        
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -1718,9 +1695,7 @@ l(\theta)=p(D | \theta)=p\left(x_{1}, x_{2}, \cdots, x_{N} | \theta\right)=\prod
         
           
         
-          
-        
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
