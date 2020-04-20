@@ -57,14 +57,22 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Classiczy">
-<meta property="og:url" content="http://yoursite.com/categories/计算机视觉/目标检测/深度学习/index.html">
+  <meta name="description" content="OpenCV 反向投影1.什么是反向投影在OpenCV的中文文档上反向投影的描述是这样的：  反向投影是一种记录给定图像中的像素点如何适应直方图模型的像素分布的方式。 简单的讲， 所谓反向投影就是首先计算某一特征的直方图模型，然后使用模型去寻找图像中存在的该特征。 例如， 你有一个肤色直方图 ( Hue-Saturation 直方图 )，你可以用它来寻找图像中的肤色区域  2.反向投影的步骤从上面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反向投影">
+<meta property="og:url" content="http://yoursite.com/2019/11/26/反向投影/index.html">
 <meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="OpenCV 反向投影1.什么是反向投影在OpenCV的中文文档上反向投影的描述是这样的：  反向投影是一种记录给定图像中的像素点如何适应直方图模型的像素分布的方式。 简单的讲， 所谓反向投影就是首先计算某一特征的直方图模型，然后使用模型去寻找图像中存在的该特征。 例如， 你有一个肤色直方图 ( Hue-Saturation 直方图 )，你可以用它来寻找图像中的肤色区域  2.反向投影的步骤从上面">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://www.opencv.org.cn/opencvdoc/2.3.2/html/_images/Back_Projection_Theory2.jpg">
+<meta property="og:image" content="https://lh3.googleusercontent.com/xAHIT6xQ9_tc7u6mIu7xLMpR728XMovxd8fY_rXGHX0manqe4ik3WhrDD1wzGuW1qohc_u6kVoTI">
+<meta property="og:image" content="https://lh3.googleusercontent.com/rreQyyOxZB1Px3dq6Cue18ZtJQQxUAFiI4V43HEjlDs_mImxDa7Pvv-p2vazB29rTH3it-3qZCG2">
+<meta property="og:updated_time" content="2020-04-20T14:09:05.356Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Classiczy">
-  <link rel="canonical" href="http://yoursite.com/categories/计算机视觉/目标检测/深度学习/">
+<meta name="twitter:title" content="反向投影">
+<meta name="twitter:description" content="OpenCV 反向投影1.什么是反向投影在OpenCV的中文文档上反向投影的描述是这样的：  反向投影是一种记录给定图像中的像素点如何适应直方图模型的像素分布的方式。 简单的讲， 所谓反向投影就是首先计算某一特征的直方图模型，然后使用模型去寻找图像中存在的该特征。 例如， 你有一个肤色直方图 ( Hue-Saturation 直方图 )，你可以用它来寻找图像中的肤色区域  2.反向投影的步骤从上面">
+<meta name="twitter:image" content="http://www.opencv.org.cn/opencvdoc/2.3.2/html/_images/Back_Projection_Theory2.jpg">
+  <link rel="canonical" href="http://yoursite.com/2019/11/26/反向投影/">
 
 
 <script id="page.configurations">
@@ -73,7 +81,7 @@
   };
 </script>
 
-  <title>Category: 深度学习 | Classiczy</title>
+  <title>反向投影 | Classiczy</title>
   
 
 
@@ -112,7 +120,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -178,7 +186,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
       
     
 
@@ -210,107 +218,170 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>深度学习<small>Category</small>
-        </h1>
-      </div>
-        
+  <div id="posts" class="posts-expand">
+    
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/反向投影/">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/12/17/yolo/" itemprop="url">
-            
-              <span itemprop="name">目标检测：YOLO</span>
-            
-          </a>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">反向投影
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-17T11:13:10+08:00"
-              content="17-12-2019">
-          12-17
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
 
+              
+                
+              
+
+              <time title="Created: 26-11-2019 11:06:18" itemprop="dateCreated datePublished" datetime="2019-11-26T11:06:18+08:00">26-11-2019</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 20-04-2020 22:09:05" itemprop="dateModified" datetime="2020-04-20T22:09:05+08:00">20-04-2020</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/11/26/反向投影/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/反向投影/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="OpenCV-反向投影"><a href="#OpenCV-反向投影" class="headerlink" title="OpenCV 反向投影"></a>OpenCV 反向投影</h1><h2 id="1-什么是反向投影"><a href="#1-什么是反向投影" class="headerlink" title="1.什么是反向投影"></a>1.什么是反向投影</h2><p>在OpenCV的中文文档上反向投影的描述是这样的：</p>
+<ul>
+<li>反向投影是一种记录给定图像中的<strong>像素点如何适应直方图模型</strong>的像素分布的方式。</li>
+<li>简单的讲， 所谓反向投影就是首先计算某一特征的直方图模型，然后使用模型去寻找图像中存在的该特征。</li>
+<li>例如， 你有一个肤色直方图 ( Hue-Saturation 直方图 )，你可以用它来寻找图像中的肤色区域</li>
+</ul>
+<h2 id="2-反向投影的步骤"><a href="#2-反向投影的步骤" class="headerlink" title="2.反向投影的步骤"></a>2.反向投影的步骤</h2><p>从上面文档的描述中可以看到，反向投影的步骤三步：<br>1.获取目标图像区域的直方图模型<br>2.将新图像中的每一个像素点与直方图进行比较，获得该像素点的颜色在直方图中的概率。<br>3.将结果储存到新的图像中<br><a id="more"></a><br>我们用一个灰度图的例子来解释：<br>0|1|2 |3<br>4|5|6|7<br>8|9|10|11<br>8|9|14|16</p>
+<p>对图像进行直方图统计（bin指定的区间为[0,3)，[4,7)，[8,11)，[12,16)）如下所示：<br>Histogram=<br>4 4 6 2<br>也就是说在[0,3)这个区间的像素值有4个，其它含义相同<br>根据上述的直方图进行反向投影，得到反向投影图像像素值如下：<br>Back_Projection=</p>
+<p>4 4 4 4<br>4 4 4 4<br>6 6 6 6<br>6 6 2 2 </p>
+<p>过程可以描述为：<br>目标图像—&gt;直方图—&gt;反向投影图像<br>比如我们选取一张手的图像为目标图像</p>
+<p><img src="http://www.opencv.org.cn/opencvdoc/2.3.2/html/_images/Back_Projection_Theory2.jpg" alt="enter image description here"></p>
+<p>根据这个图像我们得到了直方图如下</p>
+<p><img src="https://lh3.googleusercontent.com/xAHIT6xQ9_tc7u6mIu7xLMpR728XMovxd8fY_rXGHX0manqe4ik3WhrDD1wzGuW1qohc_u6kVoTI" alt="enter image description here"></p>
+<p>然后判断图像中每个像素点，生成反向投影图像：</p>
+<p><img src="https://lh3.googleusercontent.com/rreQyyOxZB1Px3dq6Cue18ZtJQQxUAFiI4V43HEjlDs_mImxDa7Pvv-p2vazB29rTH3it-3qZCG2" alt="enter image description here"></p>
+<p>使用统计学的语言, _BackProjection_ 中储存的数值代表了测试图像中该像素属于皮肤区域的 <strong>概率</strong> 。比如以上图为例， 亮起的区域是皮肤区域的概率更大(事实确实如此),而更暗的区域则表示更低的概率</p>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/12/17/yolo/yolo/" itemprop="url">
-            
-              <span itemprop="name">目标检测：YOLO</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-17T11:13:10+08:00"
-              content="17-12-2019">
-          12-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
     </div>
 
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/10/15/collection学习/" rel="next" title="Python collecitons学习">
+                <i class="fa fa-chevron-left"></i> Python collecitons学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/11/26/直方图均衡化/" rel="prev" title="直方图均衡化">
+                直方图均衡化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+    
+    <div class="comments" id="comments"></div>
+  
+
 
         </div>
           
@@ -325,8 +396,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -496,6 +576,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenCV-反向投影"><span class="nav-number">1.</span> <span class="nav-text">OpenCV 反向投影</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是反向投影"><span class="nav-number">1.1.</span> <span class="nav-text">1.什么是反向投影</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-反向投影的步骤"><span class="nav-number">1.2.</span> <span class="nav-text">2.反向投影的步骤</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -553,6 +650,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.3.0"></script>
 
