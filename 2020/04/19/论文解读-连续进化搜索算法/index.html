@@ -59,22 +59,22 @@
 
   <meta name="description" content="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS前言华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可">
 <meta name="keywords" content="论文解读">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="论文解读-连续进化搜索算法">
-<meta property="og:url" content="http://yoursite.com/论文解读-连续进化搜索算法.html">
+<meta property="og:url" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/index.html">
 <meta property="og:site_name" content="Classiczy">
 <meta property="og:description" content="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS前言华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://yoursite.com/1.png">
-<meta property="og:image" content="http://yoursite.com/小模型陷阱.png">
-<meta property="og:image" content="http://yoursite.com/验证.png">
-<meta property="og:image" content="http://yoursite.com/验证2.png">
-<meta property="og:updated_time" content="2020-04-20T13:41:08.136Z">
+<meta property="og:image" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/1.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/小模型陷阱.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/验证.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/验证2.png">
+<meta property="og:updated_time" content="2020-04-08T15:12:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="论文解读-连续进化搜索算法">
 <meta name="twitter:description" content="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS前言华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可">
-<meta name="twitter:image" content="http://yoursite.com/1.png">
-  <link rel="canonical" href="http://yoursite.com/论文解读-连续进化搜索算法">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/1.png">
+  <link rel="canonical" href="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/">
 
 
 <script id="page.configurations">
@@ -220,54 +220,121 @@
         <div class="content-wrap">
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
-    
-    
-    <div class="post-block page">
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">论文解读-连续进化搜索算法
-
-</h1>
-
-<div class="post-meta">
-  
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
-          <h1 id="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"><a href="#自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS" class="headerlink" title="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"></a>自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可以利用上一轮进化的参数或者结构来构造超网来实现参数共享，再从超网中生成子网，并对其进行排序，从而选择优异的网络。这种算法整体耗时仅仅需要0.4 GPU day，优化了进化算法在神经网络结构搜索时候选网络训练时间过长的问题。<br><a id="more"></a></p>
+          <h1 class="post-title" itemprop="name headline">论文解读-连续进化搜索算法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 19-04-2020 23:32:32 23:32:32" itemprop="dateCreated datePublished" datetime="2020-04-19T23:32:32+08:00">19-04-2020 23:32:32</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 08-04-2020 23:12:22 23:12:22" itemprop="dateModified" datetime="2020-04-08T23:12:22+08:00">08-04-2020 23:12:22</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/神经网络结构搜索/" itemprop="url" rel="index"><span itemprop="name">神经网络结构搜索</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2020/04/19/论文解读-连续进化搜索算法/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/19/论文解读-连续进化搜索算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"><a href="#自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS" class="headerlink" title="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"></a>自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可以利用上一轮进化的参数或者结构来构造超网来实现参数共享，再从超网中生成子网，并对其进行排序，从而选择优异的网络。这种算法整体耗时仅仅需要0.4 GPU day，优化了进化算法在神经网络结构搜索时候选网络训练时间过长的问题。<br><a id="more"></a></p>
 <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>人工神经网络的应用使得计算机视觉任务取得了巨大的进步，但网络的设计却很大程度上依赖于人类的经验，且会耗费大量时间和经历。而神经网络结构搜索（Neural Architecture Search，NAS）可以通过设计不同的搜索算法来自动获得泛化能力强，硬件要求低的网络结构，是目前自动机器学习（AutoML）领域的热点问题之一。目前神经网络结构搜索的搜索策略可以分为三种：</p>
 <ul>
 <li>基于强化学习（Reinforcement Learning，RL）</li>
@@ -302,17 +369,43 @@ dW\approx\frac{1}{B}\sum_{j=1}^{B}\frac{\partial L_{n_j}}{\partial W_{n_j}}</scr
 <h3 id="使用ILSVRC2012验证"><a href="#使用ILSVRC2012验证" class="headerlink" title="使用ILSVRC2012验证"></a>使用ILSVRC2012验证</h3><p>论文实验还将用CIFAR-10搜索的模型迁移到ILSVRC2012，结果表明模型的迁移性也相当不错。<br><img src="验证2.png" alt="png"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>进化算法在神经网络搜索领域有相当不错的表现，但是搜索时间却很长。这篇论文提出的连续进化网络结构搜索算法（continuous evolution architecture search，CARS），最大化利用上一轮进化的结构和参数，很大程度上减少了网络搜索和训练的用时，在CIFAR-10数据集的实验仅仅用时0.4 GPU day的同时，也取得了相当高的准确率和不错的模型大小。最近神经网络结构搜索越来越热门，但是其庞大的资源和时间消耗却限制了很高的门槛，CNRS的方法或许可以让更多的人能体验到自动机器学习的魅力。</p>
 
-        
-      </div>
-      
-      
-      
     </div>
-    
 
     
     
     
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/论文解读/" rel="tag"># 论文解读</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/04/19/色彩空间/" rel="next" title="色彩空间">
+                <i class="fa fa-chevron-left"></i> 色彩空间
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2020/04/20/云笔记体验/" rel="prev" title="云笔记体验">
+                云笔记体验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
   </div>
 
 
@@ -361,7 +454,7 @@ dW\approx\frac{1}{B}\sum_{j=1}^{B}\frac{\partial L_{n_j}}{\partial W_{n_j}}</scr
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -408,7 +501,9 @@ dW\approx\frac{1}{B}\sum_{j=1}^{B}\frac{\partial L_{n_j}}{\partial W_{n_j}}</scr
         
           
         
-        <span class="site-state-item-count">16</span>
+          
+        
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -457,7 +552,9 @@ dW\approx\frac{1}{B}\sum_{j=1}^{B}\frac{\partial L_{n_j}}{\partial W_{n_j}}</scr
         
           
         
-        <span class="site-state-item-count">17</span>
+          
+        
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
