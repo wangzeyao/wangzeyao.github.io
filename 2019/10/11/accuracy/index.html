@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线混淆矩阵以二元分类为例子，我们用一个 $2 \times 2$ 的矩阵来表示模型的分类效果，这个矩阵叫做混淆矩阵。  我们一共有477个样本，其中有18个实际有肿瘤的样本被正确预测，我们称之为 True Positve， 而有一个实际为肿瘤的样本被误判为没有肿瘤，则称之为 True Ne">
+<meta name="keywords" content="机器学习,分类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线">
+<meta property="og:url" content="http://yoursite.com/2019/10/11/accuracy/index.html">
+<meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线混淆矩阵以二元分类为例子，我们用一个 $2 \times 2$ 的矩阵来表示模型的分类效果，这个矩阵叫做混淆矩阵。  我们一共有477个样本，其中有18个实际有肿瘤的样本被正确预测，我们称之为 True Positve， 而有一个实际为肿瘤的样本被误判为没有肿瘤，则称之为 True Ne">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/10/11/accuracy/混淆矩阵.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/11/accuracy/混淆矩阵2.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/11/accuracy/垃圾邮件.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/11/accuracy/垃圾邮件2.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/11/accuracy/ROC.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/11/accuracy/AUC.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/11/accuracy/AUC2.png">
+<meta property="og:updated_time" content="2019-10-14T18:19:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线">
+<meta name="twitter:description" content="准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线混淆矩阵以二元分类为例子，我们用一个 $2 \times 2$ 的矩阵来表示模型的分类效果，这个矩阵叫做混淆矩阵。  我们一共有477个样本，其中有18个实际有肿瘤的样本被正确预测，我们称之为 True Positve， 而有一个实际为肿瘤的样本被误判为没有肿瘤，则称之为 True Ne">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/11/accuracy/混淆矩阵.png">
+  <link rel="canonical" href="http://yoursite.com/2019/10/11/accuracy/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线 | Classiczy</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Classiczy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/11/accuracy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 11-10-2019 10:32:57 10:32:57" itemprop="dateCreated datePublished" datetime="2019-10-11T10:32:57+08:00">11-10-2019 10:32:57</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 15-10-2019 02:19:06 02:19:06" itemprop="dateModified" datetime="2019-10-15T02:19:06+08:00">15-10-2019 02:19:06</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/10/11/accuracy/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/11/accuracy/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="准确率-Accuracy-精确率-Precision-召回率-Recall-F-Measure-ROC曲线"><a href="#准确率-Accuracy-精确率-Precision-召回率-Recall-F-Measure-ROC曲线" class="headerlink" title="准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线"></a>准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><p>以二元分类为例子，我们用一个 $2 \times 2$ 的矩阵来表示模型的分类效果，这个矩阵叫做混淆矩阵。</p>
+<p><img src="混淆矩阵.png" alt="png"></p>
+<p>我们一共有477个样本，其中有18个实际有肿瘤的样本被正确预测，我们称之为 <strong>True Positve</strong>， 而有一个实际为肿瘤的样本被误判为没有肿瘤，则称之为 <strong>True Negative</strong><br><a id="more"></a><br>同样，对于实际没用肿瘤的样本，我们可以把其分为<strong>False Positive</strong> 和<strong>False Negative</strong></p>
+<p>在了解了混淆矩阵后，我们就可以使用其中的元素来对准确率，召回率等进行定义。</p>
+<h2 id="准确率-Accuracy"><a href="#准确率-Accuracy" class="headerlink" title="准确率(Accuracy)"></a>准确率(Accuracy)</h2><p>准确率指模型预测结果正确所占的比例，根据混淆矩阵，准确率写成以下形式：</p>
+<script type="math/tex; mode=display">
+\text { Accuracy }=\frac{T P+T N}{T P+T N+F P+F N}</script><p>假设我们有一个新的混淆矩阵：</p>
+<p><img src="混淆矩阵2.png" alt="png"></p>
+<script type="math/tex; mode=display">
+\text { Accuracy }=\frac{T P+T N}{T P+T N+F P+F N}=\frac{1+90}{1+90+1+8}=0.91</script><p>准确率为91%<br>看起来这个肿瘤分类器的准确率还不错？但是仔细分析我们的分类结果就能发现，我们一共有100个肿瘤样本，其中91个为良性，9个为恶性。再91个良性样本中，有90个被正确识别为良性。但是在9个恶性样本中，仅仅有一个被正确识别为恶性。</p>
+<p>所以，当我们使用不平衡的(unbalanced)数据集使，准确率并不能很好的衡量一个分类器的性能。以上面的肿瘤为例，如果分类器将不加区别的将所有样本标记为肿瘤，它依然能获得91%的准确率，而这样的分类器对我们是没有任何帮助的。</p>
+<h2 id="精确率-Precision"><a href="#精确率-Precision" class="headerlink" title="精确率(Precision)"></a>精确率(Precision)</h2><p>根据混淆矩阵，精确率的定义如下：</p>
+<script type="math/tex; mode=display">
+\text { Precision }=\frac{T P}{T P+F P}</script><p>其意义为在所有<strong>被预测为正样本</strong>的元素中，确实为正样本的比例为多少。 所以精确率是一项专注于正样本的指标。 当然正样本的可以由我们自己定义。</p>
+<p>使用上面的混淆矩阵进行计算：</p>
+<script type="math/tex; mode=display">
+\text { Precision }=\frac{1}{1+1} = 0.5</script><p>也就是说这个分类器预测恶性肿瘤的正确率为50%</p>
+<h2 id="召回率-Recall"><a href="#召回率-Recall" class="headerlink" title="召回率(Recall)"></a>召回率(Recall)</h2><p>根据混淆矩阵，召回率的定义如下：</p>
+<script type="math/tex; mode=display">
+Recall=\frac{T P}{T P+F N}</script><p>召回率的意义是，在<strong>所有正样本</strong>中，被正确识别的概率是多少。注意召回率和精确率的差别，精确率考虑的是被分类器预测为正样本的元素，而召回率考虑的是实际上为正样本的元素。</p>
+<script type="math/tex; mode=display">
+Recall=\frac{T P}{T P+F N}=\frac{1}{1+8}=0.11</script><p>也就是说，该分类器能够正确识别出所有恶性肿瘤的概率是11%</p>
+<h2 id="A-trade-off-between-Precision-and-Recall"><a href="#A-trade-off-between-Precision-and-Recall" class="headerlink" title="A trade-off between Precision and Recall"></a>A trade-off between Precision and Recall</h2><p>为了衡量一个模型，我们需要考虑精确率和召回率两者。但精确率和召回率往往是属于此消彼长的情况。我们用一个垃圾邮件分类的例子来解释这一情况。</p>
+<p><img src="垃圾邮件.png" alt="png"></p>
+<p>分类阈值的右边为垃圾邮件(正样本)，左边为非垃圾邮件(负样本)。</p>
+<p>我们来计算该模型的精确率和召回率：</p>
+<script type="math/tex; mode=display">
+\text { Precision }=\frac{T P}{T P+F P}=\frac{8}{8+2}=0.8</script><script type="math/tex; mode=display">
+\text { Recall }=\frac{T P}{T P+F N}=\frac{8}{8+3}=0.73</script><p>如果我们尝试提高分类阈值，可以预测到的是，这将提高模型的准确率。</p>
+<p><img src="垃圾邮件2.png" alt="png"><br>但事实上，虽然假正例的数量会减少，但是假负例的数量也会相应的增加。</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}{\text { Precision }=\frac{T P}{T P+F P}=\frac{7}{7+1}=0.88} \\ {\text { Recall }=\frac{T P}{T P+F N}=\frac{7}{7+4}=0.64}\end{array}</script><h2 id="综合评价指标-F-Score"><a href="#综合评价指标-F-Score" class="headerlink" title="综合评价指标 F-Score"></a>综合评价指标 F-Score</h2><p>为了能综合考虑 Precision 和 Recall 两个指标，我们使用他们两个的加权调和平均也就是F Score作为评价指标。F值的定义如下：</p>
+<script type="math/tex; mode=display">
+F_{\beta}=\left(1+\beta^{2}\right) \cdot \frac{\text { precision } \cdot \text { recall }}{\left(\beta^{2} \cdot \text { precision }\right)+\text { recall }}</script><p>其中 P 和 R 分别代表 Precision 和 Recall。 当 $\beta = 1$ 的时候，就是最常见的F1，也就是：</p>
+<script type="math/tex; mode=display">
+\mathrm{F} 1=\frac{2 * P * R}{P+R}</script><p>F值综合了召回率和精确率，当F值较高的时候可以说明模型比较有效。</p>
+<h2 id="ROC曲线"><a href="#ROC曲线" class="headerlink" title="ROC曲线"></a>ROC曲线</h2><p>ROC曲线(receiver operating characteristic curve)也是一种用来显示模型分类效果的图表，不同的是它可以显示在所有分类阈值下的效果。<br>该曲线的绘制:</p>
+<ul>
+<li>$y$ 轴为<strong>真正例率</strong>, $T P R=\frac{T P}{T P+F N}$ 即召回率(实际正样本中被正确分类的概率)</li>
+<li>$x$ 轴为<strong>假正例率</strong>, $F P R=\frac{F P}{F P+T N}$ 即实际负样本中被错误分类的概率<br><img src="ROC.png" alt="png"></li>
+</ul>
+<p>我们可以使用不同的分类阈值多次评估逻辑回归模型，但这样做效率非常低。幸运的是，有一种基于排序的高效算法可以为我们提供此类信息，这种算法称为曲线下面积。</p>
+<h3 id="ROC-曲线下面积-AUC"><a href="#ROC-曲线下面积-AUC" class="headerlink" title="ROC 曲线下面积:AUC"></a>ROC 曲线下面积:AUC</h3><p><strong>AUC</strong>表示“ROC 曲线下面积”。也就是说，曲线下面积测量的是从 (0,0) 到 (1,1) 之间整个 ROC 曲线以下的整个二维面积.</p>
+<p>曲线下面积对所有可能的分类阈值的效果进行综合衡量。曲线下面积的一种解读方式是看作模型将某个随机正类别样本排列在某个随机负类别样本之上的概率。以下面的样本为例，逻辑回归预测从左到右以升序排列：</p>
+<p><img src="AUC.png" alt="png"></p>
+<p>曲线下面积表示随机正类别（绿色）样本位于随机负类别（红色）样本右侧的概率。</p>
+<p>曲线下面积的取值范围为 0-1。预测结果 100% 错误的模型的曲线下面积为 0.0；而预测结果 100% 正确的模型的曲线下面积为 1.0。</p>
+<p>曲线下面积因以下两个原因而比较实用：</p>
+<ul>
+<li>曲线下面积的尺度不变。它测量预测的排名情况，而不是测量其绝对值。</li>
+<li>曲线下面积的分类阈值不变。它测量模型预测的质量，而不考虑所选的分类阈值。</li>
+</ul>
+<p><img src="AUC2.png" alt="png"></p>
+<ol>
+<li>曲线与FP_rate轴围成的面积（记作AUC）越大，说明性能越好，即图上L2曲线对应的性能优于曲线L1对应的性能。即：曲线越靠近A点（左上方）性能越好，曲线越靠近B点（右下方）曲线性能越差。</li>
+<li>A点是最完美的performance点，B处是性能最差点。</li>
+<li>位于C-D线上的点说明算法性能和random猜测是一样的–如C、D、E点。位于C-D之上（即曲线位于白色的三角形内）说明算法性能优于随机猜测–如G点，位于C-D之下（即曲线位于灰色的三角形内）说明算法性能差于随机猜测–如F点。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/分类/" rel="tag"># 分类</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2019/09/30/色彩空间/" rel="next" title="色彩空间">
+                <i class="fa fa-chevron-left"></i> 色彩空间
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/10/15/numpy学习/" rel="prev" title="numpy学习">
+                numpy学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Classiczy">
+  <p class="site-author-name" itemprop="name">Classiczy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">categories</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/wangzeyao" title="GitHub &rarr; https://github.com/wangzeyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zeyao.wang@outlook.com" title="E-Mail &rarr; mailto:zeyao.wang@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.instagram.com/classicwzy/" title="Instagram &rarr; https://www.instagram.com/classicwzy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://space.bilibili.com/259378363/" title="Bilibili &rarr; https://space.bilibili.com/259378363/" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>Bilibili</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准确率-Accuracy-精确率-Precision-召回率-Recall-F-Measure-ROC曲线"><span class="nav-number">1.</span> <span class="nav-text">准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#混淆矩阵"><span class="nav-number">1.1.</span> <span class="nav-text">混淆矩阵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准确率-Accuracy"><span class="nav-number">1.2.</span> <span class="nav-text">准确率(Accuracy)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#精确率-Precision"><span class="nav-number">1.3.</span> <span class="nav-text">精确率(Precision)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#召回率-Recall"><span class="nav-number">1.4.</span> <span class="nav-text">召回率(Recall)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-trade-off-between-Precision-and-Recall"><span class="nav-number">1.5.</span> <span class="nav-text">A trade-off between Precision and Recall</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综合评价指标-F-Score"><span class="nav-number">1.6.</span> <span class="nav-text">综合评价指标 F-Score</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROC曲线"><span class="nav-number">1.7.</span> <span class="nav-text">ROC曲线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ROC-曲线下面积-AUC"><span class="nav-number">1.7.1.</span> <span class="nav-text">ROC 曲线下面积:AUC</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Classiczy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'fQrw7GPV8alSagiWukM9OIkd-MdYXbMMI',
+    appKey: 'F8sp1ceQPgwWeqJdMc3V82wr',
+    placeholder: 'Comments here',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'en' || 'zh-cn'
+  });
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>

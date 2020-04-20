@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSIONFrom https://arxiv.org/abs/1809.10452在端到端的图像压缩中，一个很重要的元素是可训练的熵模型。隐藏表征的实际分布是不知道的，而熵模型通过近似他们的分布来预测编码所需要的比特数。当输入图像x被变换为隐藏表征y然后">
+<meta name="keywords" content="论文,深度学习,图像压缩">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION">
+<meta property="og:url" content="http://yoursite.com/2019/09/12/翻译：CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION/index.html">
+<meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSIONFrom https://arxiv.org/abs/1809.10452在端到端的图像压缩中，一个很重要的元素是可训练的熵模型。隐藏表征的实际分布是不知道的，而熵模型通过近似他们的分布来预测编码所需要的比特数。当输入图像x被变换为隐藏表征y然后">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-04-20T14:39:43.495Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION">
+<meta name="twitter:description" content="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSIONFrom https://arxiv.org/abs/1809.10452在端到端的图像压缩中，一个很重要的元素是可训练的熵模型。隐藏表征的实际分布是不知道的，而熵模型通过近似他们的分布来预测编码所需要的比特数。当输入图像x被变换为隐藏表征y然后">
+  <link rel="canonical" href="http://yoursite.com/2019/09/12/翻译：CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION | Classiczy</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Classiczy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/12/翻译：CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 12-09-2019 02:11:48 02:11:48" itemprop="dateCreated datePublished" datetime="2019-09-12T02:11:48+08:00">12-09-2019 02:11:48</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 20-04-2020 22:39:43 22:39:43" itemprop="dateModified" datetime="2020-04-20T22:39:43+08:00">20-04-2020 22:39:43</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像压缩/" itemprop="url" rel="index"><span itemprop="name">图像压缩</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/09/12/翻译：CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/09/12/翻译：CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="论文翻译-CONTEXT-ADAPTIVE-ENTROPY-MODEL-FOR-END-TOEND-OPTIMIZED-IMAGE-COMPRESSION"><a href="#论文翻译-CONTEXT-ADAPTIVE-ENTROPY-MODEL-FOR-END-TOEND-OPTIMIZED-IMAGE-COMPRESSION" class="headerlink" title="论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION"></a>论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION</h2><h3 id="From-https-arxiv-org-abs-1809-10452"><a href="#From-https-arxiv-org-abs-1809-10452" class="headerlink" title="From https://arxiv.org/abs/1809.10452"></a>From <a href="https://arxiv.org/abs/1809.10452" target="_blank" rel="noopener">https://arxiv.org/abs/1809.10452</a></h3><p>在端到端的图像压缩中，一个很重要的元素是可训练的熵模型。隐藏表征的实际分布是不知道的，而熵模型通过近似他们的分布来预测编码所需要的比特数。当输入图像x被变换为隐藏表征y然后均匀地量化为$\hat{y}$时，我们用$p_{\hat{\boldsymbol{y}}}(\hat{\boldsymbol{y}})$来表示简单的熵模型。<br>当$\hat{y}$的实际边缘分布用$m(\hat{y})$来表示，我们可以用熵模型交叉熵来计算<strong>率估计</strong>，用等式1来表示<br><a id="more"></a></p>
+<script type="math/tex; mode=display">
+R=\mathbb{E}_{\hat{\boldsymbol{y}} \sim m}\left[-\log _{2} p_{\hat{\boldsymbol{y}}}(\hat{\boldsymbol{y}})\right]=H(m)+D_{K L}\left(m \| p_{\hat{\boldsymbol{y}}}\right)</script><p> 并且可以被分解为两部分，<strong>$\hat{y}$的实际的熵</strong>，加上由于实际的分布和其近似的<strong>误差产生的额外的比特</strong>。<br>因此，在训练过程中减小R 可以使得熵模型$p_{\hat{\boldsymbol{y}}}(\hat{\boldsymbol{y}})$尽可能的接近实际的熵$\hat{y}$，并且让其他参数适当地将x变换为y，使得$\hat{y}$的实际熵变小。<br>根据<a href="https://zh.wikipedia.org/wiki/%E7%9B%B8%E5%AF%B9%E7%86%B5" target="_blank" rel="noopener">相对熵</a>，当$p_{\hat{\boldsymbol{y}}}(\hat{\boldsymbol{y}})$与实际的分布$m(\hat{y})$完全吻合的时候，R取到最小值。这意味着这个方法的压缩效果主要取决于熵模型的容量（能力？）。<br>为了加强其能力，我们提出一个新的熵模型，其采用两种类型的上下文（环境？）。比特消耗和无比特环境。这两种类型的区别是需不需要额外的比特分配。利用这两个上下文，我们允许模型通过使用更一般化的熵模型来更准确地估计每个隐藏表征的分布，从而更有效地减少相邻隐藏表征之间的空间依赖性。</p>
+<h3 id="2-基于上下文自适应熵模型的端到端优化"><a href="#2-基于上下文自适应熵模型的端到端优化" class="headerlink" title="2 基于上下文自适应熵模型的端到端优化"></a>2 基于上下文自适应熵模型的端到端优化</h3><h4 id="2-1-前人的熵模型"><a href="#2-1-前人的熵模型" class="headerlink" title="2.1 前人的熵模型"></a>2.1 前人的熵模型</h4><p>Balle（2017）假定隐藏表征的熵模型是非参数模型，而Theis采用了高斯混合尺度模型，每个representation由六个加权的零均值高斯模型组成。虽然它们采用不同形式的熵模型，但它们具有共同的特征，<strong>即两者都集中于学习表征的分布而不考虑输入自适应性</strong>。即一旦熵模型训练完成，其中的参数在整个测试中都不会改变，无论输入是怎么样的。<br>Balle在2018年介绍了一种新的熵模型，其可以基于输入自适应的预测表征的尺度。他们假设自然图片的隐藏表征的的尺度，在临近的区域倾向于一起移动。为了减少这种冗余，他们使用少量附加信息，通过这些附加信息估计潜在表示的适当比例参数（标准偏差）。除此之外，Balle（2018）同时发现，当连续域中每个表征的先验概率密度函数（PDF）与标准均匀密度函数卷积时，它将逼近于离散隐藏表征的先验概率质量函数（PMF），其通过舍入均匀量化会更加紧密。对于训练，人们添加均匀噪声到每个隐藏表征中，以便将这些有噪表征的分布拟合到所提到的PMF近似函数中。</p>
+<h4 id="2-2-隐藏变量的空间依赖性"><a href="#2-2-隐藏变量的空间依赖性" class="headerlink" title="2.2 隐藏变量的空间依赖性"></a>2.2 隐藏变量的空间依赖性</h4><p>当通过卷积神经网络转换时，隐藏表征上都包含空间依赖性，这是因为相同的卷积filter在空间区域中是共享的， 并且自然图像在相邻区域内具有许多各种共同的factor。Balle2018 成功的捕捉到了这些空间依赖性，并且通过（输入自适应的）估计隐藏表征的表征偏差，增强了压缩的表现。<br>除了标准偏差之外，我们通过允许利用上下文的平均估计来推广估计分布的形式。例如，假设某些表征在空间相邻区域内倾向于具有相似的值，当所有邻域表征的值是10时，我们可以直观地猜测，对于当前表征，具有等于或类似于10的值的机会相对较高。这个简单的估计可以使熵减少。同样，我们的方法利用给定的上下文来估计每个隐藏表征的均值以及标准偏差。</p>
+<h4 id="2-3-上下文自适应熵模型"><a href="#2-3-上下文自适应熵模型" class="headerlink" title="2.3 上下文自适应熵模型"></a>2.3 上下文自适应熵模型</h4><p>我们同样使用四个基本的参数变换函数：</p>
+<ul>
+<li>分析变换 $g_{a}\left(\boldsymbol{x} ; \boldsymbol{\phi}_{g}\right)$，把x转换成隐藏表征y</li>
+<li>合成变换 $g_{s}\left(\hat{\boldsymbol{y}} ; \boldsymbol{\theta}_{g}\right)$，重建图像$\hat{x}$</li>
+<li>分析变换 $h_{a}\left(\hat{\boldsymbol{y}} ; \boldsymbol{\phi}_{h}\right)$，将$\hat{y}$的空间冗余捕获到隐藏表征z中</li>
+<li>合成变换 $h_{s}\left(\hat{z} ; \boldsymbol{\theta}_{h}\right)$，用于生成模型估计的上下文</li>
+</ul>
+<p>注意$h_{s}$不直接估计表征的标准偏差，而是生成上下文$c^{‘}$（用于估计分布的两种类型的上下文之一）。 本节将介绍这两种类型的上下文。</p>
+<p>根据balle的研究，相对熵的最小化和图像压缩里的率失真优化是同一个问题。 然而，对于训练，我们在条件（？）上使用离散表征而不是噪声表征，因此噪声表征仅用作熵模型的输入。根据经验，我们发现在条件上使用离散表征会显示更好的结果，这些结果可能来自消除训练和测试之间条件的不匹配，从而通过限制均匀噪声的影响来增强训练能力，仅有助于逼近概率质量函数。<br>We use the gradient overriding method with the identity function，处理均匀量化的不连续性与Theis2017相同。本文最终使用的目标方程为方程（2），总损失包括两个代表率和失真的terms（rate term 和 distortion term）。系数$\lambda$用来在rate-distortion优化期间控制率和失真的平衡，并不是一个优化的目标，而是一个手动调整的系数。：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \mathcal{L}=R+\lambda & D \\ \text { with } R &=\mathbb{E}_{\boldsymbol{x} \sim p_{\boldsymbol{x}}} \mathbb{E}_{\tilde{\boldsymbol{y}}, \tilde{\boldsymbol{z}} \sim q}\left[-\log p_{\tilde{\boldsymbol{y}} | \hat{z}}(\tilde{\boldsymbol{y}} | \hat{\boldsymbol{z}})-\log p_{\tilde{\boldsymbol{z}}}(\tilde{\boldsymbol{z}})\right] \\ D &=\mathbb{E}_{\boldsymbol{x} \sim p_{\boldsymbol{x}}}\left[-\log p_{\boldsymbol{x} | \hat{\boldsymbol{y}}}(\boldsymbol{x} | \hat{\boldsymbol{y}})\right] \end{aligned}</script><p>这里，$\tilde{\boldsymbol{y}}$和$\tilde{\boldsymbol{z}}$为有噪表征服从标准均匀分布，均值分别为 y 和 z ，而 y 和 z 分别是$g_{a}$和$h_{a}$的产物。注意$h_{a}$的输入是$\hat{\boldsymbol{y}}$，是y的均匀量化表征。Q表示均匀量化函数，我们只使用舍入函数：</p>
+<script type="math/tex; mode=display">
+q\left(\tilde{\boldsymbol{y}}, \tilde{\boldsymbol{z}} | \boldsymbol{x}, \boldsymbol{\phi}_{g}, \boldsymbol{\phi}_{h}\right)=\prod_{i} u\left(\tilde{y}_{i} | y_{i}-\frac{1}{2}, y_{i}+\frac{1}{2}\right) \cdot \prod u\left(\tilde{z}_{j} | z_{j}-\frac{1}{2}, z_{j}+\frac{1}{2}\right)</script><script type="math/tex; mode=display">
+ 其中
+\boldsymbol{y}=g_{a}\left(\boldsymbol{x} ; \boldsymbol{\phi}_{g}\right), \hat{\boldsymbol{y}}=Q(\boldsymbol{y}), \boldsymbol{z}=h_{a}\left(\hat{\boldsymbol{y}} ; \boldsymbol{\phi}_{h}\right)</script><p>rate term表示用熵模型$p_{\tilde{\boldsymbol{y}}} | \hat{\boldsymbol{z}}$和$p_{\hat{z}}$计算的预期的比特。注意$p_{\tilde{\boldsymbol{y}}} | \hat{\boldsymbol{z}}$和$p_{\hat{z}}$最终分别是$p_{\hat{\boldsymbol{y}}} | \hat{\boldsymbol{z}}$和$p_{\hat{z}}$的近似。</p>
+<p>公式（4）表示用于近似y的所需比特的熵模型。该模型基于高斯模型，不仅具有标准差$\sigma_{i}$，也有均值$\mu_{i}$。$\sigma_{i}$和$\mu_{i}$的值是由两种基于方程$f$的两种给定上下文估计而来的，$f$是分布估计器。<br>用于估计某个表征的分布的两种类型的上下文（比特消耗和无比特上下文）表示为$\boldsymbol{C}_{i}^{\prime}$和$C_{i}^{\prime \prime}$。$E^{\prime}$从$h_{s}$的输出$C^{\prime}$中提取$C_{i}^{\prime}$。于$C_{i}^{\prime}$不同的是，$C_{i}^{\prime \prime}$不需要额外的比特的分配。相反，我们只是利用已知的（已经是熵编码或解码的）$\hat{\boldsymbol{y}}$的子集，记作$\langle\hat{\boldsymbol{y}}\rangle$。这里，$C_{i}^{\prime \prime}$是用提取器$E^{\prime \prime}$从$\langle\hat{\boldsymbol{y}}\rangle$中提取出来的。我们假设熵编码器和解码器在相同的特定顺序中顺序地处理$\hat{y}_{i}$，例如光栅扫描。因此，当处理相同的$\hat{y}_{i}$时，给予编码器和解码器的$\langle\hat{\boldsymbol{y}}\rangle$总是相同的，正式的表达方式如下：</p>
+<script type="math/tex; mode=display">
+p_{\tilde{\boldsymbol{y}} | \hat{z}}\left(\tilde{\boldsymbol{y}} | \hat{\boldsymbol{z}}, \boldsymbol{\theta}_{h}\right)=\prod_{i}\left(\mathcal{N}\left(\mu_{i}, \sigma_{i}^{2}\right) * \mathcal{U}\left(-\frac{1}{2}, \frac{1}{2}\right)\right)\left(\tilde{y}_{i}\right)</script><script type="math/tex; mode=display">
+\begin{array}{l}{\text { with } \mu_{i}, \sigma_{i}=f\left(\boldsymbol{c}_{i}^{\prime}, \boldsymbol{c}_{i}^{\prime \prime}\right)} \\ {\boldsymbol{c}_{i}^{\prime}=E^{\prime}\left(h_{s}\left(\hat{\boldsymbol{z}} ; \boldsymbol{\theta}_{h}\right), i\right)} \\ {\boldsymbol{c}_{i}^{\prime \prime}=E^{\prime \prime}(\langle\hat{\boldsymbol{y}}\rangle, i)} \\ {\hat{\boldsymbol{z}}=Q(\boldsymbol{z})}\end{array}</script><p>对于$\hat{z}$，我们使用一个简单的熵模型。我们假设模型遵循零均值，且有可训练的高斯分布$\sigma$，注意，z被视为辅助信息，并且它贡献了非常小的总比特率，因此我们使用这个更简单的熵模型版本，而不是更复杂的模型，对所提出方法的所有参数进行端到端优化：</p>
+<script type="math/tex; mode=display">
+p_{\tilde{z}}(\tilde{z})=\prod_{j}\left(\mathcal{N}\left(0, \sigma_{j}^{2}\right) * \mathcal{U}\left(-\frac{1}{2}, \frac{1}{2}\right)\right)\left(\tilde{z}_{j}\right)</script><p>注意，实际的熵编码或解码过程不一定是训练或编码所必需的，因为rate term不是实际比特的数量，而是从熵模型计算的估计，如前所述。我们使用MSE计算失真的部分，假设$p_{\boldsymbol{x} | \hat{\boldsymbol{y}}}$符合高斯分布。</p>
+<h3 id="3-编码-解码-模型"><a href="#3-编码-解码-模型" class="headerlink" title="3 编码-解码 模型"></a>3 编码-解码 模型</h3><p>本节描述了所提出的编码器 - 解码器模型的基本结构。在编码器的一侧，输入图像被变换为隐藏表征，量化，然后使用训练的熵模型进行熵编码。相反，解码器首先应用于编码器相同的熵模型进行熵解码，然后从隐藏表征中重建图像，结构如图3所示。我们假设本节中所出现的所有参数都已经被训练。编解码结构基本上包括用于将 x 转换为 y 的$\boldsymbol{g}_{a}$，还要其反转换（y到x）的$\boldsymbol{g}_{s}$。在得到 y 后，再进行量化取整得到$\hat{\boldsymbol{y}}$。注意，在基于熵模型的方法的情况下，与传统编解码器不同，调整量化步骤通常是不必要的，因为表征的比例(scales)通过训练一起优化。在$\boldsymbol{g}_{a}$和$\boldsymbol{g}_{s}$之间的另外一个元素是利用共享熵模型和底层上下文准备过程来执行熵编码（或解码）的角色。更具体的说，熵模型给每一个$\hat{y}_{i}$预测分布，分布的$\mu_{i}$和 $\sigma_{i}$则是通过两种给定的上下文$\boldsymbol{c}_{i}^{\prime}$ 和 $c_{i}^{\prime \prime}$来预测的。在这些上下文中，$\boldsymbol{c}_{i}^{\prime}$ 可以被看做是辅助信息(side information)，需要额外的比特分配。为了减少携带(carrying) $\boldsymbol{c}_{i}^{\prime}$所需的比特率，隐藏表征$z$（由$\hat{\boldsymbol{y}}$变换而来）将会经过其自己的熵模型进行量化和熵编码，在2.3节中有详细介绍。与$\boldsymbol{c}_{i}^{\prime}$不同的是，$c_{i}^{\prime \prime}$是从$\langle\hat{\boldsymbol{y}}\rangle$提取出来的，没有任何额外的比特分配。注意$\langle\hat{\boldsymbol{y}}\rangle$会随着熵编码和熵解码而变化，但在编码器和解码器中处理相同的$\hat{y}_{i}$总是相同的，如2.3节中所说。$\boldsymbol{h}_{s}$和熵模型的参数在编码器和解码器间共享。注意，在训练期间对熵模型的输入是噪声表示，如图3中的虚线所示，这使得熵模型能近似离散表示的概率质量函数。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/论文/" rel="tag"># 论文</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/图像压缩/" rel="tag"># 图像压缩</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2019/09/29/categories/index/" rel="prev" title="categories">
+                categories <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Classiczy">
+  <p class="site-author-name" itemprop="name">Classiczy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">categories</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/wangzeyao" title="GitHub &rarr; https://github.com/wangzeyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zeyao.wang@outlook.com" title="E-Mail &rarr; mailto:zeyao.wang@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.instagram.com/classicwzy/" title="Instagram &rarr; https://www.instagram.com/classicwzy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://space.bilibili.com/259378363/" title="Bilibili &rarr; https://space.bilibili.com/259378363/" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>Bilibili</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文翻译-CONTEXT-ADAPTIVE-ENTROPY-MODEL-FOR-END-TOEND-OPTIMIZED-IMAGE-COMPRESSION"><span class="nav-number">1.</span> <span class="nav-text">论文翻译 CONTEXT-ADAPTIVE ENTROPY MODEL FOR END-TOEND OPTIMIZED IMAGE COMPRESSION</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#From-https-arxiv-org-abs-1809-10452"><span class="nav-number">1.1.</span> <span class="nav-text">From https://arxiv.org/abs/1809.10452</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-基于上下文自适应熵模型的端到端优化"><span class="nav-number">1.2.</span> <span class="nav-text">2 基于上下文自适应熵模型的端到端优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-前人的熵模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 前人的熵模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-隐藏变量的空间依赖性"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 隐藏变量的空间依赖性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-上下文自适应熵模型"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 上下文自适应熵模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-编码-解码-模型"><span class="nav-number">1.3.</span> <span class="nav-text">3 编码-解码 模型</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Classiczy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'fQrw7GPV8alSagiWukM9OIkd-MdYXbMMI',
+    appKey: 'F8sp1ceQPgwWeqJdMc3V82wr',
+    placeholder: 'Comments here',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'en' || 'zh-cn'
+  });
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>

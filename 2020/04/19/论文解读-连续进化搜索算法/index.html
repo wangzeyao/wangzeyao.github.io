@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS前言华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可">
+<meta name="keywords" content="论文解读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文解读-连续进化搜索算法">
+<meta property="og:url" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/index.html">
+<meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS前言华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/1.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/小模型陷阱.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/验证.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/验证2.png">
+<meta property="og:updated_time" content="2020-04-08T15:12:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="论文解读-连续进化搜索算法">
+<meta name="twitter:description" content="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS前言华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/1.png">
+  <link rel="canonical" href="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>论文解读-连续进化搜索算法 | Classiczy</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Classiczy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">论文解读-连续进化搜索算法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 19-04-2020 23:32:32 23:32:32" itemprop="dateCreated datePublished" datetime="2020-04-19T23:32:32+08:00">19-04-2020 23:32:32</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 08-04-2020 23:12:22 23:12:22" itemprop="dateModified" datetime="2020-04-08T23:12:22+08:00">08-04-2020 23:12:22</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/神经网络结构搜索/" itemprop="url" rel="index"><span itemprop="name">神经网络结构搜索</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2020/04/19/论文解读-连续进化搜索算法/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/19/论文解读-连续进化搜索算法/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"><a href="#自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS" class="headerlink" title="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"></a>自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可以利用上一轮进化的参数或者结构来构造超网来实现参数共享，再从超网中生成子网，并对其进行排序，从而选择优异的网络。这种算法整体耗时仅仅需要0.4 GPU day，优化了进化算法在神经网络结构搜索时候选网络训练时间过长的问题。<br><a id="more"></a></p>
+<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>人工神经网络的应用使得计算机视觉任务取得了巨大的进步，但网络的设计却很大程度上依赖于人类的经验，且会耗费大量时间和经历。而神经网络结构搜索（Neural Architecture Search，NAS）可以通过设计不同的搜索算法来自动获得泛化能力强，硬件要求低的网络结构，是目前自动机器学习（AutoML）领域的热点问题之一。目前神经网络结构搜索的搜索策略可以分为三种：</p>
+<ul>
+<li>基于强化学习（Reinforcement Learning，RL）</li>
+<li>基于进化算法（Evolution Algorithm，EA）</li>
+<li>基于梯度的方法（gradient based）</li>
+</ul>
+<p>有研究表明，论文中涉及的进化算法能得到比强化学习更好的模型，但由于进化算法中的个体网络都是独立验证，导致其需要耗费大量的时间。论文因此提出一种修改的进化算法——连续进化网络结构神经网络搜索(continuous evolution architecture search，CARS)来最大限度的利用上一代进化过程中的知识，从而提高算法的效率。</p>
+<h2 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h2><h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>首先初始化一个具有大量cells和blocks的超网（SuperNet），超网通过一些基准操作（交叉和变异）来生成进化算法中的个体，也就是子网。接着再使用非支配排序（Non-dominated sort）来选取一些不同大小和准确率的优秀模型，并更新这些子网对应的超网中的cells以便于随后的优化。在下一代的进化算法中，会继续基于更新后的超网和非支配排序得到的多目标解集来进行。 论文使用基因算法（Genetic Algorithm，GA）来进化网络的结构，并且使用一个超网 N在不同的结构中共享权重，从而大大降低了计算复杂度。</p>
+<h4 id="CARS中的超网："><a href="#CARS中的超网：" class="headerlink" title="CARS中的超网："></a>CARS中的超网：</h4><p>不同的网络N_i是从超网N中采样而来，每个网络 $N_i$ 可以由全精度参数 $W_i$ 和二值连接参数（也就是{0，1}）$C_i$ 来表示。$C_i=0$ 代表网络没有此连接，$C_i=1$反之，所以每个子网 $N_i$ 可以表示为 $Wi$,$Ci$ 对。<br>全精度参数W在网络集合中共享，如果网络结构固定则可以使用反向传播来优化W,优化后的W适用于所有的N_i以提高识别性能。在参数收敛后，我们就可以用基因算法去优化二值连接C_i</p>
+<h4 id="参数优化"><a href="#参数优化" class="headerlink" title="参数优化"></a>参数优化</h4><p>$W$为网络中所有参数，有$W_i=W\odot C_i$其中 $\odot$ 为mask操作。<br>参数$W$适用于全部子网，所以用全部子网来计算参数的梯度，公式如下</p>
+<script type="math/tex; mode=display">
+dW_i=\frac{\partial L_i}{\partial W_i}=\frac{\partial L_i}{\partial W}\odot C_i
+dW=\frac{1}{P}\sum_{i=1}^{P}dW_i=\frac{1}{P}\sum_{i=1}^{P}\frac{\partial L_i}{\partial W}\odot C_i</script><p>其中$L_i=\mathcal{H}\left(\mathcal{N}_\mathcal{i}\left(X\right),Y\right)$为损失值，Y为目标值，H为损失函数。再借鉴SGD的思想，用小批量的网络来接近整体网络的梯度，达到优化性能的目的，公式如下：</p>
+<script type="math/tex; mode=display">
+dW\approx\frac{1}{B}\sum_{j=1}^{B}\frac{\partial L_{n_j}}{\partial W_{n_j}}</script><p>其中B小于P。</p>
+<h4 id="结构优化"><a href="#结构优化" class="headerlink" title="结构优化"></a>结构优化</h4><p>结构优化使用进化算法配合NSGA-III的非支配排序。支配的定义是什么呢？简单的说，如果两个子网络$N_i$和$N_j$符合以下两个条件，那么就称为$N_i$支配$N_j$:</p>
+<ul>
+<li>在任何指标中$N_i$都不差于$N_j$</li>
+<li>存在至少一个指标，使得$N_i$的表现超过$N_j$<br>如果$N_i$支配$N_j$，那么在进化过程中就可以用$N_i$取代$N_j$，通过不断的使用支配就可以在当前一代的种群中选出优秀的子网，这些优秀子网就可以接着被用于更新超网中相关的参数。<br>与此同时，在非支配排序使用NSGA-III算法的时候，依然会遇到小模型陷阱现象（small model trap phenomenon）。论文中提出了NSGA-III的改进算法pNSGA-III，改进点在于把准确率和参数数量的增加速度纳入考虑中，而不只局限于验证时的准确率和参数的数量，再同时参考两种非支配排序。</li>
+</ul>
+<p><img src="1.png" alt="png"></p>
+<p>结果如图所示，使用pNSGA-III算法最终保留了的模型大小范围更广，分布更为均匀，而NSGA-III在20代的时候保留模型的大小多集中于0.15MB到0.20MB，同时Top-1准确率比起NSGA-III甚至略有优势。</p>
+<h4 id="优化策略"><a href="#优化策略" class="headerlink" title="优化策略"></a>优化策略</h4><p>参数预热（Parameter Warmup）：因为超网的共享权重是随机初始化的，所以如果子网也是随机初始化，就会导致出现次数多的会比其他的训练的次数多。因此，论文中使用了均匀采样策略来初始化超网中的参数，这样就能以相同的概率公平的训练所有可能的网络。<br>结构优化（Architecture Optimization）：在初始化超网后，首先随机选择P个不同的结构作为进化算法的父代个体。在后续的进化算法过程中，先生成$t\ \times P$个子代，再使用pNSGA-III从$\ \left(t+1\right)\times P$个个体中选择P个来作为下一代的父亲个体。</p>
+<p>搜索时间分析：<br>训练集用于更新网络参数，测试集用来更新网络结构。网络的最终搜索时间计算如下：</p>
+<p> $\begin{aligned} T_{\text {total}}=&amp; T_{\text {warm}}+T_{\text {evo}} \\=&amp; E_{\text {warm}} \times T_{\text {tr}}+\\ &amp; E_{\text {evo}} \times\left(E_{\text {param}} \times T_{t r} \times B+T_{\text {val}}\right) \end{aligned}$</p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>为了阐释论文中方法的有效性，实验设置使用了被广泛运用的DARTS搜索空间。DARTS包含的操作有四种卷积，两种池化，skip连接和无链接。<br>在CIFAR-10上的实验</p>
+<h3 id="小模型陷阱"><a href="#小模型陷阱" class="headerlink" title="小模型陷阱"></a>小模型陷阱</h3><p><img src="小模型陷阱.png" alt="png"></p>
+<p>实验结果显示了小模型陷阱和使用pNSGA-III的必要性。由图可知，最终模型C取得了最好的top-1准确率，但是如果使用NSGA-III算法，模型C在前50轮就会被淘汰掉。</p>
+<h3 id="使用CIFAR-10搜索"><a href="#使用CIFAR-10搜索" class="headerlink" title="使用CIFAR-10搜索"></a>使用CIFAR-10搜索</h3><p>论文中实验将CIFAR-10数据集分为两部分，包括25000张图片用于训练，25000张图片用于验证。分割训练和验证集的策略余DARTS和SNAS相同。实验一共搜索500个epochs，warmup阶段为50个epochs。然后初始化一个包括128个不同子网的种群，在网络参数每更新10次以后，使用pNSGA-III更新网络结构。</p>
+<h3 id="使用CIFAR-10验证"><a href="#使用CIFAR-10验证" class="headerlink" title="使用CIFAR-10验证"></a>使用CIFAR-10验证</h3><p><img src="验证.png" alt="png"><br>搜索的验证结果表如上图，可以看到搜索用时仅为0.4 GPU days，且最好的结果为CARS-I网络，测试错误了仅为2.62%。无论是搜索用时还是网络性能都十分优异。此外，模型的大小分布较广且比较均为，从2.4M到3.6M都有。可以说，CARS用更小的模型，更少的时间获得了更好的性能。</p>
+<p>使用ILSVRC2012验证：<br>论文实验还将用CIFAR-10搜索的模型迁移到ILSVRC2012，结果表明模型的迁移性也相当不错。</p>
+<h3 id="使用ILSVRC2012验证"><a href="#使用ILSVRC2012验证" class="headerlink" title="使用ILSVRC2012验证"></a>使用ILSVRC2012验证</h3><p>论文实验还将用CIFAR-10搜索的模型迁移到ILSVRC2012，结果表明模型的迁移性也相当不错。<br><img src="验证2.png" alt="png"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>进化算法在神经网络搜索领域有相当不错的表现，但是搜索时间却很长。这篇论文提出的连续进化网络结构搜索算法（continuous evolution architecture search，CARS），最大化利用上一轮进化的结构和参数，很大程度上减少了网络搜索和训练的用时，在CIFAR-10数据集的实验仅仅用时0.4 GPU day的同时，也取得了相当高的准确率和不错的模型大小。最近神经网络结构搜索越来越热门，但是其庞大的资源和时间消耗却限制了很高的门槛，CNRS的方法或许可以让更多的人能体验到自动机器学习的魅力。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/论文解读/" rel="tag"># 论文解读</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/04/19/名词解释/" rel="next" title="名词解释">
+                <i class="fa fa-chevron-left"></i> 名词解释
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2020/04/20/云笔记体验/" rel="prev" title="云笔记体验">
+                云笔记体验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Classiczy">
+  <p class="site-author-name" itemprop="name">Classiczy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">categories</span>
+        
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/wangzeyao" title="GitHub &rarr; https://github.com/wangzeyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zeyao.wang@outlook.com" title="E-Mail &rarr; mailto:zeyao.wang@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.instagram.com/classicwzy/" title="Instagram &rarr; https://www.instagram.com/classicwzy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://space.bilibili.com/259378363/" title="Bilibili &rarr; https://space.bilibili.com/259378363/" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>Bilibili</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"><span class="nav-number">1.</span> <span class="nav-text">自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.2.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法介绍"><span class="nav-number">1.3.</span> <span class="nav-text">算法介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法流程"><span class="nav-number">1.3.1.</span> <span class="nav-text">算法流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CARS中的超网："><span class="nav-number">1.3.1.1.</span> <span class="nav-text">CARS中的超网：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数优化"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">参数优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结构优化"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">结构优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化策略"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">优化策略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果"><span class="nav-number">1.4.</span> <span class="nav-text">实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小模型陷阱"><span class="nav-number">1.4.1.</span> <span class="nav-text">小模型陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用CIFAR-10搜索"><span class="nav-number">1.4.2.</span> <span class="nav-text">使用CIFAR-10搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用CIFAR-10验证"><span class="nav-number">1.4.3.</span> <span class="nav-text">使用CIFAR-10验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用ILSVRC2012验证"><span class="nav-number">1.4.4.</span> <span class="nav-text">使用ILSVRC2012验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Classiczy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'fQrw7GPV8alSagiWukM9OIkd-MdYXbMMI',
+    appKey: 'F8sp1ceQPgwWeqJdMc3V82wr',
+    placeholder: 'Comments here',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'en' || 'zh-cn'
+  });
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>
