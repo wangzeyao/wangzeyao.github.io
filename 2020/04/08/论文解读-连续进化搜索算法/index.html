@@ -69,7 +69,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/04/08/论文解读-连续进化搜索算法/小模型陷阱.png">
 <meta property="og:image" content="http://yoursite.com/2020/04/08/论文解读-连续进化搜索算法/验证.png">
 <meta property="og:image" content="http://yoursite.com/2020/04/08/论文解读-连续进化搜索算法/验证2.png">
-<meta property="og:updated_time" content="2020-04-08T15:17:00.000Z">
+<meta property="og:updated_time" content="2020-04-20T13:41:08.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="论文解读-连续进化搜索算法">
 <meta name="twitter:description" content="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS前言华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可">
@@ -265,11 +265,21 @@
                 
               
 
-              <time title="Created: 08-04-2020 23:12:22 / Modified: 23:17:00" itemprop="dateCreated datePublished" datetime="2020-04-08T23:12:22+08:00">08-04-2020</time>
+              <time title="Created: 08-04-2020 23:12:22" itemprop="dateCreated datePublished" datetime="2020-04-08T23:12:22+08:00">08-04-2020</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 20-04-2020 21:41:08" itemprop="dateModified" datetime="2020-04-20T21:41:08+08:00">20-04-2020</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -324,7 +334,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"><a href="#自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS" class="headerlink" title="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"></a>自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可以利用上一轮进化的参数或者结构来构造超网来实现参数共享，再从超网中生成子网，并对其进行排序，从而选择优异的网络。这种算法整体耗时仅仅需要0.4 GPU day，优化了进化算法在神经网络结构搜索时候选网络训练时间过长的问题。</p>
+        <h1 id="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"><a href="#自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS" class="headerlink" title="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"></a>自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可以利用上一轮进化的参数或者结构来构造超网来实现参数共享，再从超网中生成子网，并对其进行排序，从而选择优异的网络。这种算法整体耗时仅仅需要0.4 GPU day，优化了进化算法在神经网络结构搜索时候选网络训练时间过长的问题。<br><a id="more"></a></p>
 <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>人工神经网络的应用使得计算机视觉任务取得了巨大的进步，但网络的设计却很大程度上依赖于人类的经验，且会耗费大量时间和经历。而神经网络结构搜索（Neural Architecture Search，NAS）可以通过设计不同的搜索算法来自动获得泛化能力强，硬件要求低的网络结构，是目前自动机器学习（AutoML）领域的热点问题之一。目前神经网络结构搜索的搜索策略可以分为三种：</p>
 <ul>
 <li>基于强化学习（Reinforcement Learning，RL）</li>
