@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="MeanShift 和CamShift简介Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。">
+<meta name="keywords" content="计算机视觉,算法,聚类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MeanShift和CamShift算法">
+<meta property="og:url" content="http://yoursite.com/2020/04/19/MeanShift/index.html">
+<meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="MeanShift 和CamShift简介Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://lh3.googleusercontent.com/BEDEiWALPtUjabAe5LOarkXLIQsOW8v8TxyEG40aGHCr6UA0i99tI6_Fl7hNnlQMKzWemr2mCq4S">
+<meta property="og:image" content="https://lh3.googleusercontent.com/-ZARHk3XHB2gOlUz5Yk1yz8cyEnZdXdHA24QBiR1qzExEfYuIBtWmh50hutxn3shDMjil3jLfX0c">
+<meta property="og:image" content="https://lh3.googleusercontent.com/xVXXxdsqBRVVsgWCD8_fsu-NGu6-oDJ_xTcaM9nkZ-APlO-q__tzPteuQQ_FOUhsbHb1dJrb9psl">
+<meta property="og:image" content="https://lh3.googleusercontent.com/fV5c_JPrzolrJrFC7pBLH6dxhQ9wJZk3QUVcbjEfNom-q37EHXFtecczxNjwetct1iSLr4Es9kmo">
+<meta property="og:image" content="https://lh3.googleusercontent.com/ld517NoNYoY0p0oN6dEKnFkcFoQ4z4NfzwP-AphFGty5b_1Xi8F1SzKQUaa8OBUTAtmNBkZkqAQs">
+<meta property="og:image" content="https://lh3.googleusercontent.com/FDe6G1ejmS6k0jjkxF46GAGLDOwFPuKUE6Gh03jiXQUFpC3O8vGtZi-Fkx2BsjcinSOMU9mqUYiV">
+<meta property="og:image" content="https://lh3.googleusercontent.com/M9whig9Gp2OA77G9ETCnUyI3m12GNveRjAlm6u4aREGnrgYIHB3Mm9nvIRYFQrhhPR9leBV9WMEE">
+<meta property="og:updated_time" content="2019-09-29T23:18:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MeanShift和CamShift算法">
+<meta name="twitter:description" content="MeanShift 和CamShift简介Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。">
+<meta name="twitter:image" content="https://lh3.googleusercontent.com/BEDEiWALPtUjabAe5LOarkXLIQsOW8v8TxyEG40aGHCr6UA0i99tI6_Fl7hNnlQMKzWemr2mCq4S">
+  <link rel="canonical" href="http://yoursite.com/2020/04/19/MeanShift/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>MeanShift和CamShift算法 | Classiczy</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Classiczy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/MeanShift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">MeanShift和CamShift算法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 19-04-2020 23:32:31" itemprop="dateCreated datePublished" datetime="2020-04-19T23:32:31+08:00">19-04-2020</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 30-09-2019 07:18:08" itemprop="dateModified" datetime="2019-09-30T07:18:08+08:00">30-09-2019</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2020/04/19/MeanShift/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/19/MeanShift/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="MeanShift-和CamShift"><a href="#MeanShift-和CamShift" class="headerlink" title="MeanShift 和CamShift"></a>MeanShift 和CamShift</h1><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Mean shift 中文译名又叫做，均值漂移。在机器学习领域可以实现聚类，在图像领域可以实现目标追踪和图像平滑。是一种应用很广的算法。<br><a id="more"></a></p>
+<h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><h4 id="二维空间"><a href="#二维空间" class="headerlink" title="二维空间"></a>二维空间</h4><p><img src="https://lh3.googleusercontent.com/BEDEiWALPtUjabAe5LOarkXLIQsOW8v8TxyEG40aGHCr6UA0i99tI6_Fl7hNnlQMKzWemr2mCq4S" alt="enter image description here"><br>问题1：想象平面上有一些点，通过怎样的方法能找到点最密集的地方？<br>答：很简单，首先先随便选取一个点X，然后画一个半径为h的圆。之后求在这个圆中(圆形内部)的点到X所构成的向量的和。我们称之为平均向量。<br>之后对X在平均向量上的方向和距离上进行平移。得到新的X。然后重复这个步骤。一直到它附近的点的平均向量为0，或者长度足够小。</p>
+<p>问题2：依然是平面上有许多点，我们怎样能把这些点分成几类？（聚类）或者说有一个平面，该怎样对平面进行分割？<br>答：如果你是要分割平面，你要想象许多的点，把平面内的位置都覆盖了，你会发现最后所有的点也就只收敛于几种值。如果你要对已经有了的点进行聚类，那么你就只需要把要分类（实际是聚类）的点都进行一次计算就可以了。（这里有个小技巧，理论上在计算过程中所有经过的点，和包裹到的周围的点都可以认为是一个类别里的，这样在一些时候可以大大减少计算的量。）</p>
+<h4 id="三维空间"><a href="#三维空间" class="headerlink" title="三维空间"></a>三维空间</h4><p><img src="https://lh3.googleusercontent.com/-ZARHk3XHB2gOlUz5Yk1yz8cyEnZdXdHA24QBiR1qzExEfYuIBtWmh50hutxn3shDMjil3jLfX0c" alt="enter image description here"><br>实际上和二维是一样的，只是把二维时候的圆换成三维的球。</p>
+<h3 id="推广到一般情况"><a href="#推广到一般情况" class="headerlink" title="推广到一般情况"></a>推广到一般情况</h3><p>在我们容易想象的二维和三维情况，这个问题很好解决，我们希望这个算法能适用于更广的范围。</p>
+<h4 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h4><p>在给定的  d  维的空间  $R^{d}$  中有  n  个样本点。这样不难得出在空间中任意一个点的Mean shift向量如下：</p>
+<script type="math/tex; mode=display">M _ { h } = \frac { 1 } { K } \sum _ { x _ { i } \in S _ { k } } \left( x _ { i } - x \right)</script><p>简单的解释一下这个公式。$K$ 是指的是 $x$ 有 $K$ 个临近点。其中超球体 $S_{k}$ 的半径为 $h$,它的公式表示如下:</p>
+<script type="math/tex; mode=display">S _ { h } = \left\{ y : \left( y - x _ { i } \right) _ { T } \left( y - x _ { i } \right) < h ^ { 2 } \right\}</script><h4 id="对平面上点的密度进行估计"><a href="#对平面上点的密度进行估计" class="headerlink" title="对平面上点的密度进行估计"></a>对平面上点的密度进行估计</h4><p>我们想要找到平面上点最密集的地方，那么最简单的思路就是用一个函数表示出平面上每个点的密集程度，然后再找到这个函数的最大值就好了。</p>
+<p><img src="https://lh3.googleusercontent.com/xVXXxdsqBRVVsgWCD8_fsu-NGu6-oDJ_xTcaM9nkZ-APlO-q__tzPteuQQ_FOUhsbHb1dJrb9psl" alt="enter image description here"></p>
+<p>我们要做的就是模拟出上图中左边的函数，再找到峰顶的位置。</p>
+<p>我们先给出正确的密度公式：</p>
+<script type="math/tex; mode=display">f ( x ) = \frac { 1 } { n h ^ { d } } \sum _ { i = 1 } ^ { n } K \left( \frac { x - x _ { i } } { h } \right)</script><p>那上面这个密度公式是怎么来的呢？<br>我们先从一维的情况开始考虑。我们知道点在总个数为N。于是我们不妨选取一段很小的距离h，然后看看在这段范围内有多少的点。假设有k个点。于是他的密度可以近似的表示为：$p=kN$,想象一下这里面h足够的小，然后我们可以得到这样的图像。</p>
+<p><img src="https://lh3.googleusercontent.com/fV5c_JPrzolrJrFC7pBLH6dxhQ9wJZk3QUVcbjEfNom-q37EHXFtecczxNjwetct1iSLr4Es9kmo" alt="enter image description here"><br>然而 $\frac{k}{N}$ 仅仅是概率，并不是真正的密度。我们考虑物理中的密度计算为 $\frac{m}{v}$ ，我的理解是把概率看作物理中的质量，长度h看作v，所以就有密度为 $\frac{k}{Nh}$ 。在二维中就是 $\frac{k}{Nv}$，其中$v=h^{2}$ 为一个正方形窗口。<br>是现在表示整个密度的函数似乎太麻烦了。那怎么办呢？我们设想一个辅助函数。让他有下面三个功能：</p>
+<ol>
+<li>在窗口内有值，在窗口外没有值。</li>
+<li>这个函数表现出离x越近对密度的结果影响越大，越远越小。</li>
+<li>函数在各个方向上的影响是一致的。（对称的）</li>
+</ol>
+<p>现在我们这样的函数起名为K，于是就可以轻易表示出来在二维空间中的密度函数。</p>
+<script type="math/tex; mode=display">
+f(x)=\frac{1}{n h^{2}} \sum_{i=1}^{n} K\left(\frac{x-x_{i}}{h}\right)</script><p> 可以理解为单位密度 $\frac{1}{nh^{2}}$ 乘以所有点，经过K函数变换后值的合，就是这个窗口的密度。这个K函数，就是我们所说的 <em>核函数</em> 。而我们使用核函数的原因就是上面提到的核函数的三个功能。<br>  我们把现在得到的这个公式推广到高维，就得到了我们一开始给出的密度公式。</p>
+<p> 下面再给出几个核函数的例子：</p>
+<p> <img src="https://lh3.googleusercontent.com/ld517NoNYoY0p0oN6dEKnFkcFoQ4z4NfzwP-AphFGty5b_1Xi8F1SzKQUaa8OBUTAtmNBkZkqAQs" alt="enter image description here"></p>
+<h4 id="找到密度最大的地方"><a href="#找到密度最大的地方" class="headerlink" title="找到密度最大的地方"></a>找到密度最大的地方</h4><p>现在我们已经有了平面上点的密度函数，那么下一步就是找到这个函数梯度为 0 ，也就是峰顶的位置，这就是我们要找的密度最大的地方。</p>
+<p>首先要确定核函数的公式。</p>
+<script type="math/tex; mode=display">
+K(x)=c_{k, d} k\left(\|x\|^{2}\right)</script><p> 将核函数代入到原来的密度估计公式，然后求梯度得到$\nabla f(x)$。之后令$\nabla f(x)=0$，</p>
+<script type="math/tex; mode=display">
+\nabla f(x)=\frac{2 c_{k, d}}{n h^{d+2}} \sum_{i=1}^{n}\left(x_{i}-x\right) g\left(\left\|\frac{x-x_{i}}{h}\right\|^{2}\right)</script><p> 其中 $g(s)=-k^{\prime}(s)$ 。</p>
+<p> 我们观察这个得到的式子，<br> 第一项为一个常数：</p>
+<script type="math/tex; mode=display">
+\frac{2 c_{k, d}}{n h^{d+2}}</script><p> 第二项：</p>
+<script type="math/tex; mode=display">
+ \sum_{i=1}^{n}\left(x_{i} \stackrel{e}{-} x\right)</script><p> 其实就是各点到点$x$的向量和。<br> 第三项：</p>
+<script type="math/tex; mode=display">
+g\left(\left\|\frac{x-x_{i}}{h}\right\|^{2}\right)</script><p>这一项保证了在窗口h内有值，在窗口h外对梯度下降的影响是零。且在高斯核下，里 $x$ 越近的点在对 $(x_{i}-x)$ 这个向量的加权越大。</p>
+<p>  高斯核函数：</p>
+<script type="math/tex; mode=display">
+k\left(x, x^{\prime}\right)=e^{-\frac{ \|x-x^{\prime} ]^{2}}{2 \sigma^{2}}}</script><p>令 $x’=0,k(x,0)$ 的图像如下</p>
+<p> <img src="https://lh3.googleusercontent.com/FDe6G1ejmS6k0jjkxF46GAGLDOwFPuKUE6Gh03jiXQUFpC3O8vGtZi-Fkx2BsjcinSOMU9mqUYiV" alt="enter image description here"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以看出x&apos;和x的距离越远，值越小。</span><br></pre></td></tr></table></figure>
+<p>回顾一下我们现在有的公式：</p>
+<script type="math/tex; mode=display">
+\nabla f(x)=\frac{2 c_{k, d}}{n h^{d+2}} \sum_{i=1}^{n}\left(x_{i}-x\right) g\left(\left\|\frac{x-x_{i}}{h}\right\|^{2}\right)</script><p> 整理可得到：</p>
+<script type="math/tex; mode=display">
+\nabla f(x)=\frac{2 c_{k, d}}{n h_{d+2}}\left[\sum_{i=1}^{n} g\left(\left\|\frac{x-x_{i}}{h}\right\|^{2}\right)\right]\left[\frac{\sum_{i=1}^{n} x_{i} g\left(\left\|\frac{x-x_{i}}{h}\right\|^{2}\right)}{\sum_{i=1}^{n} g\left(\left\|\frac{x-x_{i}}{h}\right\|^{2}\right)}-x\right]</script><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">首先把x−xix−xi和后面的一大坨乘开。然后在每一项在除以那一大坨。在外面乘以那一大坨。就是这个公式了。</span><br></pre></td></tr></table></figure>
+<p>其中，$g\left(\left|\frac{x-x_{i}}{h}\right|^{2}\right)$永远大于 0 ，且最后一项称之为meanshift向量，即：</p>
+<script type="math/tex; mode=display">
+m_{h}(x)=\frac{\sum_{i=1}^{n} x_{i} g\left(\left\|\frac{x-x_{i}}{h}\right\|^{2}\right)}{\sum_{i=1}^{n} g\left(\left\|\frac{x-x_{i}}{h}\right\|^{2}\right)}-x</script><p> <img src="https://lh3.googleusercontent.com/M9whig9Gp2OA77G9ETCnUyI3m12GNveRjAlm6u4aREGnrgYIHB3Mm9nvIRYFQrhhPR9leBV9WMEE" alt="enter image description here"></p>
+<p>从上述公式中可以发现，在x点的密度估计为：</p>
+<script type="math/tex; mode=display">
+f_{G}(x)=\frac{C}{n h^{d}} \sum_{i=1}^{n} g\left(\left\|\frac{x-x_{i}}{h}\right\|^{2}\right)</script><p> 则密度估计梯度变为：</p>
+<script type="math/tex; mode=display">
+\hat{\nabla} f_{K}(x)=\hat{f}_{G}(x) \frac{2 / C}{h^{2}} M_{k, G}(x)</script><p> 那么我们可以得到meanshift向量：</p>
+<script type="math/tex; mode=display">
+M_{k, G(x)}=\frac{h^{2}}{2 / C} \frac{\nabla f_{K}(x)}{\hat{f}_{G}(x)}</script><p>上面这个式子表明：</p>
+<ol>
+<li>在点x处，MeanShift向量于密度梯度仅差一个常量的比例系数。而梯度就是密度变化最大的方向，所有MeanShift向量总是指向密度增大最大的方向。</li>
+<li>MeanShift向量于点 x 的密度成反比，也就是说 x 点的密度越大，MeanShift向量的长度越小。也就是说这是一个变步长的自适应算法，可以避免出现在最优点附近振荡而无法收敛的情况。</li>
+</ol>
+<p>反复进行以下步骤，就是MeanShift算法的过程：</p>
+<ol>
+<li>计算MeanShift向量 $M_{k, G}(x)$；</li>
+<li>根据 $M_{k, G}(x)$ 移动窗口；</li>
+<li>直到 $M_{k, G}(x)$ 为0或者小于一个阈值；</li>
+</ol>
+<h3 id="Camshift"><a href="#Camshift" class="headerlink" title="Camshift"></a>Camshift</h3><p>将meanshift算法扩展到连续图像序列，就是camshift算法。它将视频的所有帧做meanshift运算，并将上一帧的结果，即搜索窗的大小和中心，作为下一帧meanshift算法搜索窗的初始值。如此迭代下去，就可以实现对目标的跟踪。<br>算法过程为：<br>(1).初始化搜索窗<br>(2).计算搜索窗的颜色概率分布（反向投影）<br>(3).运行meanshift算法，获得搜索窗新的大小和位置。<br>(4).在下一帧视频图像中用(3)中的值重新初始化搜索窗的大小和位置，再跳转到(2)继续进行。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/计算机视觉/" rel="tag"># 计算机视觉</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/聚类/" rel="tag"># 聚类</a>
+          
+        </div>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/04/19/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2020/04/19/pytorch/" rel="prev" title="Pytorch入门学习-1">
+                Pytorch入门学习-1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Classiczy">
+  <p class="site-author-name" itemprop="name">Classiczy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/wangzeyao" title="GitHub &rarr; https://github.com/wangzeyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zeyao.wang@outlook.com" title="E-Mail &rarr; mailto:zeyao.wang@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.instagram.com/classicwzy/" title="Instagram &rarr; https://www.instagram.com/classicwzy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://space.bilibili.com/259378363/" title="Bilibili &rarr; https://space.bilibili.com/259378363/" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>Bilibili</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MeanShift-和CamShift"><span class="nav-number">1.</span> <span class="nav-text">MeanShift 和CamShift</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.0.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法思想"><span class="nav-number">1.0.2.</span> <span class="nav-text">算法思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二维空间"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">二维空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三维空间"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">三维空间</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推广到一般情况"><span class="nav-number">1.0.3.</span> <span class="nav-text">推广到一般情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本形式"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">基本形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对平面上点的密度进行估计"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">对平面上点的密度进行估计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找到密度最大的地方"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">找到密度最大的地方</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Camshift"><span class="nav-number">1.0.4.</span> <span class="nav-text">Camshift</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Classiczy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'fQrw7GPV8alSagiWukM9OIkd-MdYXbMMI',
+    appKey: 'F8sp1ceQPgwWeqJdMc3V82wr',
+    placeholder: 'Comments here',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'en' || 'zh-cn'
+  });
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>
