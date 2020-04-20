@@ -57,20 +57,23 @@
   };
 </script>
 
-  <meta name="description" content="直方图和直方图均衡化(Histogram Equalization)图像直方(Image Histiograms)灰度直方图是对每一阶灰度的像素数量进行计数。像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数">
-<meta property="og:type" content="article">
-<meta property="og:title" content="直方图均衡化">
-<meta property="og:url" content="http://yoursite.com/2019/11/26/直方图均衡化/index.html">
+  <meta name="description" content="在最近的项目中需要获得用于注视点渲染的scan path，除了自己手动标记以外，老师还提供了eymol来自动生成，除了直接使用作者提供的代码外，还是要粗略的了解一下这个方法背后的想法。下面节选自‘Zanca D, Melacci S, Gori M. Gravitational Laws of Focus of Attention[J]. IEEE transactions on pattern">
+<meta name="keywords" content="论文">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gravitational Laws of Focus of Attention的粗略理解">
+<meta property="og:url" content="http://yoursite.com/eymol.html">
 <meta property="og:site_name" content="Classiczy">
-<meta property="og:description" content="直方图和直方图均衡化(Histogram Equalization)图像直方(Image Histiograms)灰度直方图是对每一阶灰度的像素数量进行计数。像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数">
+<meta property="og:description" content="在最近的项目中需要获得用于注视点渲染的scan path，除了自己手动标记以外，老师还提供了eymol来自动生成，除了直接使用作者提供的代码外，还是要粗略的了解一下这个方法背后的想法。下面节选自‘Zanca D, Melacci S, Gori M. Gravitational Laws of Focus of Attention[J]. IEEE transactions on pattern">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://lh3.googleusercontent.com/IV5jbUqA-6VjQvSpisRCCT7N8OZywnVx80ZUOMrhe1AgN7UmBZXauTmzMm063yXZKPbk8k4pD7O3">
-<meta property="og:updated_time" content="2020-04-20T14:44:36.000Z">
+<meta property="og:image" content="http://yoursite.com/a.png">
+<meta property="og:image" content="http://yoursite.com/b.png">
+<meta property="og:image" content="http://yoursite.com/c.png">
+<meta property="og:updated_time" content="2019-12-08T18:52:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="直方图均衡化">
-<meta name="twitter:description" content="直方图和直方图均衡化(Histogram Equalization)图像直方(Image Histiograms)灰度直方图是对每一阶灰度的像素数量进行计数。像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数">
-<meta name="twitter:image" content="https://lh3.googleusercontent.com/IV5jbUqA-6VjQvSpisRCCT7N8OZywnVx80ZUOMrhe1AgN7UmBZXauTmzMm063yXZKPbk8k4pD7O3">
-  <link rel="canonical" href="http://yoursite.com/2019/11/26/直方图均衡化/">
+<meta name="twitter:title" content="Gravitational Laws of Focus of Attention的粗略理解">
+<meta name="twitter:description" content="在最近的项目中需要获得用于注视点渲染的scan path，除了自己手动标记以外，老师还提供了eymol来自动生成，除了直接使用作者提供的代码外，还是要粗略的了解一下这个方法背后的想法。下面节选自‘Zanca D, Melacci S, Gori M. Gravitational Laws of Focus of Attention[J]. IEEE transactions on pattern">
+<meta name="twitter:image" content="http://yoursite.com/a.png">
+  <link rel="canonical" href="http://yoursite.com/eymol">
 
 
 <script id="page.configurations">
@@ -79,7 +82,7 @@
   };
 </script>
 
-  <title>直方图均衡化 | Classiczy</title>
+  <title>Gravitational Laws of Focus of Attention的粗略理解 | Classiczy</title>
   
 
 
@@ -216,163 +219,104 @@
         <div class="content-wrap">
             
 
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/直方图均衡化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
+    
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-          <h1 class="post-title" itemprop="name headline">直方图均衡化
+<h1 class="post-title" itemprop="name headline">Gravitational Laws of Focus of Attention的粗略理解
 
-              
-            
-          </h1>
-        
+</h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 26-11-2019 13:30:44 13:30:44" itemprop="dateCreated datePublished" datetime="2019-11-26T13:30:44+08:00">26-11-2019 13:30:44</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 20-04-2020 22:44:36 22:44:36" itemprop="dateModified" datetime="2020-04-20T22:44:36+08:00">20-04-2020 22:44:36</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
+<div class="post-meta">
   
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2019/11/26/直方图均衡化/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/直方图均衡化/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
 
-        </div>
-      </header>
+</div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
-        <h1 id="直方图和直方图均衡化-Histogram-Equalization"><a href="#直方图和直方图均衡化-Histogram-Equalization" class="headerlink" title="直方图和直方图均衡化(Histogram Equalization)"></a>直方图和直方图均衡化(Histogram Equalization)</h1><h3 id="图像直方-Image-Histiograms"><a href="#图像直方-Image-Histiograms" class="headerlink" title="图像直方(Image Histiograms)"></a>图像直方(Image Histiograms)</h3><p>灰度直方图是对每一阶灰度的像素数量进行计数。<br>像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数<br><a id="more"></a></p>
-<h3 id="直方图均衡化-Histogram-Equalization"><a href="#直方图均衡化-Histogram-Equalization" class="headerlink" title="直方图均衡化(Histogram Equalization)"></a>直方图均衡化(Histogram Equalization)</h3><p>对于对比度不高的灰阶图，我们需要用一个<em>灰度映射函数 T</em> 来把输入的灰度值r映射为输出的灰度值s，即 <strong>s=T( r )</strong><br>那么如何获得这个映射函数T呢？<br>我们先设任意灰度值t：</p>
-<ul>
-<li>在原图像中的概率密度函数为$p_{f}$(t)</li>
-<li>在输出的图像中的概率密度函数为$p_{g}$(t)</li>
-</ul>
-<p>然后，我们可以得到相应的累计分布函数：</p>
-<ul>
-<li>$S_{f}$(n) = $\int_0^np_{f}(t)dt$</li>
-<li>$S_{g}$(n) = $\int_0^np_{g}(t)dt$</li>
-</ul>
-<p>此时，为了保证：</p>
-<ul>
-<li><strong>在原图像中比灰度值r暗的像素，映射到新图像中仍然比s暗</strong></li>
-<li><strong>在原图像中比灰度值r亮的像素，映射后依然比s亮</strong></li>
-</ul>
-<p>所以有：<br>$S_{f}( s )$ = $S_{g}[T( r )]$=$S_{g}(s)$   （1）</p>
-<p>对其微分就得到：<br>$p_{f}(r) · ds$ · $p_{g}(s) · ds$    （2）</p>
-<p>我们令变换$T(r)$ = $L · S_{f}( r )$ 那么：<br>$s=T(r)$<br>&nbsp;&nbsp;&nbsp;$= L · S_{f}( r )$<br>&nbsp;&nbsp;&nbsp;$= L ·\int_0^rp_{f}(t)d$</p>
-<p>那么我们就能得到：<br>$\frac{ds}{dr}=L ·p_{f}(r)$  &nbsp;&nbsp; (3)<br>由（2）（3）得：<br>$p_{g}(s)=\frac{1}{L}$</p>
-<p>我们可以看出映射后，图像g中各灰度为均匀分布，概率密度函数为常数1/L，各种灰度被均衡化了。<br>那么我们要找的映射函数: $T(r)=L ·\int_0^rp_f(t)$</p>
-<p><img src="https://lh3.googleusercontent.com/IV5jbUqA-6VjQvSpisRCCT7N8OZywnVx80ZUOMrhe1AgN7UmBZXauTmzMm063yXZKPbk8k4pD7O3" alt="enter image description here" title="计算实例"></p>
+      
+      
+      <div class="post-body">
+        
+          <h4 id="在最近的项目中需要获得用于注视点渲染的scan-path，除了自己手动标记以外，老师还提供了eymol来自动生成，除了直接使用作者提供的代码外，还是要粗略的了解一下这个方法背后的想法。"><a href="#在最近的项目中需要获得用于注视点渲染的scan-path，除了自己手动标记以外，老师还提供了eymol来自动生成，除了直接使用作者提供的代码外，还是要粗略的了解一下这个方法背后的想法。" class="headerlink" title="在最近的项目中需要获得用于注视点渲染的scan path，除了自己手动标记以外，老师还提供了eymol来自动生成，除了直接使用作者提供的代码外，还是要粗略的了解一下这个方法背后的想法。"></a>在最近的项目中需要获得用于注视点渲染的scan path，除了自己手动标记以外，老师还提供了eymol来自动生成，除了直接使用作者提供的代码外，还是要粗略的了解一下这个方法背后的想法。</h4><p>下面节选自<br>‘Zanca D, Melacci S, Gori M. Gravitational Laws of Focus of Attention[J]. IEEE transactions on pattern analysis and machine intelligence, 2019.’</p>
+<a id="more"></a>
+<p>The  intuition is that, regardless of the information source, the  “attraction of attention” is basically a gravitational process</p>
+<p>直觉是，不管信息来源如何，“吸引注意力”基本上是一个引力过程</p>
+<p>When trusting this principle, everything is reduced to modeling information sources as gravitational masses in the retina</p>
+<p>按照这个标准，一切都简化为将信息源建模为视网膜中的<strong>重力块</strong></p>
+<p>Basically, for any pixel, masses are created which correspond with details and motion. The details are associated with masses proportional to the magnitude of the gradient, while masses that arise from motion turn out to be proportional to the magnitude of the optical flow.</p>
+<p>对于像素点来说，质量是由细节和运动产生的。<strong>细节</strong>对于质量的影响与<strong>梯度的大小</strong>成正比，而<strong>运动</strong>对质量的影响与<strong>光流的大小</strong>成正比。(注:梯度为亮度的梯度)</p>
+<p>The three frames reported in Fig. 1 present a typical example where details and motion are sources of attraction of the focus on the basis of classic gravitational laws of mechanics</p>
+<p>在图一中的三帧是一个典型的例子，注意力源自基于经典的力学引力定律的细节和运动。</p>
+<p><img src="a.png" alt="png"></p>
+<p>In (a), attention is on pedestrian crossing, which yields quite a remarkable magnitude of gradient.</p>
+<p>在（a）中，注意力在人行斑马线上，它产生了很大的梯度。</p>
+<p><img src="b.png" alt="png"></p>
+<p>In (b), the gravitational field gives rise to motion attraction (bicycles on the right),which comes from the correspondent virtual masses.</p>
+<p>在（b）中，引力场引起运动吸引（右边的自行车处），其来自于相关的虚拟质量</p>
+<p><img src="c.png" alt="png"></p>
+<p>Finally,in (c), motion attraction is moved to other virtual masses arising from motion (bicycles on the left).</p>
+<p>最后，在（c）中，运动吸引移移动到另外一处虚拟质量升高地方（左侧自行车处）</p>
+<p>When looking carefully at the mass distribution of subsequent frames (b) and (c), we can see that the virtual masses arising from the pedestrian crossing that were attracting attention in (a) are vanishing significantly so as to favor motion attraction in (b).Finally, as soon as the bicycles come out of the frame the attention shifts from (b) to the left cyclists (c).</p>
+<p>当仔细观察在（b）（c）两个连续帧中质量分布的时候，在（a）中引起注意力的人行横道的虚拟质量显著的下降了，在（b）中的运动吸引也是一样。 当右侧的自行车行使出画面时，注意力立刻移动到了左侧的自行车处。</p>
+<p>The idea behind inhibition is that as the saliency on a given region increases the correspondent mass is reduced, so as not to get trapped.The mass inhibition process can be regarded as the source of saccadic movements.</p>
+<p>上述这种抑制背后的想法是，在显著性地方高的地方（注：也就是注意力经过的地方）降低相关的虚拟质量，这样注意力就不会被限制在一个地方。质量抑制过程可以看作是眼球快速运动的根源。</p>
+<p>It is in fact the shift of virtual masses that originates ballistic gravitational movements, that mostly take place in areas without attraction masses.</p>
+<p>实际上，质量的移动会引起的弹道引力运动，这种运动主要发生在没有质量的区域。</p>
+<p>Appropriate fixations and smooth pursuit behaviour clearly benefit from damping, so as to suppress oscillations. The overall dynamics arises when pairing the gravitational equations with damping along with the inhibition model of the virtual masses.</p>
+<p>显然阻尼中可以使得凝视和平滑追踪行为更适当，因为抑制了振动。 当将重力方程与阻尼以及虚拟质量的抑制模型配对时，将产生整体的动力。</p>
+<p>We consider a video defined over the retinal domain $D=\mathcal{R} \times \mathcal{T}$, where $\mathcal{R} \subset \mathbb{R}^{2}$,is the retina while $\mathcal{T} \subset \mathbb{R}$ is<br>the temporal basis. The trajectory of the focus of attention is driven by a virtual mass $\mu: \mathcal{D} \rightarrow \mathbb{R}$ which yields a gravitational field associated with <em>relevant visual</em> features. This mass arises from the sum of different contributions. In this paper, we consider two different visual features as sources of virtual masses:</p>
+<p>视频定义为$D=\mathcal{R} \times \mathcal{T}$，$\mathcal{R}$是视网膜区域（帧），$\mathcal{T}$是时间维度。 注意力的路径由虚拟质量$\mu: \mathcal{D} \rightarrow \mathbb{R}$定义，虚拟质量会产生引力场。虚拟质量由以下两个不同的视觉特征产生：</p>
+<ol>
+<li><p>Let $b: \mathcal{D} \rightarrow \mathbb{R}$ be the brightness of the video. It generates the spatial gradient of the brightness $\mu_{1} = \alpha_{1}\left|\nabla_{x} b\right|$ with $\alpha_{1} \in \mathbb{R}^{+}$, so as the virtual mass $\mu_{1}(x, t)$ is available for all $(x, t) \in \mathcal{D}$.  Clearly,$\mu_{1}(x, t)$ carries information about edges and, generally speaking, it reveals the presence of details in the video</p>
+<p>$\mu_{1}$是亮度的梯度，可以代表视频的细节。细节产生的虚拟质量由 $\mu_{1} = \alpha_{1}\left|\nabla_{x} b\right|$ 计算。</p>
+</li>
+<li><p>Let $v: \mathcal{D} \rightarrow \mathbb{R}$,be the optical flow, that is the velocity<br>field at any $(x, t) \in \mathcal{D}$. It generates the virtual mass $\mu_{2}=\alpha_{2}|v|$,that characterizes moving areas in the retina.</p>
+<p>$v$代表光流，光流产生的虚拟质量由$\mu_{2}=\alpha_{2}|v|$计算。</p>
+</li>
+</ol>
+<p>In doing so, the focus of attention is either controlled by details, that are typically characterized by significant values of $\mu_{1}$ or by moving objects, that produce significant values of $\mu_{2}$. Basically, details and movements turn out to attract the correspondent virtual masses, so as the process of focus of attention is translated into gravitational attraction of attention. More generally, as we will point out in Section 4, the underlying idea of virtual masses can also be extended to the case in which attention is controlled by understanding processes. In this case, one can generate virtual masses by means of the visual features of a convolutional neural network.</p>
+<p>如此一来，注意力会被细节或者运动所控制。本质上，细节和运动会吸引相应的虚拟质量，所以注意力可以被转换成一种引力机制。更笼统的说，虚拟质量这个想法可以被扩展到注意力被理解过程控制的情况（这在某种程度上与涉及人类视觉系统V1区域的特征图相对应）。如此一来，就可以用卷积神经网络生成视觉特征的方法来生成虚拟质量。（在第四节提到了基于语义基础生成虚拟质量，这样就可以用于Task-oriented modeling）</p>
 
+        
+      </div>
+      
+      
+      
     </div>
+    
 
     
     
     
-
-    <footer class="post-footer">
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-              <a href="/2019/11/27/字母识别/" rel="prev" title="字母识别">
-                字母识别 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
   </div>
 
 
@@ -530,7 +474,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#直方图和直方图均衡化-Histogram-Equalization"><span class="nav-number">1.</span> <span class="nav-text">直方图和直方图均衡化(Histogram Equalization)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图像直方-Image-Histiograms"><span class="nav-number">1.0.1.</span> <span class="nav-text">图像直方(Image Histiograms)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直方图均衡化-Histogram-Equalization"><span class="nav-number">1.0.2.</span> <span class="nav-text">直方图均衡化(Histogram Equalization)</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#在最近的项目中需要获得用于注视点渲染的scan-path，除了自己手动标记以外，老师还提供了eymol来自动生成，除了直接使用作者提供的代码外，还是要粗略的了解一下这个方法背后的想法。"><span class="nav-number">1.</span> <span class="nav-text">在最近的项目中需要获得用于注视点渲染的scan path，除了自己手动标记以外，老师还提供了eymol来自动生成，除了直接使用作者提供的代码外，还是要粗略的了解一下这个方法背后的想法。</span></a></li></ol></div>
             
 
           </div>

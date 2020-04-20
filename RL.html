@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="强化学习简介强化学习是机器学习的一个分支，由如下几个元素组成：  状态(State):也就是所处的环境 动作(Action): 在每个状态下，有哪些可采取的动作 奖励(Reward): 在采取动作后进入新的状态后，获得的价值，可能为正或者负 策略(Policy): 在某个状态下，要如何采取行动  当然我们还可以增加agent和environment来统一整个模型:">
+<meta name="keywords" content="强化学习">
+<meta property="og:type" content="website">
+<meta property="og:title" content="强化学习">
+<meta property="og:url" content="http://yoursite.com/RL.html">
+<meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="强化学习简介强化学习是机器学习的一个分支，由如下几个元素组成：  状态(State):也就是所处的环境 动作(Action): 在每个状态下，有哪些可采取的动作 奖励(Reward): 在采取动作后进入新的状态后，获得的价值，可能为正或者负 策略(Policy): 在某个状态下，要如何采取行动  当然我们还可以增加agent和environment来统一整个模型:">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/强化学习元素.png">
+<meta property="og:image" content="http://yoursite.com/DQN.png">
+<meta property="og:updated_time" content="2020-02-26T20:32:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="强化学习">
+<meta name="twitter:description" content="强化学习简介强化学习是机器学习的一个分支，由如下几个元素组成：  状态(State):也就是所处的环境 动作(Action): 在每个状态下，有哪些可采取的动作 奖励(Reward): 在采取动作后进入新的状态后，获得的价值，可能为正或者负 策略(Policy): 在某个状态下，要如何采取行动  当然我们还可以增加agent和environment来统一整个模型:">
+<meta name="twitter:image" content="http://yoursite.com/强化学习元素.png">
+  <link rel="canonical" href="http://yoursite.com/RL">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>强化学习 | Classiczy</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Classiczy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">强化学习
+
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+          <h1 id="强化学习"><a href="#强化学习" class="headerlink" title="强化学习"></a>强化学习</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>强化学习是机器学习的一个分支，由如下几个元素组成：</p>
+<ul>
+<li>状态(State):也就是所处的环境</li>
+<li>动作(Action): 在每个状态下，有哪些可采取的动作</li>
+<li>奖励(Reward): 在采取动作后进入新的状态后，获得的价值，可能为正或者负</li>
+<li>策略(Policy): 在某个状态下，要如何采取行动</li>
+</ul>
+<p>当然我们还可以增加agent和environment来统一整个模型:<br><a id="more"></a><br><img src="强化学习元素.png" alt="png"></p>
+<p>整个过程可以如下描述:</p>
+<ol>
+<li>获得初始state</li>
+<li>根据policy选择action</li>
+<li>由agent执行action</li>
+<li>执行action后，获得环境返回的reward和新state</li>
+</ol>
+<p>而强化学习的目的就是，以<strong>state</strong>,<strong>action</strong>,<strong>reward</strong>(可以统称为environment)作为输入，获得输出<strong>policy</strong>使得通过这个<strong>policy</strong>能获得最大的reward</p>
+<p>根据这些元素我们也可以对强化学习进行分类：</p>
+<h4 id="1-Model-free-和-Model-based"><a href="#1-Model-free-和-Model-based" class="headerlink" title="1.Model-free 和 Model-based"></a>1.Model-free 和 Model-based</h4><p>Model-free 即机器人不知道外界环境信息，只能在机器人执行每一步动作后从环境中得到反馈然后去学习，只能按部就班，一步一步等待真实世界的反馈，再根据反馈采取下一步行动。诸如Q Learning， Sarsa，Policy Gradients等算法。</p>
+<p>Model-based 指机器人对环境有一定的了解，可以对环境进行建模，通过模型机器人再也不必等真实世界的反馈做出动作。可以这么理解，当机器人要学习的时候，由于有了环境的模型，机器人可以将建立的环境模型当做是真实世界，不断的学习。在模型世界中，选择学习情况最好的那一种。</p>
+<h4 id="2-基于概率和基于价值（value）"><a href="#2-基于概率和基于价值（value）" class="headerlink" title="2.基于概率和基于价值（value）"></a>2.基于概率和基于价值（value）</h4><p>基于概率：是强化学习中最直接的一种，通过state（观测）直接输出下一步采取的action（动作）的概率，然后根据概率采取行动，所以每一种action（动作）都有可能被选中，只是可能性不同。诸如 Policy Gradient。</p>
+<p>基于价值：输出所有动作的价值，相比基于概率的方法，基于价值的决策部分更为铁定，即选择价值最高的。诸如 Q Learning， Sarsa 等算法。</p>
+<h3 id="3-回合更新（Monte-Carlo-update，蒙特卡洛更新）和单步更新（Temporal-Difference-update）"><a href="#3-回合更新（Monte-Carlo-update，蒙特卡洛更新）和单步更新（Temporal-Difference-update）" class="headerlink" title="3.回合更新（Monte-Carlo update，蒙特卡洛更新）和单步更新（Temporal-Difference update）"></a>3.回合更新（Monte-Carlo update，蒙特卡洛更新）和单步更新（Temporal-Difference update）</h3><p>回合更新：指游戏开始到结束整一个过程，只有等到结束后，才能够总结这个回合的所有转折点，再更新我们的行为准则。诸如Monte-carlo Learning 和 基础版的 policy gradient等。</p>
+<p>单步更新：在游戏中的每一步都可以更新其行为准则（例如如何选择action等），不用等到整个过程都结束。诸如Qlearning、Sarsa 和升级版的 policy gradient 等都是单步更新的。</p>
+<h3 id="4-在线学习（On-Policy）和-离线学习（Off-Policy）"><a href="#4-在线学习（On-Policy）和-离线学习（Off-Policy）" class="headerlink" title="4.在线学习（On-Policy）和 离线学习（Off-Policy）"></a>4.在线学习（On-Policy）和 离线学习（Off-Policy）</h3><p>在线学习（On-Policy）：在当前时间当前采取的动作紧接着通过得到的反馈下进行学习。诸如 Sarsa 算法 和 Sarsa lambda 算法。</p>
+<p>离线学习（Off-Policy）：可以根据过往的经验及数据进行学习，举个例子，就是白天收集的数据可以在晚上通过离线学习进行。诸如 Q-Learning，Deep-Q-Network 等算法。</p>
+<p>项目中使用DQN就是一种model-free， value-based，td更新，off-policy的算法</p>
+<h2 id="价值-Utility"><a href="#价值-Utility" class="headerlink" title="价值 Utility"></a>价值 Utility</h2><p>既然我们要找到policy使得价值最大化，那么首先要定义什么是价值。 简单的说，价值是一系列在某state采取某action后获得的reward的期望，而且我们要考虑到未来所有的可能性，而不是仅仅是当前的reward：</p>
+<script type="math/tex; mode=display">
+U\left(S_{0}\right)=\mathbb{E}\left[\sum_{t=0}^{\infty} \gamma^{t} R\left(S_{t}\right)\right]</script><p>也就是说，某一个state的价值，是这个state后所有reward的和的期望，而$\gamma$是一个discount factor，越大说明越考虑长远的价值，越小越考虑当下的价值。</p>
+<h2 id="Bellman-condition"><a href="#Bellman-condition" class="headerlink" title="Bellman condition"></a>Bellman condition</h2><p>Bellman equation 说的是： 「如果从最佳选择的路径的末端截除一小部分，馀下的路径仍然是最佳路径。」换句话说，如果一系列的选择 A B C D E…… 是最优的，那么这系列除去开始的 A，那 B C D E …… 系列应用在后继的状态上也是最优的。就是一个类似动态规划的问题，我们用方程表示:</p>
+<script type="math/tex; mode=display">
+U^{*}(S)=\max _{a}\left\{R(a)+U^{*}\left(S^{\prime}\right)\right\}</script><p>也就是说，最佳的路径可以被划分为两个部分，当下的选择+余下的最佳路径</p>
+<h2 id="Delta-rule"><a href="#Delta-rule" class="headerlink" title="Delta rule"></a>Delta rule</h2><p>其实跟梯度下降很相似，就是逐步修改当前状态，使其慢慢接近最佳值，而调整的方向就是理想和当前状态的差值(梯度)</p>
+<script type="math/tex; mode=display">
+当前状态 = 当前状态 + \alpha(理想状态-当前状态)</script><p>其实$\alpha$就是常见的学习率</p>
+<h2 id="时序差分-Temporal-difference-TD-learning"><a href="#时序差分-Temporal-difference-TD-learning" class="headerlink" title="时序差分 Temporal difference (TD) learning"></a>时序差分 Temporal difference (TD) learning</h2><p>我们的目标是学习到每个state的价值(用于后面的policy)，那么将 delta rule 应用到 Bellman condition 上，去寻找真正的（理想的）价值，这就是 temporal difference learning。<br>让我们回顾一下：</p>
+<ol>
+<li>根据贝尔曼方程，我们可以描述每个状态的真实价值</li>
+</ol>
+<script type="math/tex; mode=display">
+U^{*}(S)=\max _{a}\left\{R(a)+U^{*}\left(S^{\prime}\right)\right\}</script><ol>
+<li>根据Delta rule，我们知道如何使得当前状态的价值接近真实值<script type="math/tex; mode=display">
+当前状态 = 当前状态 + \alpha(理想状态-当前状态)</script></li>
+</ol>
+<p>那么将两者结合起来，同时假设我们的其他状态的价值 $\mathrm{U}\left(\mathrm{S}^{\prime}\right)$ 正确，就得到了时序差分的公式：</p>
+<script type="math/tex; mode=display">
+U(S) = U(S) + \alpha\left(R(S)+\gamma U\left(S^{\prime}\right)-U(S)\right)</script><p>$\alpha$依旧为学习率，括号里面是理想状态减去当前状态</p>
+<h2 id="Q-learning"><a href="#Q-learning" class="headerlink" title="Q-learning"></a>Q-learning</h2><p>对应到 Q-learning 中的q值，其实就是价值U的一个变形，U是对一个状态而言的价值，而Q是对应一个状态下采取action A的价值。我们希望价值最大，那么就可以获得两者之间的关系式：</p>
+<script type="math/tex; mode=display">
+U(S)=\max _{A} Q(A, S)</script><p>然后再代入之前的时序差分方程，就获得了更新Q值的方程：</p>
+<script type="math/tex; mode=display">
+Q(A, S) = Q(A, S) + \alpha\left(R(S)+\gamma \max _{A^{\prime}} Q\left(A^{\prime}, S^{\prime}\right)-Q(A, S)\right)</script><h3 id="Action的选择"><a href="#Action的选择" class="headerlink" title="Action的选择"></a>Action的选择</h3><p>现在我们已经有了由state 和 action映射到q值的一个q表，那么每次在一个state的时候，我只需选择q值最大的动作就可以了。但是这只是理想状态，因为在建立时序差分的q值更新方程时，我们假设了其他状态的价值已经是正确的，然而实际上却不一定。所以，我们需要有一定的<strong>探索</strong>能力，这一能力可以通过引入$\epsilon-greedy$来实现。$\epsilon$是一个0到1之间的数，我们在每次选择动作的时候，有$\epsilon$的概率不选择q值最大的动作，而是随机选择其他动作，这样就增加了探索的能力。$\epsilon$的值也不是不变的，随着我们探索的内容增加，$\epsilon$可以逐渐递减以加快算法的收敛。</p>
+<h2 id="DQN-和其改进"><a href="#DQN-和其改进" class="headerlink" title="DQN 和其改进"></a>DQN 和其改进</h2><p>因为Q表可能会占据极大的空间，可以使用神经网络的映射来代替Q表，如下图</p>
+<p><img src="DQN.png" alt="png"></p>
+<p>输入为一个状态，输出为这个状态下每个动作相应的q值</p>
+<h4 id="经验池"><a href="#经验池" class="headerlink" title="经验池"></a>经验池</h4><p>Experiment replay： DQN 有一个记忆库用于学习之前的经历。Q-Learning 是一种 off-policy 离线方法，可以学习当前经历的，也能学习过去的，甚至学习别人经历的。每次DQN更新的时候，都会从之前的经历进行学习。随机抽取的做法打乱了经历的之间的相关性，使得神经网络的更新更有效率。</p>
+<h4 id="Nature-DQN"><a href="#Nature-DQN" class="headerlink" title="Nature DQN"></a>Nature DQN</h4><p>由于目标函数在更新后是变化的，训练十分不稳定。<br>我们采用两个结构完全相同的网络，一个用来训练映射，一个用来计算目标Q值（成为target网络），训练时target网络不更新参数。当训练一定epoch后再用训练网络的参数更新target 网络的参数。</p>
+<h4 id="Double-DQN"><a href="#Double-DQN" class="headerlink" title="Double DQN"></a>Double DQN</h4><p>在之前的DQN中，计算目标Q值和action的选择都是通过target网络完成，假设某个a被高估了，则target会选择被高估的a，那么这个Q值可能会虚高。DoubleDQN就把action的选择从target网络中拿出来放到训练网络中：</p>
+<ol>
+<li>在训练网络中选择Q值最大的action</li>
+<li>使用这个aciton到target网络估计Q值</li>
+</ol>
+<p>这样双重决策，只要有一个函数没有高估q值，就可以缓解情况</p>
+<h4 id="Prioritized-Replay"><a href="#Prioritized-Replay" class="headerlink" title="Prioritized Replay"></a>Prioritized Replay</h4><p>改变sample data的分布，增加那些损失大的样本从经验池中被选择的概率，因为loss打更新的步长也大，加快收敛</p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Classiczy">
+  <p class="site-author-name" itemprop="name">Classiczy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/wangzeyao" title="GitHub &rarr; https://github.com/wangzeyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zeyao.wang@outlook.com" title="E-Mail &rarr; mailto:zeyao.wang@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.instagram.com/classicwzy/" title="Instagram &rarr; https://www.instagram.com/classicwzy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://space.bilibili.com/259378363/" title="Bilibili &rarr; https://space.bilibili.com/259378363/" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>Bilibili</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#强化学习"><span class="nav-number">1.</span> <span class="nav-text">强化学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Model-free-和-Model-based"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">1.Model-free 和 Model-based</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-基于概率和基于价值（value）"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">2.基于概率和基于价值（value）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-回合更新（Monte-Carlo-update，蒙特卡洛更新）和单步更新（Temporal-Difference-update）"><span class="nav-number">1.1.1.</span> <span class="nav-text">3.回合更新（Monte-Carlo update，蒙特卡洛更新）和单步更新（Temporal-Difference update）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-在线学习（On-Policy）和-离线学习（Off-Policy）"><span class="nav-number">1.1.2.</span> <span class="nav-text">4.在线学习（On-Policy）和 离线学习（Off-Policy）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#价值-Utility"><span class="nav-number">1.2.</span> <span class="nav-text">价值 Utility</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bellman-condition"><span class="nav-number">1.3.</span> <span class="nav-text">Bellman condition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Delta-rule"><span class="nav-number">1.4.</span> <span class="nav-text">Delta rule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时序差分-Temporal-difference-TD-learning"><span class="nav-number">1.5.</span> <span class="nav-text">时序差分 Temporal difference (TD) learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-learning"><span class="nav-number">1.6.</span> <span class="nav-text">Q-learning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Action的选择"><span class="nav-number">1.6.1.</span> <span class="nav-text">Action的选择</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DQN-和其改进"><span class="nav-number">1.7.</span> <span class="nav-text">DQN 和其改进</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#经验池"><span class="nav-number">1.7.0.1.</span> <span class="nav-text">经验池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nature-DQN"><span class="nav-number">1.7.0.2.</span> <span class="nav-text">Nature DQN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Double-DQN"><span class="nav-number">1.7.0.3.</span> <span class="nav-text">Double DQN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prioritized-Replay"><span class="nav-number">1.7.0.4.</span> <span class="nav-text">Prioritized Replay</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Classiczy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'fQrw7GPV8alSagiWukM9OIkd-MdYXbMMI',
+    appKey: 'F8sp1ceQPgwWeqJdMc3V82wr',
+    placeholder: 'Comments here',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'en' || 'zh-cn'
+  });
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>

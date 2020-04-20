@@ -269,7 +269,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 20-04-2020 22:30:40 22:30:40" itemprop="dateModified" datetime="2020-04-20T22:30:40+08:00">20-04-2020 22:30:40</time>
+                <time title="Modified: 20-04-2020 22:44:25 22:44:25" itemprop="dateModified" datetime="2020-04-20T22:44:25+08:00">20-04-2020 22:44:25</time>
               </span>
             
           
@@ -401,7 +401,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/论文解读-连续进化搜索算法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/yolo/yolo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -418,7 +418,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/04/19/论文解读-连续进化搜索算法/" class="post-title-link" itemprop="url">论文解读-连续进化搜索算法</a>
+                <a href="/2019/12/17/yolo/yolo/" class="post-title-link" itemprop="url">目标检测：YOLO</a>
               
             
           </h1>
@@ -437,7 +437,7 @@
                 
               
 
-              <time title="Created: 19-04-2020 23:32:32 23:32:32" itemprop="dateCreated datePublished" datetime="2020-04-19T23:32:32+08:00">19-04-2020 23:32:32</time>
+              <time title="Created: 17-12-2019 11:13:10 11:13:10" itemprop="dateCreated datePublished" datetime="2019-12-17T11:13:10+08:00">17-12-2019 11:13:10</time>
             </span>
           
             
@@ -450,7 +450,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 08-04-2020 23:12:22 23:12:22" itemprop="dateModified" datetime="2020-04-08T23:12:22+08:00">08-04-2020 23:12:22</time>
+                <time title="Modified: 18-12-2019 19:30:00 19:30:00" itemprop="dateModified" datetime="2019-12-18T19:30:00+08:00">18-12-2019 19:30:00</time>
               </span>
             
           
@@ -462,14 +462,21 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/神经网络结构搜索/" itemprop="url" rel="index"><span itemprop="name">神经网络结构搜索</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
 
                 
                 
@@ -489,8 +496,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2020/04/19/论文解读-连续进化搜索算法/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/19/论文解读-连续进化搜索算法/" itemprop="commentCount"></span>
+    <a href="/2019/12/17/yolo/yolo/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/17/yolo/yolo/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -506,11 +513,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"><a href="#自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS" class="headerlink" title="自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS"></a>自动炼丹也能又快又好？解读来自华为的连续进化搜索算法CARS</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>华为诺亚方舟实验室发布了一篇论文《CARS: Continuous Evolution for Efficient Neural Architecture Search》被 CVPR 2020收录。论文中提出了一种连续进化网络结构搜索算法(continuous evolution architecture search，CARS)，可以利用上一轮进化的参数或者结构来构造超网来实现参数共享，再从超网中生成子网，并对其进行排序，从而选择优异的网络。这种算法整体耗时仅仅需要0.4 GPU day，优化了进化算法在神经网络结构搜索时候选网络训练时间过长的问题。<br>
+          <h1 id="目标检测：YOLO"><a href="#目标检测：YOLO" class="headerlink" title="目标检测：YOLO"></a>目标检测：YOLO</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>对yolo的印象就是快，yolo把整个目标检测（分类和定位）当作一个回归问题，直接从图像像素输出bbox坐标和类别，如下图:</p>
+<p><img src="yolo1_detection_system.png" alt="png"></p>
+<p>yolo使用一个卷积神经网络同时预测多个检测目标。它首先把图像resize到$448 \times 448$，图像通过卷积网络后生成bbox坐标和分类，然后用NMS进行筛选。<br>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/04/19/论文解读-连续进化搜索算法/#more" rel="contents">
+              <a class="btn" href="/2019/12/17/yolo/yolo/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -541,7 +550,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/名词解释/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -558,7 +567,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/04/19/名词解释/" class="post-title-link" itemprop="url">名词解释</a>
+                <a href="/2019/12/06/循环神经网络/循环神经网络/" class="post-title-link" itemprop="url">循环神经网络</a>
               
             
           </h1>
@@ -577,7 +586,7 @@
                 
               
 
-              <time title="Created: 19-04-2020 23:32:32 23:32:32" itemprop="dateCreated datePublished" datetime="2020-04-19T23:32:32+08:00">19-04-2020 23:32:32</time>
+              <time title="Created: 06-12-2019 19:02:17 19:02:17" itemprop="dateCreated datePublished" datetime="2019-12-06T19:02:17+08:00">06-12-2019 19:02:17</time>
             </span>
           
             
@@ -590,134 +599,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 30-09-2019 07:18:02 07:18:02" itemprop="dateModified" datetime="2019-09-30T07:18:02+08:00">30-09-2019 07:18:02</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2020/04/19/名词解释/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/19/名词解释/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h3 id="Anchor-先验框，锚点或锚框"><a href="#Anchor-先验框，锚点或锚框" class="headerlink" title="Anchor 先验框，锚点或锚框"></a>Anchor 先验框，锚点或锚框</h3><h3 id="Receptive-field-感受野"><a href="#Receptive-field-感受野" class="headerlink" title="Receptive field 感受野"></a>Receptive field 感受野</h3><p>在典型CNN结构中，FC层每个输出节点的值都依赖FC层所有输入，而CONV层每个输出节点的值仅依赖CONV层输入的一个区域，这个区域之外的其他输入值都不会影响输出值，该区域就是感受野。</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/卷积神经网络/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/04/19/卷积神经网络/" class="post-title-link" itemprop="url">卷积神经网络</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 19-04-2020 23:32:32 23:32:32" itemprop="dateCreated datePublished" datetime="2020-04-19T23:32:32+08:00">19-04-2020 23:32:32</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 30-09-2019 05:35:08 05:35:08" itemprop="dateModified" datetime="2019-09-30T05:35:08+08:00">30-09-2019 05:35:08</time>
+                <time title="Modified: 15-01-2020 00:24:18 00:24:18" itemprop="dateModified" datetime="2020-01-15T00:24:18+08:00">15-01-2020 00:24:18</time>
               </span>
             
           
@@ -749,8 +631,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2020/04/19/卷积神经网络/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/19/卷积神经网络/" itemprop="commentCount"></span>
+    <a href="/2019/12/06/循环神经网络/循环神经网络/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/06/循环神经网络/循环神经网络/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -766,14 +648,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h1><h3 id="全链接前馈网络的问题"><a href="#全链接前馈网络的问题" class="headerlink" title="全链接前馈网络的问题"></a>全链接前馈网络的问题</h3><p>如果用全连接前馈网络来处理图像时，会存在以下两个问题：</p>
-<ol>
-<li><strong>参数太多</strong>，如果输入图像大小为100×100×3，在全连接前馈网络中，第一个隐藏层的每个神<br>经元到输入层都有100×100×3 = 30, 000 个相互独立的连接，每个连接都对应一个权重参数。参数的规模也会急剧增加。这会导致整个神经网络的训练效率会非常低，也很容易出现过拟合。</li>
-<li><strong>局部不变性特征</strong>，：自然图像中的物体都具有局部不变性特征，比如在尺度缩放、平移、旋转等操作不影响其语义信息。而全连接前馈网络很难提取这些局部不变特征，一般需要进行数据增强来提高性能。
+          <h1 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h1><h2 id="基本的循环神经网络"><a href="#基本的循环神经网络" class="headerlink" title="基本的循环神经网络"></a>基本的循环神经网络</h2><p>它由输入层、一个隐藏层和一个输出层组成：<br><img src="https://lh3.googleusercontent.com/WZWOCX6tDlCSMyaugOToE65BgCvsAfqal_IrS6TkUDrGfhAvv5BuKVpt7xOU5cqm2TnVjiHFwsar" alt="enter image description here"></p>
+<ul>
+<li>x是一个向量，它表示<strong>输入层</strong>的值</li>
+<li>s是一个向量，它表示<strong>隐藏层</strong>的值（这里隐藏层面画了一个节点，你也可以想象这一层其实是多个节点，节点数与向量s的维度相同）；</li>
+<li>U是输入层到隐藏层的<strong>权重矩阵</strong></li>
+<li>o也是一个向量，它表示<strong>输出层</strong>的值；</li>
+<li>V是隐藏层到输出层的<strong>权重矩阵</strong></li>
+<li><strong>循环神经网络</strong>的<strong>隐藏层</strong>的值s不仅仅取决于当前这次的输入x，还取决于上一次<strong>隐藏层</strong>的值s。<strong>权重矩阵</strong> W就是<strong>隐藏层</strong>上一次的值作为这一次的输入的权重。
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/04/19/卷积神经网络/#more" rel="contents">
+              <a class="btn" href="/2019/12/06/循环神经网络/循环神经网络/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -804,7 +690,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/19/pytorch2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/字母识别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -821,7 +707,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/04/19/pytorch2/" class="post-title-link" itemprop="url">Pytorch入门学习-2</a>
+                <a href="/2019/11/27/字母识别/" class="post-title-link" itemprop="url">字母识别</a>
               
             
           </h1>
@@ -840,7 +726,7 @@
                 
               
 
-              <time title="Created: 19-04-2020 23:32:32 23:32:32" itemprop="dateCreated datePublished" datetime="2020-04-19T23:32:32+08:00">19-04-2020 23:32:32</time>
+              <time title="Created: 27-11-2019 20:20:57 20:20:57" itemprop="dateCreated datePublished" datetime="2019-11-27T20:20:57+08:00">27-11-2019 20:20:57</time>
             </span>
           
             
@@ -853,7 +739,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 29-10-2019 06:08:18 06:08:18" itemprop="dateModified" datetime="2019-10-29T06:08:18+08:00">29-10-2019 06:08:18</time>
+                <time title="Modified: 20-04-2020 22:44:46 22:44:46" itemprop="dateModified" datetime="2020-04-20T22:44:46+08:00">20-04-2020 22:44:46</time>
               </span>
             
           
@@ -865,7 +751,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
 
                 
                 
@@ -885,8 +771,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2020/04/19/pytorch2/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/19/pytorch2/" itemprop="commentCount"></span>
+    <a href="/2019/11/27/字母识别/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/27/字母识别/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -902,15 +788,144 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Lab-2-Semantic-segmentation-with-Fully-Convolutional-Networks"><a href="#Lab-2-Semantic-segmentation-with-Fully-Convolutional-Networks" class="headerlink" title="Lab 2: Semantic segmentation with Fully Convolutional Networks"></a>Lab 2: Semantic segmentation with Fully Convolutional Networks</h1><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="Semantic-segmentation-语义分割"><a href="#Semantic-segmentation-语义分割" class="headerlink" title="Semantic segmentation 语义分割"></a>Semantic segmentation 语义分割</h2><p>In the previous lab, we used Convolutional Networks to classify images into different classes (numbers, cats/dogs).</p>
-<p>语义分割是一项更进一步的计算机视觉任务，其目的是给<strong>每一个像素</strong>进行分类</p>
-<p>Semantic segmentation is a computer vision task that takes classification a step further, by assigning a class to <strong>every pixel</strong> of an image. </p>
-<p><img src="https://www.researchgate.net/publication/326875064/figure/fig3/AS:659518916681730@1534252971987/Example-of-2D-semantic-segmentation-Top-input-image-Bottom-prediction.png" alt="alt text"></p>
-<p>Of course, this problem is much harder than classification. Semantic segmentation is useful for any application that requires a dense classification, such as urban mapping, medical image segmentation, self-driving cars…<br>
+          <h1 id="Gesture-recognition-by-Deep-Neural-Network"><a href="#Gesture-recognition-by-Deep-Neural-Network" class="headerlink" title="Gesture recognition by Deep Neural Network"></a>Gesture recognition by Deep Neural Network</h1><h2 id="Previously-on-Camshift"><a href="#Previously-on-Camshift" class="headerlink" title="Previously on Camshift"></a>Previously on Camshift</h2><p>In the last TP, we used the camshift algorithme to track the hand and take picture of it. Then we resize the picture to 16X16 matrix and store it as the data set to train our neural network.<br>I spend an hour to capture the gesture of my hand and I only got like 1500 pictures. So in order to have more data to train the network. I randomly select 1000 pictures I have and rotate each of them with a random angle and add them into the data.(The code for selecting and rotating them is <a href="https://github.com/wangzeyao/ComputerVision/blob/master/TP2/img_process.py" target="_blank" rel="noopener">here</a>). So now I have a data set with 2500 pictures.<br><img src="https://lh3.googleusercontent.com/6nrSCWnXf75wqYINjmOW35lKdmufyrk-GmxiSHLdex9ZjCvHKF6_qfRer5DcR2GRQJuv2JzzBUVd" alt="The data set we have" title="The data set"><br>We have four letters to predict C,V,I and O<br>We will use two kinds of Network, MLP and CNN<br>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2020/04/19/pytorch2/#more" rel="contents">
+              <a class="btn" href="/2019/11/27/字母识别/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/直方图均衡化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/26/直方图均衡化/" class="post-title-link" itemprop="url">直方图均衡化</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 26-11-2019 13:30:44 13:30:44" itemprop="dateCreated datePublished" datetime="2019-11-26T13:30:44+08:00">26-11-2019 13:30:44</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 20-04-2020 22:44:36 22:44:36" itemprop="dateModified" datetime="2020-04-20T22:44:36+08:00">20-04-2020 22:44:36</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/11/26/直方图均衡化/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/直方图均衡化/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="直方图和直方图均衡化-Histogram-Equalization"><a href="#直方图和直方图均衡化-Histogram-Equalization" class="headerlink" title="直方图和直方图均衡化(Histogram Equalization)"></a>直方图和直方图均衡化(Histogram Equalization)</h1><h3 id="图像直方-Image-Histiograms"><a href="#图像直方-Image-Histiograms" class="headerlink" title="图像直方(Image Histiograms)"></a>图像直方(Image Histiograms)</h3><p>灰度直方图是对每一阶灰度的像素数量进行计数。<br>像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/11/26/直方图均衡化/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -937,9 +952,6 @@
   </section>
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
           </div>
@@ -974,7 +986,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -999,31 +1011,7 @@
         
           
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -1040,41 +1028,7 @@
         
           
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>

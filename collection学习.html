@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="Python collecitons学习1import collections Counter可以接受list 或者 tuple 的迭代器，返回一个 counter dictionary，这个词典的key是迭代器中unique的元素，value是该key在迭代器中的计数 123456lst = [1,1,1,2,2,3,4,4,4,4,5,5,5,9]counter = collections.C">
+<meta name="keywords" content="collections">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Python collecitons学习">
+<meta property="og:url" content="http://yoursite.com/collection学习.html">
+<meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="Python collecitons学习1import collections Counter可以接受list 或者 tuple 的迭代器，返回一个 counter dictionary，这个词典的key是迭代器中unique的元素，value是该key在迭代器中的计数 123456lst = [1,1,1,2,2,3,4,4,4,4,5,5,5,9]counter = collections.C">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-04T16:26:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python collecitons学习">
+<meta name="twitter:description" content="Python collecitons学习1import collections Counter可以接受list 或者 tuple 的迭代器，返回一个 counter dictionary，这个词典的key是迭代器中unique的元素，value是该key在迭代器中的计数 123456lst = [1,1,1,2,2,3,4,4,4,4,5,5,5,9]counter = collections.C">
+  <link rel="canonical" href="http://yoursite.com/collection学习">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python collecitons学习 | Classiczy</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Classiczy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Python collecitons学习
+
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+          <h1 id="Python-collecitons学习"><a href="#Python-collecitons学习" class="headerlink" title="Python collecitons学习"></a>Python collecitons学习</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br></pre></td></tr></table></figure>
+<h2 id="Counter"><a href="#Counter" class="headerlink" title="Counter"></a>Counter</h2><p>可以接受list 或者 tuple 的迭代器，返回一个 counter dictionary，这个词典的key是迭代器中unique的元素，value是该key在迭代器中的计数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lst = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">9</span>]</span><br><span class="line">counter = collections.Counter(lst)</span><br><span class="line">print(counter)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输出：Counter(&#123;<span class="number">4</span>: <span class="number">4</span>, <span class="number">1</span>: <span class="number">3</span>, <span class="number">5</span>: <span class="number">3</span>, <span class="number">2</span>: <span class="number">2</span>, <span class="number">3</span>: <span class="number">1</span>, <span class="number">9</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(counter[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    输出：<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h3 id="most-common-函数"><a href="#most-common-函数" class="headerlink" title="most_common()函数"></a>most_common()函数</h3><p>当它应用于一个 Counter 对象时，会返回一个 list，这个 list 包含了前 N 个常见的元素及其计数，它们按照常见度降序排列。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(counter.most_common(<span class="number">3</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    输出：[(<span class="number">4</span>, <span class="number">4</span>), (<span class="number">1</span>, <span class="number">3</span>), (<span class="number">5</span>, <span class="number">3</span>)]</span><br></pre></td></tr></table></figure></p>
+<h3 id="sum-函数"><a href="#sum-函数" class="headerlink" title="sum()函数"></a>sum()函数</h3><p>返回计算计数的总和<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(sum(counter))</span><br></pre></td></tr></table></figure></p>
+<pre><code>24
+</code></pre><h2 id="deque"><a href="#deque" class="headerlink" title="deque"></a>deque</h2><p>deque本质上queue，遵循FIFO原则。但是在 python collection中的deque实现了更多的操作。</p>
+<p>创建一个最大长度为10的deque，并用0-9的数字初始化<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">my_queue = collections.deque(maxlen = <span class="number">10</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    my_queue.append(i)</span><br><span class="line">print(my_queue)</span><br></pre></td></tr></table></figure></p>
+<pre><code>deque([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], maxlen=10)
+</code></pre><h3 id="我们继续往deque的后面添加数字，可以看到最前面的数字被挤出去了。"><a href="#我们继续往deque的后面添加数字，可以看到最前面的数字被挤出去了。" class="headerlink" title="我们继续往deque的后面添加数字，可以看到最前面的数字被挤出去了。"></a>我们继续往deque的后面添加数字，可以看到最前面的数字被挤出去了。</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>,<span class="number">15</span>):</span><br><span class="line">    my_queue.append(i)</span><br><span class="line">print(my_queue)</span><br></pre></td></tr></table></figure>
+<pre><code>deque([5, 6, 7, 8, 9, 10, 11, 12, 13, 14], maxlen=10)
+</code></pre><h3 id="同样我们可以用从左边，也就是队头添加元素"><a href="#同样我们可以用从左边，也就是队头添加元素" class="headerlink" title="同样我们可以用从左边，也就是队头添加元素"></a>同样我们可以用从左边，也就是队头添加元素</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my_queue.appendleft(<span class="number">100</span>)</span><br><span class="line">print(my_queue)</span><br></pre></td></tr></table></figure>
+<pre><code>deque([100, 5, 6, 7, 8, 9, 10, 11, 12, 13], maxlen=10)
+</code></pre><h3 id="返回某个元素的计数"><a href="#返回某个元素的计数" class="headerlink" title="返回某个元素的计数"></a>返回某个元素的计数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(my_queue.count(<span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>1
+</code></pre><h3 id="extend-函数接收list等来扩展deque，extendleft-同理"><a href="#extend-函数接收list等来扩展deque，extendleft-同理" class="headerlink" title="extend()函数接收list等来扩展deque，extendleft 同理"></a>extend()函数接收list等来扩展deque，extendleft 同理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lst = [<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>]</span><br><span class="line">my_queue.extend(lst)</span><br><span class="line">print(my_queue)</span><br></pre></td></tr></table></figure>
+<pre><code>deque([7, 8, 9, 10, 11, 12, 13, 13, 14, 15], maxlen=10)
+</code></pre><h3 id="insert-i-x-将x插入到i位置"><a href="#insert-i-x-将x插入到i位置" class="headerlink" title="insert(i,x) 将x插入到i位置"></a>insert(i,x) 将x插入到i位置</h3><p>如果插入后超过最大长度，则会raise IndexError<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my_queue.insert(<span class="number">8</span>,<span class="number">15</span>)</span><br><span class="line">print(my_queue)</span><br></pre></td></tr></table></figure></p>
+<pre><code>---------------------------------------------------------------------------
+
+IndexError                                Traceback (most recent call last)
+
+&lt;ipython-input-21-507412ea7411&gt; in &lt;module&gt;
+----&gt; 1 my_queue.insert(8,16)
+      2 print(my_queue)
+
+
+IndexError: deque already at its maximum size
+</code></pre><h3 id="pop-删除并返回队尾的元素"><a href="#pop-删除并返回队尾的元素" class="headerlink" title="pop() 删除并返回队尾的元素"></a>pop() 删除并返回队尾的元素</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_queue.pop()</span><br><span class="line">print(my_queue)</span><br><span class="line"><span class="comment"># popleft 同理</span></span><br></pre></td></tr></table></figure>
+<pre><code>deque([7, 8, 9, 10, 11, 12, 13, 13, 14], maxlen=10)
+</code></pre><p>这时候我们再来尝试insert</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my_queue.insert(<span class="number">8</span>,<span class="number">15</span>)</span><br><span class="line">print(my_queue)</span><br></pre></td></tr></table></figure>
+<pre><code>deque([7, 8, 9, 10, 11, 12, 13, 13, 15, 14], maxlen=10)
+</code></pre><h3 id="remove-删除第一个找到的元素"><a href="#remove-删除第一个找到的元素" class="headerlink" title="remove() 删除第一个找到的元素"></a>remove() 删除第一个找到的元素</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my_queue.remove(<span class="number">13</span>)</span><br><span class="line">print(my_queue)</span><br></pre></td></tr></table></figure>
+<pre><code>deque([7, 8, 9, 10, 11, 12, 13, 15, 14], maxlen=10)
+</code></pre><h3 id="reverse-翻转队列"><a href="#reverse-翻转队列" class="headerlink" title="reverse() 翻转队列"></a>reverse() 翻转队列</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my_queue.reverse()</span><br><span class="line">print(my_queue)</span><br></pre></td></tr></table></figure>
+<pre><code>deque([14, 15, 13, 12, 11, 10, 9, 8, 7], maxlen=10)
+</code></pre><h2 id="namedtuple"><a href="#namedtuple" class="headerlink" title="namedtuple"></a>namedtuple</h2><p>namedtuple() 可以返回一个 tuple，该 tuple 中的每个位置都有固定名称，而且 namedtuple 对象也有通用名称。要使用 namedtuple，需要先为其创建一个模板。下面的代码创建了一个名为「person」的 namedtuple 模板，其属性为「name」、「age」和「job」。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">person = collections.namedtuple(<span class="string">'Person'</span>,<span class="string">'name age job'</span>)</span><br><span class="line">WANG = person(name=<span class="string">'wang'</span>,age=<span class="number">23</span>,job=<span class="string">'manager'</span>)</span><br><span class="line">ZHAO = person(<span class="string">'zhao'</span>,<span class="number">23</span>,<span class="string">'teacher'</span>)</span><br><span class="line">print(WANG,ZHAO)</span><br></pre></td></tr></table></figure>
+<pre><code>Person(name=&#39;wang&#39;, age=23, job=&#39;manager&#39;) Person(name=&#39;zhao&#39;, age=23, job=&#39;teacher&#39;)
+</code></pre>
+        
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Classiczy">
+  <p class="site-author-name" itemprop="name">Classiczy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/wangzeyao" title="GitHub &rarr; https://github.com/wangzeyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zeyao.wang@outlook.com" title="E-Mail &rarr; mailto:zeyao.wang@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.instagram.com/classicwzy/" title="Instagram &rarr; https://www.instagram.com/classicwzy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://space.bilibili.com/259378363/" title="Bilibili &rarr; https://space.bilibili.com/259378363/" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>Bilibili</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-collecitons学习"><span class="nav-number">1.</span> <span class="nav-text">Python collecitons学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Counter"><span class="nav-number">1.1.</span> <span class="nav-text">Counter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#most-common-函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">most_common()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sum-函数"><span class="nav-number">1.1.2.</span> <span class="nav-text">sum()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deque"><span class="nav-number">1.2.</span> <span class="nav-text">deque</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我们继续往deque的后面添加数字，可以看到最前面的数字被挤出去了。"><span class="nav-number">1.2.1.</span> <span class="nav-text">我们继续往deque的后面添加数字，可以看到最前面的数字被挤出去了。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同样我们可以用从左边，也就是队头添加元素"><span class="nav-number">1.2.2.</span> <span class="nav-text">同样我们可以用从左边，也就是队头添加元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回某个元素的计数"><span class="nav-number">1.2.3.</span> <span class="nav-text">返回某个元素的计数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#extend-函数接收list等来扩展deque，extendleft-同理"><span class="nav-number">1.2.4.</span> <span class="nav-text">extend()函数接收list等来扩展deque，extendleft 同理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#insert-i-x-将x插入到i位置"><span class="nav-number">1.2.5.</span> <span class="nav-text">insert(i,x) 将x插入到i位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pop-删除并返回队尾的元素"><span class="nav-number">1.2.6.</span> <span class="nav-text">pop() 删除并返回队尾的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remove-删除第一个找到的元素"><span class="nav-number">1.2.7.</span> <span class="nav-text">remove() 删除第一个找到的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse-翻转队列"><span class="nav-number">1.2.8.</span> <span class="nav-text">reverse() 翻转队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#namedtuple"><span class="nav-number">1.3.</span> <span class="nav-text">namedtuple</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Classiczy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'fQrw7GPV8alSagiWukM9OIkd-MdYXbMMI',
+    appKey: 'F8sp1ceQPgwWeqJdMc3V82wr',
+    placeholder: 'Comments here',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'en' || 'zh-cn'
+  });
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>

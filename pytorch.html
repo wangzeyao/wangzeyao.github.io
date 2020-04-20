@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="Lab 1: Convolutional Neural NetworksIn this first Lab, we discover a Deep Learning framework (Pytorch), which we use to create our very first CNN (LeNet) and use it to perform handwritten character re">
+<meta name="keywords" content="深度学习,pytorch">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pytorch入门学习-1">
+<meta property="og:url" content="http://yoursite.com/pytorch.html">
+<meta property="og:site_name" content="Classiczy">
+<meta property="og:description" content="Lab 1: Convolutional Neural NetworksIn this first Lab, we discover a Deep Learning framework (Pytorch), which we use to create our very first CNN (LeNet) and use it to perform handwritten character re">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://camo.githubusercontent.com/d440ac2eee1cb3ea33340a2c5f6f15a0878e9275/687474703a2f2f692e7974696d672e636f6d2f76692f3051493378675875422d512f687164656661756c742e6a7067">
+<meta property="og:image" content="https://embarc.org/embarc_mli/doc/build/html/_images/image104.jpg">
+<meta property="og:image" content="https://miro.medium.com/max/1200/1*s_BwkYxpGv34vjOHi8tDzg.png">
+<meta property="og:image" content="https://gitcdn.xyz/cdn/Tony607/blog_statics/b9259799b5bf99efdf761fed8827ff28638c8599/images/colab/pytorch-colab.png">
+<meta property="og:image" content="http://yoursite.com/output_7_0.png">
+<meta property="og:image" content="http://yoursite.com/output_10_1.png">
+<meta property="og:image" content="http://yoursite.com/output_10_3.png">
+<meta property="og:image" content="http://yoursite.com/output_10_5.png">
+<meta property="og:image" content="http://yoursite.com/output_10_7.png">
+<meta property="og:image" content="http://yoursite.com/output_10_9.png">
+<meta property="og:image" content="http://yoursite.com/output_10_11.png">
+<meta property="og:image" content="http://yoursite.com/output_10_13.png">
+<meta property="og:image" content="http://yoursite.com/output_10_15.png">
+<meta property="og:image" content="http://yoursite.com/output_10_17.png">
+<meta property="og:image" content="http://yoursite.com/output_10_19.png">
+<meta property="og:image" content="http://yoursite.com/output_12_0.png">
+<meta property="og:image" content="http://yoursite.com/output_12_2.png">
+<meta property="og:image" content="http://yoursite.com/output_12_4.png">
+<meta property="og:image" content="http://yoursite.com/output_12_6.png">
+<meta property="og:image" content="http://yoursite.com/output_12_8.png">
+<meta property="og:image" content="http://yoursite.com/output_12_10.png">
+<meta property="og:image" content="http://yoursite.com/output_12_12.png">
+<meta property="og:image" content="http://yoursite.com/output_12_14.png">
+<meta property="og:image" content="http://yoursite.com/output_12_16.png">
+<meta property="og:image" content="http://yoursite.com/output_12_18.png">
+<meta property="og:image" content="http://yoursite.com/output_30_0.png">
+<meta property="og:image" content="http://yoursite.com/output_30_2.png">
+<meta property="og:image" content="http://yoursite.com/output_30_4.png">
+<meta property="og:image" content="http://yoursite.com/output_30_6.png">
+<meta property="og:image" content="http://yoursite.com/output_50_1.png">
+<meta property="og:image" content="http://adilmoujahid.com/images/cats-dogs.jpg">
+<meta property="og:image" content="https://miro.medium.com/max/668/1*GZrTyTz0OKMbxnO5Trhcew.png">
+<meta property="og:updated_time" content="2019-10-28T22:05:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pytorch入门学习-1">
+<meta name="twitter:description" content="Lab 1: Convolutional Neural NetworksIn this first Lab, we discover a Deep Learning framework (Pytorch), which we use to create our very first CNN (LeNet) and use it to perform handwritten character re">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/d440ac2eee1cb3ea33340a2c5f6f15a0878e9275/687474703a2f2f692e7974696d672e636f6d2f76692f3051493378675875422d512f687164656661756c742e6a7067">
+  <link rel="canonical" href="http://yoursite.com/pytorch">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Pytorch入门学习-1 | Classiczy</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Classiczy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+    </ul>
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Pytorch入门学习-1
+
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+          <h1 id="Lab-1-Convolutional-Neural-Networks"><a href="#Lab-1-Convolutional-Neural-Networks" class="headerlink" title="Lab 1: Convolutional Neural Networks"></a>Lab 1: Convolutional Neural Networks</h1><p>In this first Lab, we discover a Deep Learning framework (Pytorch), which we use to create our very first CNN (LeNet) and use it to perform handwritten character recognition.</p>
+<p>This Lab assumes that you are familiar with the Python language. If you’re not, please do Lab 0 first: <a href="https://colab.research.google.com/drive/16XlCqmmUQvwBD3D5u0lOy1rUFfDDZdYi" target="_blank" rel="noopener">https://colab.research.google.com/drive/16XlCqmmUQvwBD3D5u0lOy1rUFfDDZdYi</a></p>
+<p><img src="https://camo.githubusercontent.com/d440ac2eee1cb3ea33340a2c5f6f15a0878e9275/687474703a2f2f692e7974696d672e636f6d2f76692f3051493378675875422d512f687164656661756c742e6a7067" alt="alt text"></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h2 id="What’s-a-CNN"><a href="#What’s-a-CNN" class="headerlink" title="What’s a CNN?"></a>What’s a CNN?</h2><p>Convolutional Neural Networks are a subclass of Neural Networks that use Convolutional layers. These layers are basically sliding filters and work quite well for vision tasks.<br><a id="more"></a><br><img src="https://embarc.org/embarc_mli/doc/build/html/_images/image104.jpg" alt="alt text"></p>
+<h2 id="What’s-a-framework-and-why-are-we-using-one-PyTorch"><a href="#What’s-a-framework-and-why-are-we-using-one-PyTorch" class="headerlink" title="What’s a framework and why are we using one (PyTorch)?"></a>What’s a framework and why are we using one (PyTorch)?</h2><p>A programming framework is a collection of functions and utilities that is ready to use. Modern Deep Learning frameworks contain everything that is needed (layers, optimizers, losses, gradient computation…) to create and use neural networks, and make that really easy.</p>
+<p>PyTorch, originally created by Facebook, is one of the most used frameworks, especially among researchers. The other most used framework are Tensorflow (created by Google) and Keras (an abstraction layer for multiple frameworks, including Tensorflow). PyTorch has gained a lot of popularity since its 1.0 release in 2018.</p>
+<p><img src="https://miro.medium.com/max/1200/1*s_BwkYxpGv34vjOHi8tDzg.png" alt="alt text"></p>
+<h2 id="Why-use-Google-Colab-and-GPUs"><a href="#Why-use-Google-Colab-and-GPUs" class="headerlink" title="Why use Google Colab and GPUs?"></a>Why use Google Colab and GPUs?</h2><p>Google Colab is a collaborative workspace based on Jupyter Notebook, that lets you use a Python environment on Google Cloud with GPUs, for FREE!</p>
+<p>GPUs (Graphical Processing Units) are powerful chips that let you train and use neural networks much faster than CPUs. Having access to a GPU is very important for Deep Learning, as it can often make training more than 100x faster. It might not seem that huge at first, but state of the art neural nets can take days to train on common datasets, even with multiple powerful GPUs. On CPUs, it would take <strong>years</strong>.</p>
+<p>Colab gives you access to a free Nvidia Tesla K80 (most of the time), which is a 1000€ graphics card with 24GB of VRAM.</p>
+<p><img src="https://gitcdn.xyz/cdn/Tony607/blog_statics/b9259799b5bf99efdf761fed8827ff28638c8599/images/colab/pytorch-colab.png" alt="alt text"></p>
+<h2 id="IMPORTANT-Use-a-GPU-Runtime"><a href="#IMPORTANT-Use-a-GPU-Runtime" class="headerlink" title="/!\ IMPORTANT: Use a GPU Runtime"></a>/!\ IMPORTANT: Use a GPU Runtime</h2><p>To use a GPU in Colab, go to Runtime -&gt; Change Runtime Type -&gt; Hardware Accelerator -&gt; GPU.</p>
+<p><strong>Do this step before running any of the code below, otherwise you will have to run it again.</strong></p>
+<h2 id="Importing-libraries"><a href="#Importing-libraries" class="headerlink" title="Importing libraries"></a>Importing libraries</h2><p>For this lab, we only need PyTorch packages: “torch” and “torchvision”.</p>
+<p>“<strong>torch</strong>“ contains the Deep Learning framework itself. “<strong>torchvision</strong>“ contains datasets, pre-trained models, and image manipulation functions.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Import Pytorch</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"></span><br><span class="line"><span class="comment">#Little commonly used shortcut</span></span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="comment">#We need the display function from IPython for Jupyter Notebook/Colab</span></span><br><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> display</span><br><span class="line"></span><br><span class="line"><span class="comment">#A package to make beautiful progress bars :) </span></span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm_notebook</span><br><span class="line"></span><br><span class="line">print(torch.__version__)</span><br></pre></td></tr></table></figure>
+<pre><code>1.1.0
+</code></pre><h2 id="Downloading-the-data"><a href="#Downloading-the-data" class="headerlink" title="Downloading the data"></a>Downloading the data</h2><p>使用最常用的mnist数据集，通过 torchvision.datasets 来下载数据集。</p>
+<p>参数：</p>
+<ul>
+<li>root 下载的路径</li>
+<li>train 选择是训练集还是测试集</li>
+<li>download 是否下载</li>
+<li>是否对数据进行变换，在torchvision.transforms中有许多变换函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mnist_dataset = torchvision.datasets.MNIST(root = <span class="string">"."</span>, train=<span class="literal">True</span>, download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">print(mnist_dataset[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz to ./MNIST/raw/train-images-idx3-ubyte.gz
+
+
+9920512it [00:01, 8710591.75it/s]                            
+
+
+Extracting ./MNIST/raw/train-images-idx3-ubyte.gz
+
+Done!
+(&lt;PIL.Image.Image image mode=L size=28x28 at 0x7FF31D48D7B8&gt;, 0)
+</code></pre><p>We see that each element is a tuple containing a PIL Image (Python Imaging Library) and a label (0 here).<br>We can visualize PIL images in Colab using the <strong>display</strong> function.</p>
+<p>数据集中的每一个元素是一个tuple，第0位是PIL image, 第1位是label。<br>可以使用 display() 函数对图像进行显示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">display(mnist_dataset[<span class="number">128</span>][<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="output_7_0.png" alt="png"></p>
+<h1 id="Part-1-Looking-at-the-data"><a href="#Part-1-Looking-at-the-data" class="headerlink" title="Part 1: Looking at the data"></a>Part 1: Looking at the data</h1><h2 id="Q1-Display-10-images-with-their-label"><a href="#Q1-Display-10-images-with-their-label" class="headerlink" title="Q1: Display 10 images with their label"></a>Q1: Display 10 images with their label</h2><p>显示十个图像和他们的label</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">  display(mnist_dataset[i][<span class="number">1</span>],mnist_dataset[i][<span class="number">0</span>])</span><br><span class="line"><span class="comment"># display(type(mnist_dataset[1][1]))</span></span><br></pre></td></tr></table></figure>
+<pre><code>5
+</code></pre><p><img src="output_10_1.png" alt="png"></p>
+<pre><code>0
+</code></pre><p><img src="output_10_3.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_10_5.png" alt="png"></p>
+<pre><code>1
+</code></pre><p><img src="output_10_7.png" alt="png"></p>
+<pre><code>9
+</code></pre><p><img src="output_10_9.png" alt="png"></p>
+<pre><code>2
+</code></pre><p><img src="output_10_11.png" alt="png"></p>
+<pre><code>1
+</code></pre><p><img src="output_10_13.png" alt="png"></p>
+<pre><code>3
+</code></pre><p><img src="output_10_15.png" alt="png"></p>
+<pre><code>1
+</code></pre><p><img src="output_10_17.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_10_19.png" alt="png"></p>
+<h2 id="Q2-Display-10-images-from-a-specific-class"><a href="#Q2-Display-10-images-from-a-specific-class" class="headerlink" title="Q2: Display 10 images from a specific class"></a>Q2: Display 10 images from a specific class</h2><p>显示10个label为4的图像</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">0</span></span><br><span class="line">index = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> count != <span class="number">10</span>:</span><br><span class="line">  <span class="keyword">if</span> mnist_dataset[index][<span class="number">1</span>] == <span class="number">4</span>:</span><br><span class="line">    display(mnist_dataset[index][<span class="number">0</span>],mnist_dataset[index][<span class="number">1</span>])</span><br><span class="line">    count += <span class="number">1</span></span><br><span class="line">  index += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><img src="output_12_0.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_12_2.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_12_4.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_12_6.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_12_8.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_12_10.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_12_12.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_12_14.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_12_16.png" alt="png"></p>
+<pre><code>4
+</code></pre><p><img src="output_12_18.png" alt="png"></p>
+<pre><code>4
+</code></pre><h2 id="Q3-Count-the-number-of-elements-in-each-class"><a href="#Q3-Count-the-number-of-elements-in-each-class" class="headerlink" title="Q3: Count the number of elements in each class"></a>Q3: Count the number of elements in each class</h2><p>计算每一个标签有多少个元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">count = [<span class="number">0</span>]*<span class="number">10</span></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> mnist_dataset:</span><br><span class="line">  count[element[<span class="number">1</span>]] += <span class="number">1</span></span><br><span class="line">print(count)</span><br></pre></td></tr></table></figure>
+<pre><code>[5923, 6742, 5958, 6131, 5842, 5421, 5918, 6265, 5851, 5949]
+</code></pre><h1 id="Part-2-Creating-a-Neural-Network-with-torch-nn"><a href="#Part-2-Creating-a-Neural-Network-with-torch-nn" class="headerlink" title="Part 2: Creating a Neural Network with torch.nn"></a>Part 2: Creating a Neural Network with torch.nn</h1><p>我们使用经典的lenet网络</p>
+<h2 id="Q4-Implementing-the-network"><a href="#Q4-Implementing-the-network" class="headerlink" title="Q4: Implementing the network"></a>Q4: Implementing the network</h2><p>All networks created with torch.nn are subclasses of nn.Module.</p>
+<p>所有由 torch.nn 创建的网络都是 nn.Module 的子类。</p>
+<p>为了创建一个网络，我们需要定义两个函数</p>
+<ul>
+<li>在 __init__ 函数中，我们要定义网络所有需要的部件（layer），称其为网络的属性。</li>
+<li>在 forward 函数中，我们要通过一个给定的输入来定义所有layer的顺序。(不太懂define-by-run)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyFirstNetwork</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    super(MyFirstNetwork, self).__init__()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## MNIST images are 28x28 but LeNet5 expects 32x32</span></span><br><span class="line">    <span class="comment">## -&gt; we pad the images with zeroes</span></span><br><span class="line">    self.padding = nn.ZeroPad2d(<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## First convolution</span></span><br><span class="line">    self.conv1 = nn.Conv2d(in_channels = <span class="number">1</span>, out_channels= <span class="number">6</span> , kernel_size = <span class="number">5</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Second convolution</span></span><br><span class="line">    self.conv2 = nn.Conv2d(in_channels=<span class="number">6</span>,out_channels=<span class="number">16</span>,kernel_size=<span class="number">5</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Pooling (subsampling) layer</span></span><br><span class="line">    self.maxpool = nn.MaxPool2d(<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Activation layer</span></span><br><span class="line">    self.relu = nn.ReLU()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Fully connected layers</span></span><br><span class="line">    self.fc1 = nn.Linear(in_features = <span class="number">400</span>, out_features = <span class="number">120</span>)</span><br><span class="line">    self.fc2 = nn.Linear(in_features=<span class="number">120</span>,out_features=<span class="number">84</span>)</span><br><span class="line">    self.output = nn.Linear(in_features=<span class="number">84</span>,out_features=<span class="number">10</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Final activation layer</span></span><br><span class="line">    self.softmax = nn.LogSoftmax(dim=<span class="number">1</span>) <span class="comment"># why log?</span></span><br><span class="line">    </span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Pad the input</span></span><br><span class="line">    x = self.padding(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## First convolution + activation</span></span><br><span class="line">    x = self.conv1(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## First pooling</span></span><br><span class="line">    x = self.maxpool(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Second Convolution + activation</span></span><br><span class="line">    x = self.conv2(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Second Pooling</span></span><br><span class="line">    x = self.maxpool(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## "Flatten" the output to make it 1D</span></span><br><span class="line">    x = x.view(<span class="number">-1</span>, <span class="number">16</span>*<span class="number">5</span>*<span class="number">5</span>) <span class="comment"># view 相当于np中的resize函数</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">## First full connection</span></span><br><span class="line">    x = self.fc1(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Second full connection</span></span><br><span class="line">    x = self.fc2(x)</span><br><span class="line">    x = self.relu(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Output layer</span></span><br><span class="line">    x = self.output(x)</span><br><span class="line">    y = self.softmax(x)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> y</span><br></pre></td></tr></table></figure>
+<p>这里使用了 logSoftmax()，后面再配合NLLloss()。但是可以将这两部直接使用CrossEntropyLoss()代替(不再需要logsoftmax)</p>
+<h3 id="Testing-our-implementation"><a href="#Testing-our-implementation" class="headerlink" title="Testing our implementation"></a>Testing our implementation</h3><p>我们用数据集中的一个图像来测试我们刚刚搭建的网络</p>
+<p>我们可以在前向传播的任意一点执行程序来debug我们的网络。 这是使用pytorch的众多好处之一。</p>
+<p>动态计算意味着程序将按照我们<strong>编写命令的顺序进行执行</strong>。这种机制将使得调试更加容易，并且也使得我们将大脑中的想法转化为实际代码变得更加容易。而静态计算则意味着程序在编译执行时将先生成神经网络的结构，然后再执行相应操作。从理论上讲，静态计算这样的机制允许编译器进行更大程度的优化，但是这也意味着你所期望的程序与编译器实际执行之间存在着更多的代沟。这也意味着，代码中的错误将更加难以发现（比如，如果计算图的结构出现问题，你可能只有在代码执行到相应操作的时候才能发现它）</p>
+<p>pytorch 运算单元为<strong>张量</strong>，就是N维矩阵，可以使用直接打印张量，也可以使用x.size()来查看大小。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Create an instance of our network</span></span><br><span class="line">net = MyFirstNetwork()</span><br><span class="line"></span><br><span class="line"><span class="comment">## Create a conversion function to convert PIL images into Tensors</span></span><br><span class="line">convert = torchvision.transforms.ToTensor()</span><br><span class="line"></span><br><span class="line"><span class="comment">## Get our input image as a tensor. We add a dimension with "unsqueeze", because   不懂</span></span><br><span class="line"><span class="comment">## PyTorch is used to working with batches.</span></span><br><span class="line">x = convert(mnist_dataset[<span class="number">0</span>][<span class="number">0</span>]).unsqueeze(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## Apply the network to the input</span></span><br><span class="line">net(x)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[-2.3397, -2.2196, -2.3458, -2.2699, -2.2840, -2.2333, -2.3094, -2.2939,
+         -2.3768, -2.3664]], grad_fn=&lt;LogSoftmaxBackward&gt;)
+</code></pre><p>这里最后的grad_fn是pytorch里Variable中的特性，会在另外一篇文章中专门写一下pytorch的autograd。</p>
+<h1 id="Part-3-Training-the-network"><a href="#Part-3-Training-the-network" class="headerlink" title="Part 3: Training the network"></a>Part 3: Training the network</h1><h2 id="Choosing-a-loss-function-and-an-optimizer"><a href="#Choosing-a-loss-function-and-an-optimizer" class="headerlink" title="Choosing a loss function and an optimizer"></a>Choosing a loss function and an optimizer</h2><p>选择损失函数和优化器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Negative log likelihood loss</span></span><br><span class="line">criterion = nn.NLLLoss()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Stochastic Gradient Descent</span></span><br><span class="line"><span class="comment"># optimizer = torch.optim.SGD(net.parameters(), lr=0.01)</span></span><br><span class="line">optimizer = torch.optim.Adam(net.parameters(),lr = <span class="number">0.001</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Basic-training-bricks"><a href="#Basic-training-bricks" class="headerlink" title="Basic training bricks"></a>Basic training bricks</h2><p>网络的训练包括以下五步：</p>
+<ol>
+<li>计算前向传播</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y = net(x)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>计算损失</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss = criterion(y, label)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>将梯度设置为0，否则梯度默认会累积（利于RNN计算）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer.zero_grad()</span><br></pre></td></tr></table></figure>
+<ol>
+<li>反向传播</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss.backward()</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在loss.backward()获得所有parameter的gradient，然后optimizer存了这些parameter的指针，step()根据这些parameter的gradient对parameter的值进行更新。 <strong>根据现在的梯度对参数进行更新</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optimizer.step()</span><br></pre></td></tr></table></figure>
+<h2 id="Q5-Creating-a-basic-training-loop"><a href="#Q5-Creating-a-basic-training-loop" class="headerlink" title="Q5: Creating a basic training loop"></a>Q5: Creating a basic training loop</h2><p>首先实现最简单的训练，让数据集中的元素一个个的经过网络。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## MODIFY THIS LINE IF THE TRAINING TAKES TOO LONG (MAX 60000)</span></span><br><span class="line">SAMPLES_TO_USE = <span class="number">4000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## NUMBER OF EPOCHS TO TRAIN</span></span><br><span class="line">N_EPOCHS = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Put the network in training mode</span></span><br><span class="line">net.train()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> tqdm_notebook(range(N_EPOCHS), desc=<span class="string">'Epochs'</span>):</span><br><span class="line">  </span><br><span class="line">  running_loss = <span class="number">0</span></span><br><span class="line">  running_accuracy = <span class="number">0</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> tqdm_notebook(range(SAMPLES_TO_USE), desc=<span class="string">"Samples"</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Get a sample from the dataset</span></span><br><span class="line">    sample = mnist_dataset[i]</span><br><span class="line">    x = convert(sample[<span class="number">0</span>]).unsqueeze(<span class="number">0</span>)</span><br><span class="line">    label = torch.tensor([sample[<span class="number">1</span>]])</span><br><span class="line"></span><br><span class="line">    y = net(x)</span><br><span class="line">    loss = criterion(y, label)</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Compute some statistics</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">      running_loss += loss.data</span><br><span class="line">      running_accuracy += <span class="number">1</span> <span class="keyword">if</span> y.max(<span class="number">1</span>)[<span class="number">1</span>] == label <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">  print(<span class="string">"Training accuracy:"</span>, running_accuracy/SAMPLES_TO_USE)</span><br><span class="line">  print(<span class="string">"Training loss:"</span>, running_loss/SAMPLES_TO_USE)</span><br></pre></td></tr></table></figure>
+<pre><code>HBox(children=(IntProgress(value=0, description=&#39;Epochs&#39;, max=5, style=ProgressStyle(description_width=&#39;initia…
+
+
+
+HBox(children=(IntProgress(value=0, description=&#39;Samples&#39;, max=4000, style=ProgressStyle(description_width=&#39;in…
+
+
+Training accuracy: 0.857
+Training loss: tensor(0.4592)
+
+
+
+HBox(children=(IntProgress(value=0, description=&#39;Samples&#39;, max=4000, style=ProgressStyle(description_width=&#39;in…
+
+
+Training accuracy: 0.952
+Training loss: tensor(0.1701)
+
+
+
+HBox(children=(IntProgress(value=0, description=&#39;Samples&#39;, max=4000, style=ProgressStyle(description_width=&#39;in…
+
+
+Training accuracy: 0.96275
+Training loss: tensor(0.1162)
+
+
+
+HBox(children=(IntProgress(value=0, description=&#39;Samples&#39;, max=4000, style=ProgressStyle(description_width=&#39;in…
+
+
+Training accuracy: 0.9725
+Training loss: tensor(0.0912)
+
+
+
+HBox(children=(IntProgress(value=0, description=&#39;Samples&#39;, max=4000, style=ProgressStyle(description_width=&#39;in…
+
+
+Training accuracy: 0.978
+Training loss: tensor(0.0669)
+</code></pre><h2 id="Evaluating-on-a-test-set"><a href="#Evaluating-on-a-test-set" class="headerlink" title="Evaluating on a test set"></a>Evaluating on a test set</h2><p>使用测试集进行测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Get the MNIST test set</span></span><br><span class="line">mnist_test_dataset = torchvision.datasets.MNIST(<span class="string">"."</span>, train=<span class="literal">False</span>, transform=convert, download=<span class="literal">True</span>)  <span class="comment"># transform? convert?</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"Number of test images:"</span>, len(mnist_test_dataset))</span><br><span class="line"></span><br><span class="line"><span class="comment">#Put the network in eval mode</span></span><br><span class="line">net.eval()</span><br><span class="line"></span><br><span class="line">acc = <span class="number">0</span></span><br><span class="line"><span class="comment">#Disable gradient computation for this (we do not need them, this will speed up testing)</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">  <span class="keyword">for</span> img, label <span class="keyword">in</span> tqdm_notebook(mnist_test_dataset):</span><br><span class="line"></span><br><span class="line">    y = net(img.unsqueeze(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> y.max(<span class="number">1</span>)[<span class="number">1</span>] == label:</span><br><span class="line">      acc +=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">  print(<span class="string">"Test Accuracy:"</span>, acc/len(mnist_test_dataset))</span><br></pre></td></tr></table></figure>
+<pre><code>Number of test images: 10000
+
+
+
+HBox(children=(IntProgress(value=0, max=10000), HTML(value=&#39;&#39;)))
+
+
+
+Test Accuracy: 0.9566
+</code></pre><h2 id="Q6-Displaying-a-few-random-results-from-the-test-set"><a href="#Q6-Displaying-a-few-random-results-from-the-test-set" class="headerlink" title="Q6: Displaying a few random results from the test set"></a>Q6: Displaying a few random results from the test set</h2><p>打印测试结果</p>
+<p>HINT: to get the network output for a sample as a number, you can use: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net(convert(sample[0]).unsqueeze(0)).max(1)[1]</span><br></pre></td></tr></table></figure>
+<p>unsqueeze() 函数为在指定位置上增加维度，如一三行的tensor，则unsqueeze(0)后变为，一行三列的tensor。这里使用unsqueeze()是因为torch.nn不接受单独的样本，所以需要用其增加一个假维度。</p>
+<p>max() 返回最大值，和其索引，参数为0则返回每列的最大值，1为返回每行的最大值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">mnist_test_dataset_PIL = torchvision.datasets.MNIST(<span class="string">"."</span>, train=<span class="literal">False</span>, download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">  output = net(convert(mnist_test_dataset_PIL[i][<span class="number">0</span>]).unsqueeze(<span class="number">0</span>)).max(<span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">  display(mnist_test_dataset_PIL[i][<span class="number">0</span>],output)</span><br></pre></td></tr></table></figure>
+<p><img src="output_30_0.png" alt="png"></p>
+<pre><code>tensor([7])
+</code></pre><p><img src="output_30_2.png" alt="png"></p>
+<pre><code>tensor([2])
+</code></pre><p><img src="output_30_4.png" alt="png"></p>
+<pre><code>tensor([1])
+</code></pre><p><img src="output_30_6.png" alt="png"></p>
+<pre><code>tensor([0])
+</code></pre><h1 id="Part-4-Creating-a-better-training-loop"><a href="#Part-4-Creating-a-better-training-loop" class="headerlink" title="Part 4: Creating a better training loop"></a>Part 4: Creating a better training loop</h1><h2 id="Splitting-between-validation-and-training-data"><a href="#Splitting-between-validation-and-training-data" class="headerlink" title="Splitting between validation and training data"></a>Splitting between validation and training data</h2><p>为数据集增加validation</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Load Dataset</span></span><br><span class="line">mnist_dataset = torchvision.datasets.MNIST(<span class="string">"."</span>, train=<span class="literal">True</span>, transform=convert, download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## Percentage of validation data</span></span><br><span class="line">validation_split = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line">N_val_samples = round(validation_split * len(mnist_dataset))</span><br><span class="line"></span><br><span class="line"><span class="comment">## Split into two Subset</span></span><br><span class="line">train_set, val_set = torch.utils.data.random_split(mnist_dataset, [len(mnist_dataset) - N_val_samples, N_val_samples])</span><br><span class="line"></span><br><span class="line"><span class="comment"># train and val are Subset objects</span></span><br><span class="line">print(train_set,len(train_set))</span><br><span class="line">print(val_set,len(val_set))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Their sizes should be correct</span></span><br><span class="line">len(train_set) + len(val_set) == len(mnist_dataset)</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;torch.utils.data.dataset.Subset object at 0x7ff31c7957f0&gt; 54000
+&lt;torch.utils.data.dataset.Subset object at 0x7ff31c795780&gt; 6000
+
+
+
+
+
+True
+</code></pre><h2 id="DataLoaders-in-PyTorch"><a href="#DataLoaders-in-PyTorch" class="headerlink" title="DataLoaders in PyTorch"></a>DataLoaders in PyTorch</h2><p>In PyTorch, <strong>DataLoaders</strong> are tools that load <strong>batches</strong> of data from a <strong>Dataset</strong> (or any of its subclasses).<br>pytorch中的Dataloaders可以从数据集中以bath为单位装载数据。</p>
+<p>Documentation on DataLoaders is here: <a href="https://pytorch.org/docs/stable/data.html" target="_blank" rel="noopener">https://pytorch.org/docs/stable/data.html</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## This line creates a basic DataLoader from our mnist training set</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## You can change options such as batch size, shuffling, number of workers...</span></span><br><span class="line"></span><br><span class="line">BATCH_SIZE = <span class="number">64</span></span><br><span class="line"></span><br><span class="line">mnist_train_dl = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=<span class="literal">True</span>, num_workers=<span class="number">4</span>) <span class="comment"># num_workers 定义有几个cpu进行处理</span></span><br></pre></td></tr></table></figure>
+<h2 id="Q7-Use-the-DataLoaders"><a href="#Q7-Use-the-DataLoaders" class="headerlink" title="Q7: Use the DataLoaders"></a>Q7: Use the DataLoaders</h2><p>Dataloder支持iterator</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Print the length of the dataloader</span></span><br><span class="line">print(len(mnist_train_dl))</span><br><span class="line">print(len(mnist_train_dl)==round((len(train_set)/BATCH_SIZE)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## Print a batch</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> batch <span class="keyword">in</span> mnist_train_dl:</span><br><span class="line">  print(batch[<span class="number">0</span>])</span><br><span class="line">  <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<pre><code>844
+True
+tensor([[[[0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.]]],
+
+
+        [[[0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.]]],
+
+
+        [[[0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.]]],
+
+
+        ...,
+
+
+        [[[0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.]]],
+
+
+        [[[0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.]]],
+
+
+        [[[0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          ...,
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.],
+          [0., 0., 0.,  ..., 0., 0., 0.]]]])
+</code></pre><h2 id="Q8-Create-a-DataLoader-for-the-validation-set"><a href="#Q8-Create-a-DataLoader-for-the-validation-set" class="headerlink" title="Q8: Create a DataLoader for the validation set"></a>Q8: Create a DataLoader for the validation set</h2><p>同样的方式给validation使用dataloader</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mnist_val_dl = torch.utils.data.DataLoader(val_set, batch_size=BATCH_SIZE, shuffle=<span class="literal">True</span>, num_workers=<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Using-a-GPU"><a href="#Using-a-GPU" class="headerlink" title="Using a GPU"></a>Using a GPU</h2><p>为了让运算在GPU上进行，我们需要用cuda()函数将batch移动到GPU上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">batch = torch.Tensor(next(iter(mnist_train_dl))[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">batch = batch.cuda()</span><br></pre></td></tr></table></figure>
+<p>同样的，使用cuda()将网络移植到GPU上</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Create an instance of our network</span></span><br><span class="line">net = MyFirstNetwork()</span><br><span class="line"></span><br><span class="line"><span class="comment">## Move it to the GPU</span></span><br><span class="line">net = net.cuda()</span><br></pre></td></tr></table></figure>
+<p>测试一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">output = net(batch)</span><br><span class="line"></span><br><span class="line">print(output)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[-2.2496, -2.2465, -2.3473, -2.3269, -2.3198, -2.3962, -2.2808, -2.3959,
+         -2.1621, -2.3246],
+        [-2.2491, -2.2417, -2.3421, -2.3355, -2.3201, -2.3880, -2.2916, -2.3951,
+         -2.1630, -2.3226],
+        [-2.2500, -2.2550, -2.3535, -2.3268, -2.3125, -2.3907, -2.2792, -2.3997,
+         -2.1548, -2.3282],
+        [-2.2553, -2.2545, -2.3434, -2.3200, -2.3127, -2.3953, -2.2880, -2.4040,
+         -2.1455, -2.3334],
+        [-2.2513, -2.2498, -2.3574, -2.3193, -2.3051, -2.3952, -2.2874, -2.3989,
+         -2.1557, -2.3307],
+        [-2.2517, -2.2439, -2.3512, -2.3348, -2.3182, -2.3850, -2.2847, -2.3965,
+         -2.1562, -2.3279],
+        [-2.2512, -2.2551, -2.3502, -2.3282, -2.3064, -2.3870, -2.2891, -2.3970,
+         -2.1566, -2.3285],
+        [-2.2505, -2.2513, -2.3561, -2.3258, -2.3109, -2.3911, -2.2852, -2.3973,
+         -2.1542, -2.3281],
+        [-2.2516, -2.2497, -2.3511, -2.3215, -2.3018, -2.3900, -2.2891, -2.4002,
+         -2.1600, -2.3345],
+        [-2.2457, -2.2440, -2.3601, -2.3254, -2.3183, -2.3858, -2.2883, -2.3939,
+         -2.1705, -2.3158],
+        [-2.2511, -2.2438, -2.3493, -2.3325, -2.3185, -2.3958, -2.2782, -2.3907,
+         -2.1639, -2.3255],
+        [-2.2507, -2.2528, -2.3525, -2.3236, -2.3119, -2.3939, -2.2798, -2.4015,
+         -2.1570, -2.3267],
+        [-2.2571, -2.2424, -2.3539, -2.3254, -2.3203, -2.3893, -2.2838, -2.4012,
+         -2.1549, -2.3223],
+        [-2.2486, -2.2467, -2.3522, -2.3259, -2.3173, -2.3868, -2.2981, -2.3925,
+         -2.1630, -2.3172],
+        [-2.2514, -2.2511, -2.3469, -2.3301, -2.3107, -2.3830, -2.2960, -2.3962,
+         -2.1551, -2.3286],
+        [-2.2458, -2.2469, -2.3488, -2.3333, -2.3165, -2.3888, -2.2849, -2.3978,
+         -2.1654, -2.3208],
+        [-2.2413, -2.2510, -2.3632, -2.3166, -2.3084, -2.3880, -2.2906, -2.3988,
+         -2.1659, -2.3255],
+        [-2.2451, -2.2529, -2.3573, -2.3157, -2.3164, -2.3888, -2.2934, -2.3992,
+         -2.1548, -2.3268],
+        [-2.2503, -2.2504, -2.3439, -2.3264, -2.3140, -2.3946, -2.2888, -2.3939,
+         -2.1602, -2.3264],
+        [-2.2522, -2.2513, -2.3503, -2.3258, -2.3054, -2.3835, -2.2912, -2.4010,
+         -2.1545, -2.3346],
+        [-2.2451, -2.2426, -2.3602, -2.3312, -2.3160, -2.3904, -2.2852, -2.3970,
+         -2.1636, -2.3186],
+        [-2.2495, -2.2419, -2.3558, -2.3262, -2.3133, -2.3906, -2.2856, -2.4010,
+         -2.1629, -2.3231],
+        [-2.2455, -2.2500, -2.3498, -2.3308, -2.3121, -2.3836, -2.2918, -2.3926,
+         -2.1739, -2.3163],
+        [-2.2518, -2.2392, -2.3594, -2.3274, -2.3155, -2.3858, -2.2901, -2.3956,
+         -2.1661, -2.3178],
+        [-2.2492, -2.2485, -2.3483, -2.3257, -2.3169, -2.3943, -2.2902, -2.3956,
+         -2.1545, -2.3272],
+        [-2.2535, -2.2451, -2.3540, -2.3294, -2.3189, -2.3858, -2.2851, -2.3972,
+         -2.1586, -2.3218],
+        [-2.2484, -2.2553, -2.3578, -2.3296, -2.3079, -2.3865, -2.2841, -2.3963,
+         -2.1630, -2.3197],
+        [-2.2515, -2.2416, -2.3507, -2.3306, -2.3198, -2.3834, -2.2939, -2.3965,
+         -2.1601, -2.3208],
+        [-2.2530, -2.2472, -2.3479, -2.3281, -2.3179, -2.3893, -2.2871, -2.3980,
+         -2.1535, -2.3282],
+        [-2.2462, -2.2389, -2.3614, -2.3256, -2.3219, -2.3898, -2.2890, -2.4019,
+         -2.1572, -2.3195],
+        [-2.2521, -2.2456, -2.3462, -2.3293, -2.3137, -2.3905, -2.2852, -2.3963,
+         -2.1581, -2.3327],
+        [-2.2556, -2.2474, -2.3382, -2.3331, -2.3116, -2.3897, -2.2867, -2.3988,
+         -2.1578, -2.3303],
+        [-2.2482, -2.2566, -2.3535, -2.3242, -2.3099, -2.3876, -2.2933, -2.3972,
+         -2.1568, -2.3220],
+        [-2.2458, -2.2426, -2.3591, -2.3288, -2.3218, -2.3814, -2.2931, -2.3931,
+         -2.1645, -2.3184],
+        [-2.2469, -2.2424, -2.3518, -2.3288, -2.3185, -2.3942, -2.2822, -2.4004,
+         -2.1636, -2.3212],
+        [-2.2479, -2.2457, -2.3571, -2.3189, -2.3172, -2.3914, -2.2910, -2.3971,
+         -2.1604, -2.3231],
+        [-2.2475, -2.2499, -2.3540, -2.3260, -2.3162, -2.3965, -2.2786, -2.3959,
+         -2.1628, -2.3223],
+        [-2.2510, -2.2464, -2.3442, -2.3314, -2.3124, -2.3877, -2.2909, -2.3980,
+         -2.1572, -2.3303],
+        [-2.2508, -2.2410, -2.3470, -2.3257, -2.3149, -2.3994, -2.2841, -2.4011,
+         -2.1610, -2.3256],
+        [-2.2505, -2.2426, -2.3576, -2.3258, -2.3186, -2.3865, -2.2879, -2.3969,
+         -2.1624, -2.3206],
+        [-2.2464, -2.2476, -2.3491, -2.3319, -2.3155, -2.3912, -2.2847, -2.3945,
+         -2.1649, -2.3229],
+        [-2.2513, -2.2422, -2.3560, -2.3274, -2.3174, -2.3853, -2.2955, -2.3945,
+         -2.1575, -2.3225],
+        [-2.2468, -2.2480, -2.3572, -2.3199, -2.3168, -2.3960, -2.2866, -2.3976,
+         -2.1583, -2.3234],
+        [-2.2489, -2.2562, -2.3495, -2.3251, -2.3133, -2.3860, -2.2914, -2.3960,
+         -2.1535, -2.3296],
+        [-2.2502, -2.2405, -2.3475, -2.3375, -2.3183, -2.3872, -2.2880, -2.3920,
+         -2.1669, -2.3201],
+        [-2.2485, -2.2459, -2.3606, -2.3223, -2.3153, -2.3864, -2.2832, -2.3979,
+         -2.1652, -2.3236],
+        [-2.2530, -2.2487, -2.3475, -2.3211, -2.3158, -2.3915, -2.2929, -2.4006,
+         -2.1516, -2.3281],
+        [-2.2560, -2.2425, -2.3430, -2.3359, -2.3174, -2.3909, -2.2819, -2.3926,
+         -2.1589, -2.3303],
+        [-2.2454, -2.2492, -2.3632, -2.3174, -2.3149, -2.3910, -2.2952, -2.3935,
+         -2.1570, -2.3232],
+        [-2.2490, -2.2511, -2.3444, -2.3312, -2.3069, -2.3892, -2.2841, -2.3962,
+         -2.1602, -2.3368],
+        [-2.2544, -2.2470, -2.3511, -2.3255, -2.3141, -2.3874, -2.2884, -2.4005,
+         -2.1542, -2.3277],
+        [-2.2503, -2.2418, -2.3410, -2.3357, -2.3193, -2.3898, -2.2904, -2.3934,
+         -2.1664, -2.3200],
+        [-2.2456, -2.2445, -2.3542, -2.3286, -2.3163, -2.3860, -2.2909, -2.3977,
+         -2.1674, -2.3173],
+        [-2.2480, -2.2516, -2.3516, -2.3293, -2.3165, -2.3851, -2.2886, -2.3963,
+         -2.1582, -2.3239],
+        [-2.2528, -2.2583, -2.3459, -2.3284, -2.3144, -2.3838, -2.2924, -2.3973,
+         -2.1534, -2.3223],
+        [-2.2539, -2.2382, -2.3514, -2.3291, -2.3191, -2.3879, -2.2878, -2.3955,
+         -2.1599, -2.3267],
+        [-2.2547, -2.2498, -2.3432, -2.3298, -2.3157, -2.3909, -2.2847, -2.3966,
+         -2.1607, -2.3225],
+        [-2.2485, -2.2391, -2.3439, -2.3377, -2.3207, -2.3891, -2.2897, -2.3941,
+         -2.1662, -2.3196],
+        [-2.2505, -2.2533, -2.3467, -2.3262, -2.3103, -2.3942, -2.2868, -2.3975,
+         -2.1565, -2.3280],
+        [-2.2508, -2.2545, -2.3510, -2.3253, -2.3084, -2.3834, -2.2950, -2.3988,
+         -2.1516, -2.3313],
+        [-2.2537, -2.2451, -2.3405, -2.3270, -2.3199, -2.3960, -2.2837, -2.3978,
+         -2.1605, -2.3254],
+        [-2.2535, -2.2411, -2.3562, -2.3289, -2.3218, -2.3815, -2.2918, -2.3947,
+         -2.1615, -2.3177],
+        [-2.2496, -2.2454, -2.3588, -2.3243, -2.3090, -2.3904, -2.2906, -2.3978,
+         -2.1585, -2.3257],
+        [-2.2516, -2.2559, -2.3545, -2.3239, -2.3047, -2.3863, -2.2907, -2.3990,
+         -2.1581, -2.3242]], device=&#39;cuda:0&#39;, grad_fn=&lt;LogSoftmaxBackward&gt;)
+</code></pre><h2 id="Q9-Our-new-training-validation-loop"><a href="#Q9-Our-new-training-validation-loop" class="headerlink" title="Q9: Our new training/validation loop"></a>Q9: Our new training/validation loop</h2><p>启用新的训练，这次使用了dataloader并且增加了validatio。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##RE-RUN THIS CODE TO GET A "NEW" NETWORK</span></span><br><span class="line"></span><br><span class="line">LEARNING_RATE = <span class="number">0.001</span></span><br><span class="line">MOMENTUM = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Create an instance of our network</span></span><br><span class="line">net = MyFirstNetwork()</span><br><span class="line"></span><br><span class="line"><span class="comment">## Move it to the GPU</span></span><br><span class="line">net = net.cuda()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Negative log likelihood loss</span></span><br><span class="line">criterion = nn.NLLLoss()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Stochastic Gradient Descent</span></span><br><span class="line">optimizer = torch.optim.SGD(net.parameters(), lr=LEARNING_RATE, momentum=MOMENTUM)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## NUMBER OF EPOCHS TO TRAIN</span></span><br><span class="line">N_EPOCHS = <span class="number">20</span></span><br><span class="line"></span><br><span class="line">epoch_loss, epoch_acc, epoch_val_loss, epoch_val_acc = [], [], [], []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> tqdm_notebook(range(N_EPOCHS), desc=<span class="string">'Epochs'</span>):</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">### TRAINING LOOP</span></span><br><span class="line">  running_loss = <span class="number">0</span></span><br><span class="line">  running_accuracy = <span class="number">0</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">## Put the network in training mode</span></span><br><span class="line">  net.train()</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> i, batch <span class="keyword">in</span> enumerate(tqdm_notebook(mnist_train_dl, desc=<span class="string">"Training Batches"</span>)):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Get a batch from the dataloader</span></span><br><span class="line">    x = batch[<span class="number">0</span>]</span><br><span class="line">    labels = batch[<span class="number">1</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># move the batch to GPU</span></span><br><span class="line">    x = x.cuda()</span><br><span class="line">    labels = labels.cuda()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Compute the network output</span></span><br><span class="line">    y = net(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Compute the loss</span></span><br><span class="line">    loss = criterion(y, labels)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Reset the gradients</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Compute the gradients</span></span><br><span class="line">    loss.backward()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Apply one step of the descent algorithm to update the weights</span></span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">## Compute some statistics</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">      running_loss += loss.item()</span><br><span class="line">      running_accuracy += (y.max(<span class="number">1</span>)[<span class="number">1</span>] == labels).sum().item()</span><br><span class="line">    </span><br><span class="line">  print(<span class="string">"Training accuracy:"</span>, running_accuracy/float(len(train_set)),</span><br><span class="line">        <span class="string">"Training loss:"</span>, running_loss/float(len(train_set)))</span><br><span class="line">  </span><br><span class="line">  epoch_loss.append(running_loss/len(train_set))</span><br><span class="line">  epoch_acc.append(running_accuracy/len(train_set))</span><br><span class="line">  </span><br><span class="line">  <span class="comment">### VALIDATION LOOP</span></span><br><span class="line">  <span class="comment">## Put the network in validation mode</span></span><br><span class="line">  net.eval()</span><br><span class="line">  </span><br><span class="line">  running_val_loss = <span class="number">0</span></span><br><span class="line">  running_val_accuracy = <span class="number">0</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> i, batch <span class="keyword">in</span> enumerate(tqdm_notebook(mnist_val_dl, desc=<span class="string">"Validation Batches"</span>)): </span><br><span class="line">    labels = batch[<span class="number">1</span>].cuda()</span><br><span class="line">    answer = net(batch[<span class="number">0</span>].cuda())</span><br><span class="line">    val_loss = criterion(answer, labels)</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">      running_val_accuracy += (answer.max(<span class="number">1</span>)[<span class="number">1</span>] == labels).sum().item()</span><br><span class="line">      running_val_loss += val_loss.item()</span><br><span class="line">    </span><br><span class="line">  epoch_val_loss.append(running_val_loss/float(len(val_set)))</span><br><span class="line">  epoch_val_acc.append(running_val_accuracy/float(len(val_set)))</span><br><span class="line">  print(running_val_loss/float(len(val_set)))</span><br><span class="line">  print(running_val_accuracy/float(len(val_set)))</span><br></pre></td></tr></table></figure>
+<pre><code>HBox(children=(IntProgress(value=0, description=&#39;Epochs&#39;, max=20, style=ProgressStyle(description_width=&#39;initi…
+
+
+
+HBox(children=(IntProgress(value=0, description=&#39;Training Batches&#39;, max=844, style=ProgressStyle(description_w…
+
+
+Training accuracy: 0.09942592592592593 Training loss: 0.036009652340853654
+
+
+
+HBox(children=(IntProgress(value=0, description=&#39;Validation Batches&#39;, max=94, style=ProgressStyle(description_…
+
+
+0.036064300735791525
+0.09666666666666666
+
+
+
+。。。。。。。。。。。。。。。。。。。。。。。。。
+
+HBox(children=(IntProgress(value=0, description=&#39;Training Batches&#39;, max=844, style=ProgressStyle(description_w…
+
+
+Training accuracy: 0.9074444444444445 Training loss: 0.004941175849211436
+
+
+
+HBox(children=(IntProgress(value=0, description=&#39;Validation Batches&#39;, max=94, style=ProgressStyle(description_…
+
+
+0.00460548147186637
+0.9078333333333334
+</code></pre><h2 id="Q10-Making-a-graph-with-training-validation-accuracy-and-loss"><a href="#Q10-Making-a-graph-with-training-validation-accuracy-and-loss" class="headerlink" title="Q10: Making a graph with training/validation accuracy and loss"></a>Q10: Making a graph with training/validation accuracy and loss</h2><p>可视化训练结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">x_axis = list(range(<span class="number">1</span>,<span class="number">21</span>))</span><br><span class="line">plt.title(<span class="string">'loss'</span>)</span><br><span class="line">plt.xlabel = <span class="string">'Epoch'</span></span><br><span class="line">plt.ylabel = <span class="string">'Loss'</span></span><br><span class="line">plt.plot(x_axis,epoch_loss,label=<span class="string">'Training'</span>)</span><br><span class="line">plt.plot(x_axis,epoch_val_loss,label=<span class="string">'Validation'</span>)</span><br><span class="line">plt.legend(loc=<span class="string">'upper right'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="output_50_1.png" alt="png"></p>
+<h2 id="Q11-Evaluate-our-network-on-the-test-set-on-GPU"><a href="#Q11-Evaluate-our-network-on-the-test-set-on-GPU" class="headerlink" title="Q11: Evaluate our network on the test set (on GPU)"></a>Q11: Evaluate our network on the test set (on GPU)</h2><p>同样使用dataloder进行测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Get the MNIST test set</span></span><br><span class="line">mnist_test_dataset = torchvision.datasets.MNIST(<span class="string">"."</span>, train=<span class="literal">False</span>, transform=convert, download=<span class="literal">True</span>)</span><br><span class="line">mnist_test_dl = torch.utils.data.DataLoader(mnist_test_dataset, batch_size=BATCH_SIZE, shuffle=<span class="literal">True</span>, num_workers=<span class="number">4</span>)</span><br><span class="line">running_test_accuracy = <span class="number">0</span></span><br><span class="line">running_test_loss = <span class="number">0</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    <span class="keyword">for</span> i, batch <span class="keyword">in</span> enumerate(tqdm_notebook(mnist_test_dl, desc=<span class="string">"Test Batches"</span>)): </span><br><span class="line">      labels = batch[<span class="number">1</span>].cuda() </span><br><span class="line">      answer = net(batch[<span class="number">0</span>].cuda())</span><br><span class="line">      <span class="comment"># print(answer.max(1)[1])</span></span><br><span class="line">      <span class="comment"># print(batch[1])</span></span><br><span class="line">      running_test_accuracy += (answer.max(<span class="number">1</span>)[<span class="number">1</span>] == labels).sum().item()</span><br><span class="line">      running_test_loss = criterion(answer, labels)</span><br><span class="line"></span><br><span class="line">    running_test_accuracy = <span class="number">100.</span> * running_test_accuracy/len(mnist_test_dataset)</span><br><span class="line">print(running_test_loss)</span><br><span class="line">print(running_test_accuracy)</span><br></pre></td></tr></table></figure>
+<pre><code>HBox(children=(IntProgress(value=0, description=&#39;Test Batches&#39;, max=157, style=ProgressStyle(description_width…
+
+
+
+tensor(0.1383, device=&#39;cuda:0&#39;)
+91.49
+</code></pre><h1 id="OPTIONAL-Part-5-Cats-vs-Dogs-with-a-torchvision-network"><a href="#OPTIONAL-Part-5-Cats-vs-Dogs-with-a-torchvision-network" class="headerlink" title="(OPTIONAL) Part 5: Cats vs Dogs with a torchvision network"></a>(OPTIONAL) Part 5: Cats vs Dogs with a torchvision network</h1><p>To test our skills on a new dataset, we will work on the famous Dogs vs Cats Kaggle dataset.</p>
+<p><img src="http://adilmoujahid.com/images/cats-dogs.jpg" alt="alt text"></p>
+<p>Kaggle is a website that hosts machine learning/data science competitions. Check it out! <a href="https://www.kaggle.com/" target="_blank" rel="noopener">https://www.kaggle.com/</a></p>
+<p><img src="https://miro.medium.com/max/668/1*GZrTyTz0OKMbxnO5Trhcew.png" alt="alt text"></p>
+<h2 id="Downloading-the-data-1"><a href="#Downloading-the-data-1" class="headerlink" title="Downloading the data"></a>Downloading the data</h2><p>First, go to the Kaggle website and create an account.</p>
+<p>Then go to your account, click on Create New API Token - It will download kaggle.json file on your machine.</p>
+<p>Upload the kaggle.json file using this code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">! pip install -q kaggle</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> google.colab <span class="keyword">import</span> files</span><br><span class="line"></span><br><span class="line">files.upload()</span><br></pre></td></tr></table></figure>
+<pre><code> &lt;input type=&quot;file&quot; id=&quot;files-65ec0027-1fa8-4b32-bc71-a4d5bc6f7c57&quot; name=&quot;files[]&quot; multiple disabled /&gt;
+ &lt;output id=&quot;result-65ec0027-1fa8-4b32-bc71-a4d5bc6f7c57&quot;&gt;
+  Upload widget is only available when the cell has been executed in the
+  current browser session. Please rerun this cell to enable.
+  &lt;/output&gt;
+  &lt;script src=&quot;/nbextensions/google.colab/files.js&quot;&gt;&lt;/script&gt; 
+
+
+Saving kaggle (1).json to kaggle (1).json
+
+
+
+
+
+{&#39;kaggle (1).json&#39;: b&#39;{&quot;username&quot;:&quot;wangzeyao&quot;,&quot;key&quot;:&quot;6d3445d98da97c96f236cda74bbd2105&quot;}&#39;}
+</code></pre><p>Download the dogs vs cats dataset using this code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">! mkdir ~/.kaggle</span><br><span class="line"></span><br><span class="line">! cp kaggle.json ~/.kaggle/</span><br><span class="line"></span><br><span class="line">! chmod <span class="number">600</span> ~/.kaggle/kaggle.json</span><br><span class="line"></span><br><span class="line">! kaggle competitions download -c dogs-vs-cats</span><br></pre></td></tr></table></figure>
+<pre><code>mkdir: cannot create directory ‘/root/.kaggle’: File exists
+401 - Unauthorized
+</code></pre><p>Extract the archives:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">! rm -rf test1 train</span><br><span class="line"></span><br><span class="line">! unzip -q train.zip</span><br><span class="line"></span><br><span class="line">! unzip -q test1.zip</span><br></pre></td></tr></table></figure>
+<p>Put the data in separate directories:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">! mkdir train/cats</span><br><span class="line">! mkdir train/dogs</span><br><span class="line">! mv train/cat.* train/cats</span><br><span class="line">! mv train/dog.* train/dogs</span><br></pre></td></tr></table></figure>
+<h2 id="Q12-Load-the-data"><a href="#Q12-Load-the-data" class="headerlink" title="Q12: Load the data"></a>Q12: Load the data</h2><p>Using ImageFolder from torchvision (<a href="https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder" target="_blank" rel="noopener">https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder</a>), load the dataset. </p>
+<p>The training set is in the “train” directory.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### YOUR CODE HERE</span></span><br></pre></td></tr></table></figure>
+<h2 id="Q13-Display-a-few-images"><a href="#Q13-Display-a-few-images" class="headerlink" title="Q13: Display a few images"></a>Q13: Display a few images</h2><p>As before, display a few images with the <strong>display</strong> function. You can see that these images have varying sizes.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### YOUR CODE HERE</span></span><br></pre></td></tr></table></figure>
+<h2 id="Using-a-torchvision-model"><a href="#Using-a-torchvision-model" class="headerlink" title="Using a torchvision model"></a>Using a torchvision model</h2><p>torchvision has a repository of popular models ready to use for diverse computer vision tasks (classification, segmentation,…)</p>
+<p><a href="https://pytorch.org/docs/stable/torchvision/models.html#classification" target="_blank" rel="noopener">https://pytorch.org/docs/stable/torchvision/models.html#classification</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## You can change the model if you want</span></span><br><span class="line">net = torchvision.models.resnet18()</span><br><span class="line"></span><br><span class="line">print(net)</span><br><span class="line"></span><br><span class="line"><span class="comment">## torchvision models are meant to be used on imagenet (1000 classes)</span></span><br><span class="line"><span class="comment">## since we only have two classes, we need to modify the last layer</span></span><br><span class="line"></span><br><span class="line">net.fc = nn.Linear(<span class="number">512</span>,<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Q14-Resize-the-images-on-the-fly-using-torchvision-transforms"><a href="#Q14-Resize-the-images-on-the-fly-using-torchvision-transforms" class="headerlink" title="Q14: Resize the images on the fly using torchvision transforms"></a>Q14: Resize the images on the fly using torchvision transforms</h2><p>We can see from the documentation that torchvision models expect at least 244x244 images.</p>
+<ol>
+<li><p>Using torchvision.transforms, create a new ImageFolder dataset with on-the-fly resizing of images.</p>
+</li>
+<li><p>Split this Dataset into training and validation sets, as before.</p>
+</li>
+<li><p>Create a DataLoader for each set as well, just like before.</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### YOUR CODE HERE</span></span><br></pre></td></tr></table></figure>
+<h2 id="Q15-Training-the-model"><a href="#Q15-Training-the-model" class="headerlink" title="Q15: Training the model"></a>Q15: Training the model</h2><p>Write the training loop. You should be able to pretty much copy-paste the one from Q9.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LEARNING_RATE = <span class="number">0.001</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Move model to the GPU</span></span><br><span class="line">net = net.cuda()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Negative log likelihood loss</span></span><br><span class="line">criterion = nn.NLLLoss()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Stochastic Gradient Descent</span></span><br><span class="line">optimizer = torch.optim.Adam(net.parameters(), lr=LEARNING_RATE)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### YOUR CODE HERE</span></span><br></pre></td></tr></table></figure>
+<h2 id="Q16-Test-the-network"><a href="#Q16-Test-the-network" class="headerlink" title="Q16: Test the network"></a>Q16: Test the network</h2><p>Compute some predictions on the test set.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### YOUR CODE HERE</span></span><br></pre></td></tr></table></figure>
+<h2 id="Q17-Going-further"><a href="#Q17-Going-further" class="headerlink" title="Q17: Going further"></a>Q17: Going further</h2><p>Try different networks from torchvision, and different parameters. The winner of the competition got more than 98% accuracy. How much can you get?</p>
+<p>Data augmentation (modifying your input data to make “more” of it) is a huge thing in deep learning. Try some techniques such as random cropping and rotation using torchvision transforms in your Dataset objects!</p>
+<p>PyTorch has a lot of tutorials to get you started: <a href="https://pytorch.org/tutorials/index.html" target="_blank" rel="noopener">https://pytorch.org/tutorials/index.html</a></p>
+<p>Have fun!</p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.gif"
+      alt="Classiczy">
+  <p class="site-author-name" itemprop="name">Classiczy</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/wangzeyao" title="GitHub &rarr; https://github.com/wangzeyao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:zeyao.wang@outlook.com" title="E-Mail &rarr; mailto:zeyao.wang@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://www.instagram.com/classicwzy/" title="Instagram &rarr; https://www.instagram.com/classicwzy/" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://space.bilibili.com/259378363/" title="Bilibili &rarr; https://space.bilibili.com/259378363/" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>Bilibili</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lab-1-Convolutional-Neural-Networks"><span class="nav-number">1.</span> <span class="nav-text">Lab 1: Convolutional Neural Networks</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What’s-a-CNN"><span class="nav-number">2.1.</span> <span class="nav-text">What’s a CNN?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What’s-a-framework-and-why-are-we-using-one-PyTorch"><span class="nav-number">2.2.</span> <span class="nav-text">What’s a framework and why are we using one (PyTorch)?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-use-Google-Colab-and-GPUs"><span class="nav-number">2.3.</span> <span class="nav-text">Why use Google Colab and GPUs?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IMPORTANT-Use-a-GPU-Runtime"><span class="nav-number">2.4.</span> <span class="nav-text">/!\ IMPORTANT: Use a GPU Runtime</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Importing-libraries"><span class="nav-number">2.5.</span> <span class="nav-text">Importing libraries</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Downloading-the-data"><span class="nav-number">2.6.</span> <span class="nav-text">Downloading the data</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-1-Looking-at-the-data"><span class="nav-number">3.</span> <span class="nav-text">Part 1: Looking at the data</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q1-Display-10-images-with-their-label"><span class="nav-number">3.1.</span> <span class="nav-text">Q1: Display 10 images with their label</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q2-Display-10-images-from-a-specific-class"><span class="nav-number">3.2.</span> <span class="nav-text">Q2: Display 10 images from a specific class</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q3-Count-the-number-of-elements-in-each-class"><span class="nav-number">3.3.</span> <span class="nav-text">Q3: Count the number of elements in each class</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2-Creating-a-Neural-Network-with-torch-nn"><span class="nav-number">4.</span> <span class="nav-text">Part 2: Creating a Neural Network with torch.nn</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Q4-Implementing-the-network"><span class="nav-number">4.1.</span> <span class="nav-text">Q4: Implementing the network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Testing-our-implementation"><span class="nav-number">4.1.1.</span> <span class="nav-text">Testing our implementation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-3-Training-the-network"><span class="nav-number">5.</span> <span class="nav-text">Part 3: Training the network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Choosing-a-loss-function-and-an-optimizer"><span class="nav-number">5.1.</span> <span class="nav-text">Choosing a loss function and an optimizer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-training-bricks"><span class="nav-number">5.2.</span> <span class="nav-text">Basic training bricks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q5-Creating-a-basic-training-loop"><span class="nav-number">5.3.</span> <span class="nav-text">Q5: Creating a basic training loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluating-on-a-test-set"><span class="nav-number">5.4.</span> <span class="nav-text">Evaluating on a test set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q6-Displaying-a-few-random-results-from-the-test-set"><span class="nav-number">5.5.</span> <span class="nav-text">Q6: Displaying a few random results from the test set</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-4-Creating-a-better-training-loop"><span class="nav-number">6.</span> <span class="nav-text">Part 4: Creating a better training loop</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Splitting-between-validation-and-training-data"><span class="nav-number">6.1.</span> <span class="nav-text">Splitting between validation and training data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DataLoaders-in-PyTorch"><span class="nav-number">6.2.</span> <span class="nav-text">DataLoaders in PyTorch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q7-Use-the-DataLoaders"><span class="nav-number">6.3.</span> <span class="nav-text">Q7: Use the DataLoaders</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q8-Create-a-DataLoader-for-the-validation-set"><span class="nav-number">6.4.</span> <span class="nav-text">Q8: Create a DataLoader for the validation set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-a-GPU"><span class="nav-number">6.5.</span> <span class="nav-text">Using a GPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q9-Our-new-training-validation-loop"><span class="nav-number">6.6.</span> <span class="nav-text">Q9: Our new training/validation loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q10-Making-a-graph-with-training-validation-accuracy-and-loss"><span class="nav-number">6.7.</span> <span class="nav-text">Q10: Making a graph with training/validation accuracy and loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q11-Evaluate-our-network-on-the-test-set-on-GPU"><span class="nav-number">6.8.</span> <span class="nav-text">Q11: Evaluate our network on the test set (on GPU)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OPTIONAL-Part-5-Cats-vs-Dogs-with-a-torchvision-network"><span class="nav-number">7.</span> <span class="nav-text">(OPTIONAL) Part 5: Cats vs Dogs with a torchvision network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Downloading-the-data-1"><span class="nav-number">7.1.</span> <span class="nav-text">Downloading the data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q12-Load-the-data"><span class="nav-number">7.2.</span> <span class="nav-text">Q12: Load the data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q13-Display-a-few-images"><span class="nav-number">7.3.</span> <span class="nav-text">Q13: Display a few images</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-a-torchvision-model"><span class="nav-number">7.4.</span> <span class="nav-text">Using a torchvision model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q14-Resize-the-images-on-the-fly-using-torchvision-transforms"><span class="nav-number">7.5.</span> <span class="nav-text">Q14: Resize the images on the fly using torchvision transforms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q15-Training-the-model"><span class="nav-number">7.6.</span> <span class="nav-text">Q15: Training the model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q16-Test-the-network"><span class="nav-number">7.7.</span> <span class="nav-text">Q16: Test the network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q17-Going-further"><span class="nav-number">7.8.</span> <span class="nav-text">Q17: Going further</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Classiczy</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/affix.js?v=7.3.0"></script>
+  <script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'fQrw7GPV8alSagiWukM9OIkd-MdYXbMMI',
+    appKey: 'F8sp1ceQPgwWeqJdMc3V82wr',
+    placeholder: 'Comments here',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'en' || 'zh-cn'
+  });
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>

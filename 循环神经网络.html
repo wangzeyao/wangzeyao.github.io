@@ -58,9 +58,9 @@
 </script>
 
   <meta name="description" content="循环神经网络基本的循环神经网络它由输入层、一个隐藏层和一个输出层组成：  x是一个向量，它表示输入层的值 s是一个向量，它表示隐藏层的值（这里隐藏层面画了一个节点，你也可以想象这一层其实是多个节点，节点数与向量s的维度相同）； U是输入层到隐藏层的权重矩阵 o也是一个向量，它表示输出层的值； V是隐藏层到输出层的权重矩阵 循环神经网络的隐藏层的值s不仅仅取决于当前这次的输入x，还取决于上一次隐藏层">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="循环神经网络">
-<meta property="og:url" content="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/index.html">
+<meta property="og:url" content="http://yoursite.com/循环神经网络.html">
 <meta property="og:site_name" content="Classiczy">
 <meta property="og:description" content="循环神经网络基本的循环神经网络它由输入层、一个隐藏层和一个输出层组成：  x是一个向量，它表示输入层的值 s是一个向量，它表示隐藏层的值（这里隐藏层面画了一个节点，你也可以想象这一层其实是多个节点，节点数与向量s的维度相同）； U是输入层到隐藏层的权重矩阵 o也是一个向量，它表示输出层的值； V是隐藏层到输出层的权重矩阵 循环神经网络的隐藏层的值s不仅仅取决于当前这次的输入x，还取决于上一次隐藏层">
 <meta property="og:locale" content="en">
@@ -68,20 +68,19 @@
 <meta property="og:image" content="https://lh3.googleusercontent.com/SJljyZemiKFQikry7ppdF7p55dxMB7WfX0_2aNzlO31qVkDLDtk7HDZuCLTOTe6osr6630FZaHG1">
 <meta property="og:image" content="https://lh3.googleusercontent.com/PzHI9UZy2RdaDP5Cc9JJQMFJhyqWAyHpDve_kWRrlLcu58K-epF7dVC0zusLbWXhJQwdEF6D6qIz">
 <meta property="og:image" content="https://lh3.googleusercontent.com/Ds52mJi5h0lux1q0yKQwmCMsEr1PaxJfFSywmvN5lLF3_JVhcnyhQwmDv7hl-ECeJQGyQm1dzg3e">
-<meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/循环层.png">
-<meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/循环层.png">
-<meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/LSTM.png">
-<meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/细胞状态.png">
-<meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/遗忘门.png">
-<meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/输入门.png">
-<meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/细胞状态更新.png">
-<meta property="og:image" content="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/输出门.png">
-<meta property="og:updated_time" content="2020-01-14T16:24:18.000Z">
+<meta property="og:image" content="http://yoursite.com/循环层.png">
+<meta property="og:image" content="http://yoursite.com/循环层.png">
+<meta property="og:image" content="http://yoursite.com/LSTM.png">
+<meta property="og:image" content="http://yoursite.com/细胞状态.png">
+<meta property="og:image" content="http://yoursite.com/遗忘门.png">
+<meta property="og:image" content="http://yoursite.com/输入门.png">
+<meta property="og:image" content="http://yoursite.com/输出门.png">
+<meta property="og:updated_time" content="2020-02-26T19:20:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环神经网络">
 <meta name="twitter:description" content="循环神经网络基本的循环神经网络它由输入层、一个隐藏层和一个输出层组成：  x是一个向量，它表示输入层的值 s是一个向量，它表示隐藏层的值（这里隐藏层面画了一个节点，你也可以想象这一层其实是多个节点，节点数与向量s的维度相同）； U是输入层到隐藏层的权重矩阵 o也是一个向量，它表示输出层的值； V是隐藏层到输出层的权重矩阵 循环神经网络的隐藏层的值s不仅仅取决于当前这次的输入x，还取决于上一次隐藏层">
 <meta name="twitter:image" content="https://lh3.googleusercontent.com/WZWOCX6tDlCSMyaugOToE65BgCvsAfqal_IrS6TkUDrGfhAvv5BuKVpt7xOU5cqm2TnVjiHFwsar">
-  <link rel="canonical" href="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/">
+  <link rel="canonical" href="http://yoursite.com/循环神经网络">
 
 
 <script id="page.configurations">
@@ -227,114 +226,54 @@
         <div class="content-wrap">
             
 
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/06/循环神经网络/循环神经网络/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
+    
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-          <h1 class="post-title" itemprop="name headline">循环神经网络
+<h1 class="post-title" itemprop="name headline">循环神经网络
 
-              
-            
-          </h1>
-        
+</h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 06-12-2019 19:02:17 19:02:17" itemprop="dateCreated datePublished" datetime="2019-12-06T19:02:17+08:00">06-12-2019 19:02:17</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 15-01-2020 00:24:18 00:24:18" itemprop="dateModified" datetime="2020-01-15T00:24:18+08:00">15-01-2020 00:24:18</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
+<div class="post-meta">
   
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2019/12/06/循环神经网络/循环神经网络/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/06/循环神经网络/循环神经网络/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
 
-        </div>
-      </header>
+</div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
-        <h1 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h1><h2 id="基本的循环神经网络"><a href="#基本的循环神经网络" class="headerlink" title="基本的循环神经网络"></a>基本的循环神经网络</h2><p>它由输入层、一个隐藏层和一个输出层组成：<br><img src="https://lh3.googleusercontent.com/WZWOCX6tDlCSMyaugOToE65BgCvsAfqal_IrS6TkUDrGfhAvv5BuKVpt7xOU5cqm2TnVjiHFwsar" alt="enter image description here"></p>
+      
+      
+      <div class="post-body">
+        
+          <h1 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h1><h2 id="基本的循环神经网络"><a href="#基本的循环神经网络" class="headerlink" title="基本的循环神经网络"></a>基本的循环神经网络</h2><p>它由输入层、一个隐藏层和一个输出层组成：<br><img src="https://lh3.googleusercontent.com/WZWOCX6tDlCSMyaugOToE65BgCvsAfqal_IrS6TkUDrGfhAvv5BuKVpt7xOU5cqm2TnVjiHFwsar" alt="enter image description here"></p>
 <ul>
 <li>x是一个向量，它表示<strong>输入层</strong>的值</li>
 <li>s是一个向量，它表示<strong>隐藏层</strong>的值（这里隐藏层面画了一个节点，你也可以想象这一层其实是多个节点，节点数与向量s的维度相同）；</li>
@@ -465,8 +404,7 @@ f^{(t)}=\sigma\left(W_{f} h^{(t-1)}+U_{f} x^{(t)}+b_{f}\right)</script><p>其中
 <p>从图中可以看到输入门由两部分组成，第一部分使用了sigmoid激活函数，输出为$i_{t}$,第二部分使用了tanh激活函数，输出为$a_{t}$, 两者的结果后面会相乘再去更新细胞状态。用数学表达式即为：</p>
 <script type="math/tex; mode=display">
 \begin{aligned} i^{(t)} &=\sigma\left(W_{i} h^{(t-1)}+U_{i} x^{(t)}+b_{i}\right) \\ a^{(t)} &=\tanh \left(W_{a} h^{(t-1)}+U_{a} x^{(t)}+b_{a}\right) \end{aligned}</script><p>同上，其中$W_{i}, U_{i}, b_{i}, W_{a}, U_{a}, b_{a}$为系数矩阵和bias。$\sigma$为sigmoid激活函数。</p>
-<h3 id="LSTM更新细胞状态"><a href="#LSTM更新细胞状态" class="headerlink" title="LSTM更新细胞状态"></a>LSTM更新细胞状态</h3><p><img src="细胞状态更新.png" alt="png"></p>
-<p>细胞状态$C_{t}$由两部分组成，第一部分是$C_{t-1}$和遗忘门输出$f_{t}$的乘积，第二部分是输入门的$i_{t}$和$a_{t}$的乘积:</p>
+<h3 id="LSTM更新细胞状态"><a href="#LSTM更新细胞状态" class="headerlink" title="LSTM更新细胞状态"></a>LSTM更新细胞状态</h3><p>细胞状态$C_{t}$由两部分组成，第一部分是$C_{t-1}$和遗忘门输出$f_{t}$的乘积，第二部分是输入门的$i_{t}$和$a_{t}$的乘积:</p>
 <script type="math/tex; mode=display">
 C^{(t)}=C^{(t-1)} \odot f^{(t)}+i^{(t)} \odot a^{(t)}</script><p>其中$\odot$为element-wise乘积</p>
 <h3 id="LSTM输出门"><a href="#LSTM输出门" class="headerlink" title="LSTM输出门"></a>LSTM输出门</h3><p><img src="输出门.png" alt="png"></p>
@@ -476,37 +414,17 @@ C^{(t)}=C^{(t-1)} \odot f^{(t)}+i^{(t)} \odot a^{(t)}</script><p>其中$\odot$�
 <p><a href="https://zybuluo.com/hanbingtao/note/541458" target="_blank" rel="noopener">https://zybuluo.com/hanbingtao/note/541458</a></p>
 <p><a href="https://www.cnblogs.com/pinard/p/6519110.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/6519110.html</a></p>
 
+        
+      </div>
+      
+      
+      
     </div>
+    
 
     
     
     
-
-    <footer class="post-footer">
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-              <a href="/2019/11/27/字母识别/" rel="next" title="字母识别">
-                <i class="fa fa-chevron-left"></i> 字母识别
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-              <a href="/2019/12/17/yolo/yolo/" rel="prev" title="目标检测：YOLO">
-                目标检测：YOLO <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
   </div>
 
 

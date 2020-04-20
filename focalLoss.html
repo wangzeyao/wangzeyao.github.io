@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="TODO 把stackedit上的学习文档迁移过来">
+  <meta name="description" content="Focal LossFocal loss 被设计用来解决正负样本极度不平衡的情况。例如训练时前景和背景的比例为1:1000  Focal loss从交叉熵损失函数变化而来，先复习一下交叉熵损失函数：">
 <meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta property="og:title" content="focalLoss">
+<meta property="og:url" content="http://yoursite.com/focalLoss.html">
 <meta property="og:site_name" content="Classiczy">
-<meta property="og:description" content="TODO 把stackedit上的学习文档迁移过来">
+<meta property="og:description" content="Focal LossFocal loss 被设计用来解决正负样本极度不平衡的情况。例如训练时前景和背景的比例为1:1000  Focal loss从交叉熵损失函数变化而来，先复习一下交叉熵损失函数：">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-12T09:48:56.000Z">
+<meta property="og:updated_time" content="2020-01-09T15:14:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="TODO 把stackedit上的学习文档迁移过来">
-  <link rel="canonical" href="http://yoursite.com/about/">
+<meta name="twitter:title" content="focalLoss">
+<meta name="twitter:description" content="Focal LossFocal loss 被设计用来解决正负样本极度不平衡的情况。例如训练时前景和背景的比例为1:1000  Focal loss从交叉熵损失函数变化而来，先复习一下交叉熵损失函数：">
+  <link rel="canonical" href="http://yoursite.com/focalLoss">
 
 
 <script id="page.configurations">
@@ -77,7 +77,7 @@
   };
 </script>
 
-  <title>about | Classiczy</title>
+  <title>focalLoss | Classiczy</title>
   
 
 
@@ -112,9 +112,6 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
-<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
-<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -163,7 +160,7 @@
         
         
           
-          <li class="menu-item menu-item-about menu-item-active">
+          <li class="menu-item menu-item-about">
       
     
 
@@ -248,7 +245,7 @@
     <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">about
+<h1 class="post-title" itemprop="name headline">focalLoss
 
 </h1>
 
@@ -264,37 +261,35 @@
       
       <div class="post-body">
         
-          <h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
-<li>把stackedit上的学习文档迁移过来</li>
-</ul>
-<!-- 
-        <div id="aplayer-xuxrRwGp" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
-            <pre class="aplayer-lrc-content"></pre>
-        </div>
-        <script>
-          var ap = new APlayer({
-            element: document.getElementById("aplayer-xuxrRwGp"),
-            narrow: false,
-            autoplay: false,
-            showlrc: false,
-            music: {
-              title: "Think",
-              author: "Kaleida",
-              url: "THINK.mp3",
-              pic: "",
-              lrc: ""
-            }
-          });
-          window.aplayers || (window.aplayers = []);
-          window.aplayers.push(ap);
-        </script> -->
-<!-- 
-    <div id="aplayer-JQdqqieF" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="31273553" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
-    ></div> -->
-
-    <div id="aplayer-VxKIHaks" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="31273553" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="false" data-listmaxheight="340px" data-preload="none" data-theme="#ad7a86" data-lrctype="1"></div>
-
+          <h1 id="Focal-Loss"><a href="#Focal-Loss" class="headerlink" title="Focal Loss"></a>Focal Loss</h1><p>Focal loss 被设计用来解决正负样本极度不平衡的情况。例如训练时前景和背景的比例为1:1000 </p>
+<p>Focal loss从交叉熵损失函数变化而来，先复习一下交叉熵损失函数：</p>
+<a id="more"></a>
+<script type="math/tex; mode=display">
+\mathrm{CE}(p, y)=\left\{\begin{array}{ll}
+{-\log (p)} & {\text { if } y=1} \\
+{-\log (1-p)} & {\text { otherwise }}
+\end{array}\right.</script><p>假设是一个简单的二分类问题，$y \in\{\pm 1\}$ 代表ground truth类别，$p \in[0,1]$ 是模型预测的样本属于$y=1$的概率。我们可以用$p_{t}$代表$p$：</p>
+<script type="math/tex; mode=display">
+p_{\mathrm{t}}=\left\{\begin{array}{ll}
+{p} & {\text { if } y=1} \\
+{1-p} & {\text { otherwise }}
+\end{array}\right.</script><p>那么交叉熵损失函数可以改写为：</p>
+<script type="math/tex; mode=display">
+\mathrm{CE}(p, y)=\mathrm{CE}\left(p_{\mathrm{t}}\right)=-\log \left(p_{\mathrm{t}}\right)</script><p>交叉熵损失函数为图1中最上面的蓝色线条，从图中可以看到，即使是对于很容易分类的样本($p_{t} &gt; 0.5$)，这种损失函数的loss依然很大。当有大量的易分类样本的时候，这些“微小的”损失就能盖过那些难以分类的样本，使得模型优化的方向产生偏移。</p>
+<h3 id="Balanced-Cross-Entropy"><a href="#Balanced-Cross-Entropy" class="headerlink" title="Balanced Cross Entropy"></a>Balanced Cross Entropy</h3><p>当然，我们可以引入一个新的权重$\alpha$来对损失函数进行平衡。$\alpha$的定义类似于之前的$p_{t}$，也就是说，$\alpha$可以用来控制正负样本的损失占的权重，以此来平衡正负样本不均衡的问题。增加了$\alpha$的交叉熵损失函数写作：</p>
+<script type="math/tex; mode=display">
+\mathrm{CE}\left(p_{\mathrm{t}}\right)=-\alpha_{\mathrm{t}} \log \left(p_{\mathrm{t}}\right)</script><p>这个经过简单扩展的交叉熵损失函数会作为文中的一个baseline</p>
+<h3 id="Focal-Loss-Definition"><a href="#Focal-Loss-Definition" class="headerlink" title="Focal Loss Definition"></a>Focal Loss Definition</h3><p>上面的$\alpha$交叉熵损失函数可以平衡正负样本，但是不能平衡易分类，难分类样本的问题。论文提出的一种新的损失函数，通过降低易分类样本的损失来使得训练专注于提升难分类的样本。</p>
+<p>Focal loss在最初的交叉熵损失函数上增加了一个调节因子$\left(1-p_{\mathrm{t}}\right)^{\gamma}$，其中$\gamma \geq 0$是一个可调的“专注”参数。Focal loss可以写作：</p>
+<script type="math/tex; mode=display">
+\mathrm{FL}\left(p_{\mathrm{t}}\right)=-\left(1-p_{\mathrm{t}}\right)^{\gamma} \log \left(p_{\mathrm{t}}\right)</script><p>Focal loss有两个性质：</p>
+<ol>
+<li>当一个样本被错误分类而且$p_{t}$很小，调节因子$\left(1-p_{\mathrm{t}}\right)^{\gamma}$会很接近1，所以这个样本的损失函数基本没有受到影响。当$p_{t} \rightarrow 1$的时候，调节因子会趋近于0，因此易分类的样本的权重就被削弱了。 </li>
+<li>专注参数$\gamma$可以平滑的调整调节因子的影响。当$\gamma = 0$的时候，Focal loss就等于最初的交叉熵损失函数，随着$\gamma$的增加，调节因子的影响也增加，文中提到在他们的实验中，$\gamma = 2$时效果最好。</li>
+</ol>
+<p>调节因子减少了易分类样本在损失中的权重并且拓展了样本收到低损失的范围。举例来说，当$\gamma = 2$的时候，一个有$p_{t} = 0.9$的样本会比普通的交叉熵损失函数小100多倍，当$p_{t} = 0.968$的时候可以小1000多倍，这样就反过来增加了错误分类样本的重要性。当$p_{t} &lt;= 0.5$的时候最多小4倍。<br>实际上文中使用的是增加了$\alpha$的版本：</p>
+<script type="math/tex; mode=display">
+\mathrm{FL}\left(p_{\mathrm{t}}\right)=-\alpha_{\mathrm{t}}\left(1-p_{\mathrm{t}}\right)^{\gamma} \log \left(p_{\mathrm{t}}\right)</script>
         
       </div>
       
@@ -463,7 +458,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TODO"><span class="nav-number">1.</span> <span class="nav-text">TODO</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Focal-Loss"><span class="nav-number">1.</span> <span class="nav-text">Focal Loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Balanced-Cross-Entropy"><span class="nav-number">1.0.1.</span> <span class="nav-text">Balanced Cross Entropy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Focal-Loss-Definition"><span class="nav-number">1.0.2.</span> <span class="nav-text">Focal Loss Definition</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -547,6 +542,51 @@
 
 
 
+  
+    
+      <script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 

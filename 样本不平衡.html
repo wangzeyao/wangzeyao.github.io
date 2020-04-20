@@ -57,20 +57,22 @@
   };
 </script>
 
-  <meta name="description" content="直方图和直方图均衡化(Histogram Equalization)图像直方(Image Histiograms)灰度直方图是对每一阶灰度的像素数量进行计数。像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数">
-<meta property="og:type" content="article">
-<meta property="og:title" content="直方图均衡化">
-<meta property="og:url" content="http://yoursite.com/2019/11/26/直方图均衡化/index.html">
+  <meta name="description" content="过采样随机过采样从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="样本不平衡">
+<meta property="og:url" content="http://yoursite.com/样本不平衡.html">
 <meta property="og:site_name" content="Classiczy">
-<meta property="og:description" content="直方图和直方图均衡化(Histogram Equalization)图像直方(Image Histiograms)灰度直方图是对每一阶灰度的像素数量进行计数。像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数">
+<meta property="og:description" content="过采样随机过采样从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://lh3.googleusercontent.com/IV5jbUqA-6VjQvSpisRCCT7N8OZywnVx80ZUOMrhe1AgN7UmBZXauTmzMm063yXZKPbk8k4pD7O3">
-<meta property="og:updated_time" content="2020-04-20T14:44:36.000Z">
+<meta property="og:image" content="http://yoursite.com/SMOTE.png">
+<meta property="og:image" content="http://yoursite.com/过采样效果.png">
+<meta property="og:image" content="http://yoursite.com/TomekLink.png">
+<meta property="og:updated_time" content="2020-01-09T15:38:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="直方图均衡化">
-<meta name="twitter:description" content="直方图和直方图均衡化(Histogram Equalization)图像直方(Image Histiograms)灰度直方图是对每一阶灰度的像素数量进行计数。像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数">
-<meta name="twitter:image" content="https://lh3.googleusercontent.com/IV5jbUqA-6VjQvSpisRCCT7N8OZywnVx80ZUOMrhe1AgN7UmBZXauTmzMm063yXZKPbk8k4pD7O3">
-  <link rel="canonical" href="http://yoursite.com/2019/11/26/直方图均衡化/">
+<meta name="twitter:title" content="样本不平衡">
+<meta name="twitter:description" content="过采样随机过采样从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。">
+<meta name="twitter:image" content="http://yoursite.com/SMOTE.png">
+  <link rel="canonical" href="http://yoursite.com/样本不平衡">
 
 
 <script id="page.configurations">
@@ -79,7 +81,7 @@
   };
 </script>
 
-  <title>直方图均衡化 | Classiczy</title>
+  <title>样本不平衡 | Classiczy</title>
   
 
 
@@ -216,163 +218,115 @@
         <div class="content-wrap">
             
 
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/直方图均衡化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
+    
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-          <h1 class="post-title" itemprop="name headline">直方图均衡化
+<h1 class="post-title" itemprop="name headline">样本不平衡
 
-              
-            
-          </h1>
-        
+</h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 26-11-2019 13:30:44 13:30:44" itemprop="dateCreated datePublished" datetime="2019-11-26T13:30:44+08:00">26-11-2019 13:30:44</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 20-04-2020 22:44:36 22:44:36" itemprop="dateModified" datetime="2020-04-20T22:44:36+08:00">20-04-2020 22:44:36</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
+<div class="post-meta">
   
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2019/11/26/直方图均衡化/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/直方图均衡化/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
 
-        </div>
-      </header>
+</div>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
-        <h1 id="直方图和直方图均衡化-Histogram-Equalization"><a href="#直方图和直方图均衡化-Histogram-Equalization" class="headerlink" title="直方图和直方图均衡化(Histogram Equalization)"></a>直方图和直方图均衡化(Histogram Equalization)</h1><h3 id="图像直方-Image-Histiograms"><a href="#图像直方-Image-Histiograms" class="headerlink" title="图像直方(Image Histiograms)"></a>图像直方(Image Histiograms)</h3><p>灰度直方图是对每一阶灰度的像素数量进行计数。<br>像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数<br><a id="more"></a></p>
-<h3 id="直方图均衡化-Histogram-Equalization"><a href="#直方图均衡化-Histogram-Equalization" class="headerlink" title="直方图均衡化(Histogram Equalization)"></a>直方图均衡化(Histogram Equalization)</h3><p>对于对比度不高的灰阶图，我们需要用一个<em>灰度映射函数 T</em> 来把输入的灰度值r映射为输出的灰度值s，即 <strong>s=T( r )</strong><br>那么如何获得这个映射函数T呢？<br>我们先设任意灰度值t：</p>
+      
+      
+      <div class="post-body">
+        
+          <h2 id="过采样"><a href="#过采样" class="headerlink" title="过采样"></a>过采样</h2><h4 id="随机过采样"><a href="#随机过采样" class="headerlink" title="随机过采样"></a>随机过采样</h4><p>从样本少的类别中随机抽样，再将抽样得来的样本添加到数据集中。然而这种方法如今已经不大使用了，因为重复采样往往会导致严重的过拟合。<br><a id="more"></a></p>
+<h4 id="SMOTE"><a href="#SMOTE" class="headerlink" title="SMOTE"></a>SMOTE</h4><p>SMOTE (synthetic minority oversampling technique) 的思想概括起来就是在少数类样本之间进行插值来产生额外的样本。具体地，对于一个少数类样本xi使用K近邻法(k值需要提前指定)，求出离xi距离最近的k个少数类样本，其中距离定义为样本之间n维特征空间的欧氏距离。然后从k个近邻点中随机选取一个，使用下列公式生成新样本：</p>
+<script type="math/tex; mode=display">
+\mathbf{x}_{n e w}=\mathbf{x}_{i}+\left(\hat{\mathbf{x}}_{i}-\mathbf{x}_{i}\right) \times \delta</script><p>其中$\hat{x}$为选出的k邻近点，$\delta \in[0,1]$是一个随机数。</p>
+<p><img src="SMOTE.png" alt="png"></p>
+<p>SMOTE会随机选取少数类样本用以合成新样本，而不考虑周边样本的情况，这样容易带来两个问题：</p>
+<ol>
+<li>如果选取的少数样本周围仍然是一些少数样本，那么新合成的样本也不会提供太多有用信息</li>
+<li>如果选取的少数样本的周围都是多数类样本，那么这个被选中的少数样本可能本来就是噪音，而新生成的样本会与周围的多数类样本产生重叠，导致分类困难。</li>
+</ol>
+<h4 id="Border-line-SMOTE"><a href="#Border-line-SMOTE" class="headerlink" title="Border-line SMOTE"></a>Border-line SMOTE</h4><p>我们希望新合成的少数类样本处于两个类别的边界，这样能够提供更多的有用信息用于分类，而前面的SMOTE是从全部少数类样本中随机选择一些来生成新样本，而Border-line SMOTE则对少数类样本的选择进行了优化。</p>
+<p>Border-line SMOTE首先会把所有<strong>少数类样本</strong>分为三类：</p>
 <ul>
-<li>在原图像中的概率密度函数为$p_{f}$(t)</li>
-<li>在输出的图像中的概率密度函数为$p_{g}$(t)</li>
+<li><strong>noise</strong> ： 所有的k近邻个样本都属于多数类</li>
+<li><strong>danger</strong> ： 超过一半的k近邻样本属于多数类</li>
+<li><strong>safe</strong>：超过一半的k近邻样本属于少数类</li>
 </ul>
-<p>然后，我们可以得到相应的累计分布函数：</p>
-<ul>
-<li>$S_{f}$(n) = $\int_0^np_{f}(t)dt$</li>
-<li>$S_{g}$(n) = $\int_0^np_{g}(t)dt$</li>
-</ul>
-<p>此时，为了保证：</p>
-<ul>
-<li><strong>在原图像中比灰度值r暗的像素，映射到新图像中仍然比s暗</strong></li>
-<li><strong>在原图像中比灰度值r亮的像素，映射后依然比s亮</strong></li>
-</ul>
-<p>所以有：<br>$S_{f}( s )$ = $S_{g}[T( r )]$=$S_{g}(s)$   （1）</p>
-<p>对其微分就得到：<br>$p_{f}(r) · ds$ · $p_{g}(s) · ds$    （2）</p>
-<p>我们令变换$T(r)$ = $L · S_{f}( r )$ 那么：<br>$s=T(r)$<br>&nbsp;&nbsp;&nbsp;$= L · S_{f}( r )$<br>&nbsp;&nbsp;&nbsp;$= L ·\int_0^rp_{f}(t)d$</p>
-<p>那么我们就能得到：<br>$\frac{ds}{dr}=L ·p_{f}(r)$  &nbsp;&nbsp; (3)<br>由（2）（3）得：<br>$p_{g}(s)=\frac{1}{L}$</p>
-<p>我们可以看出映射后，图像g中各灰度为均匀分布，概率密度函数为常数1/L，各种灰度被均衡化了。<br>那么我们要找的映射函数: $T(r)=L ·\int_0^rp_f(t)$</p>
-<p><img src="https://lh3.googleusercontent.com/IV5jbUqA-6VjQvSpisRCCT7N8OZywnVx80ZUOMrhe1AgN7UmBZXauTmzMm063yXZKPbk8k4pD7O3" alt="enter image description here" title="计算实例"></p>
+<p>这种改进算法只会从处于<strong>danger</strong>的少数样本中随机选择，然后使用基本SMOTE算法生成新的样本，因为处于<strong>danger</strong>的样本都处于分类的边界，因此能提供更多的信息用于分类。</p>
+<p>Border-line SMOTE 分为两种: Borderline-1 SMOTE 和 Borderline-2 SMOTE。 Borderline-1 SMOTE 在合成样本时(1.1)式中的$\hat{x}$是一个少数类样本，而 Borderline-2 SMOTE 中的$\hat{x}$则是k近邻中的任意一个样本。</p>
+<h3 id="ADASYN"><a href="#ADASYN" class="headerlink" title="ADASYN"></a>ADASYN</h3><p>ADASYN名为自适应合成抽样(adaptive synthetic sampling), 这是一个用来决定每个少数类样本应该生成多少个新样本（SMOTE对每个少数类样本生成同样多的新样本），算法如下：</p>
+<ol>
+<li>计算需要合成的样本总量：</li>
+</ol>
+<script type="math/tex; mode=display">
+G=\left(S_{m a j}-S_{m i n}\right) \times \beta</script><p>其中$S_{maj}$为多数类样本的数量，$S_{min}$为少数类样本的数量，$\beta \in[0,1]$</p>
+<ol>
+<li>对于每个少数类别样本$x_{i}$，找出其K个邻近点，并计算</li>
+</ol>
+<script type="math/tex; mode=display">
+\Gamma_{i}=\frac{\Delta_{i} / K}{Z}</script><p>其中$\Delta_{i}$为K个邻近点中多数类样本的数量，Z为规范化因子。也就是说一个少数类样本周围的多数类样本越多，$\gamma_{i}$越大</p>
+<ol>
+<li>最后计算每个少数类样本需要合成的样本数量$g_{i}$：</li>
+</ol>
+<script type="math/tex; mode=display">
+g_{i}=\Gamma_{i} \times G</script><p>可以看到ADASYN利用分布Γ来自动决定每个少数类样本所需要合成的样本数量，这等于是给每个少数类样本施加了一个权重，周围的多数类样本越多则权重越高。但是这样似乎抗噪音的性能不强，一个少数类样本周围多是多数类样本的话，这个少数类样本很可能是噪音，而这样一个噪音的权重却特别大，生成很多新的样本。</p>
+<p><img src="过采样效果.png" alt="png"></p>
+<p>可以看到过采样后原来少数类的决策边界都扩大了，导致更多的多数类样本被划为少数类了</p>
+<h2 id="欠采样"><a href="#欠采样" class="headerlink" title="欠采样"></a>欠采样</h2><h4 id="随机欠采样"><a href="#随机欠采样" class="headerlink" title="随机欠采样"></a>随机欠采样</h4><p>类似与随机过采样，就是从多数类样本中随机抛弃一些样本。这种方法的缺点很明显，就是会缺失一些数据的信息。</p>
+<h4 id="EasyEnsemble"><a href="#EasyEnsemble" class="headerlink" title="EasyEnsemble"></a>EasyEnsemble</h4><p>这种方法将多数类样本分为n个子集，每个子集的样本数量都和少数类样本数量相等。然后将每个子集和少数类样本两两组合去训练一个模型，最后将n个模型集合（类似于bagging？），这样集成后就总的信息量就不会减少。</p>
+<h4 id="BalanceCascade"><a href="#BalanceCascade" class="headerlink" title="BalanceCascade"></a>BalanceCascade</h4><p>这种方法有点类似与boosting。第n轮训练的时候，从多数类样本中随机抽取并与少数类样本组合去训练模型，完成后把可以被这一轮模型正确分类的多数类样本剔除，在第n+1轮中从剔除完毕的多数类样本中再随机抽取，如此往复。最后再将n个模型组合成强学习器。</p>
+<h4 id="Near-miss"><a href="#Near-miss" class="headerlink" title="Near miss"></a>Near miss</h4><p>即从多数类样本中选取最具代表性的样本用于训练，主要是为了缓解随机欠采样中的信息丢失问题。NearMiss采用一些启发式的规则来选择样本，根据规则的不同可分为3类：</p>
+<ol>
+<li>NearMiss-1：选择到最近的K个少数类样本平均距离最近的多数类样本</li>
+<li>NearMiss-2：选择到最远的K个少数类样本平均距离最近的多数类样本</li>
+<li>NearMiss-3：对于每个少数类样本选择K个最近的多数类样本，目的是保证每个少数类样本都被多数类样本包围</li>
+</ol>
+<p>NearMiss-1和NearMiss-2的计算开销很大，因为需要计算每个多类别样本的K近邻点。NearMiss-1易受离群点的影响。</p>
+<h2 id="数据清洗方法"><a href="#数据清洗方法" class="headerlink" title="数据清洗方法"></a>数据清洗方法</h2><h4 id="Tomek-Link"><a href="#Tomek-Link" class="headerlink" title="Tomek Link"></a>Tomek Link</h4><p>Tomek Link表示不同类别之间距离最近的一对样本，即这两个样本互为最近邻且分属不同类别。这样如果两个样本形成了一个Tomek Link，则要么其中一个是噪音，要么两个样本都在边界附近。这样通过移除Tomek Link就能“清洗掉”类间重叠样本，使得互为最近邻的样本皆属于同一类别，从而能更好地进行分类。</p>
+<p><img src="TomekLink.png" alt="png"></p>
+<h4 id="Edited-Nearest-Neighbours-ENN"><a href="#Edited-Nearest-Neighbours-ENN" class="headerlink" title="Edited Nearest Neighbours(ENN)"></a>Edited Nearest Neighbours(ENN)</h4><p>对于属于多数类的一个样本，如果其K个近邻点有超过一半都不属于多数类，则这个样本会被剔除。这个方法的另一个变种是所有的K个近邻点都不属于多数类，则这个样本会被剔除。</p>
 
+        
+      </div>
+      
+      
+      
     </div>
+    
 
     
     
     
-
-    <footer class="post-footer">
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-              <a href="/2019/11/27/字母识别/" rel="prev" title="字母识别">
-                字母识别 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
   </div>
 
 
@@ -530,7 +484,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#直方图和直方图均衡化-Histogram-Equalization"><span class="nav-number">1.</span> <span class="nav-text">直方图和直方图均衡化(Histogram Equalization)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图像直方-Image-Histiograms"><span class="nav-number">1.0.1.</span> <span class="nav-text">图像直方(Image Histiograms)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直方图均衡化-Histogram-Equalization"><span class="nav-number">1.0.2.</span> <span class="nav-text">直方图均衡化(Histogram Equalization)</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#过采样"><span class="nav-number">1.</span> <span class="nav-text">过采样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#随机过采样"><span class="nav-number">1.0.1.</span> <span class="nav-text">随机过采样</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SMOTE"><span class="nav-number">1.0.2.</span> <span class="nav-text">SMOTE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Border-line-SMOTE"><span class="nav-number">1.0.3.</span> <span class="nav-text">Border-line SMOTE</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ADASYN"><span class="nav-number">1.1.</span> <span class="nav-text">ADASYN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#欠采样"><span class="nav-number">2.</span> <span class="nav-text">欠采样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#随机欠采样"><span class="nav-number">2.0.1.</span> <span class="nav-text">随机欠采样</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EasyEnsemble"><span class="nav-number">2.0.2.</span> <span class="nav-text">EasyEnsemble</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BalanceCascade"><span class="nav-number">2.0.3.</span> <span class="nav-text">BalanceCascade</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Near-miss"><span class="nav-number">2.0.4.</span> <span class="nav-text">Near miss</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据清洗方法"><span class="nav-number">3.</span> <span class="nav-text">数据清洗方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tomek-Link"><span class="nav-number">3.0.1.</span> <span class="nav-text">Tomek Link</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Edited-Nearest-Neighbours-ENN"><span class="nav-number">3.0.2.</span> <span class="nav-text">Edited Nearest Neighbours(ENN)</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

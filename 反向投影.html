@@ -57,18 +57,22 @@
   };
 </script>
 
-  <meta name="description" content="TODO 把stackedit上的学习文档迁移过来">
+  <meta name="description" content="OpenCV 反向投影1.什么是反向投影在OpenCV的中文文档上反向投影的描述是这样的：  反向投影是一种记录给定图像中的像素点如何适应直方图模型的像素分布的方式。 简单的讲， 所谓反向投影就是首先计算某一特征的直方图模型，然后使用模型去寻找图像中存在的该特征。 例如， 你有一个肤色直方图 ( Hue-Saturation 直方图 )，你可以用它来寻找图像中的肤色区域  2.反向投影的步骤从上面">
 <meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta property="og:title" content="反向投影">
+<meta property="og:url" content="http://yoursite.com/反向投影.html">
 <meta property="og:site_name" content="Classiczy">
-<meta property="og:description" content="TODO 把stackedit上的学习文档迁移过来">
+<meta property="og:description" content="OpenCV 反向投影1.什么是反向投影在OpenCV的中文文档上反向投影的描述是这样的：  反向投影是一种记录给定图像中的像素点如何适应直方图模型的像素分布的方式。 简单的讲， 所谓反向投影就是首先计算某一特征的直方图模型，然后使用模型去寻找图像中存在的该特征。 例如， 你有一个肤色直方图 ( Hue-Saturation 直方图 )，你可以用它来寻找图像中的肤色区域  2.反向投影的步骤从上面">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-12T09:48:56.000Z">
+<meta property="og:image" content="http://www.opencv.org.cn/opencvdoc/2.3.2/html/_images/Back_Projection_Theory2.jpg">
+<meta property="og:image" content="https://lh3.googleusercontent.com/xAHIT6xQ9_tc7u6mIu7xLMpR728XMovxd8fY_rXGHX0manqe4ik3WhrDD1wzGuW1qohc_u6kVoTI">
+<meta property="og:image" content="https://lh3.googleusercontent.com/rreQyyOxZB1Px3dq6Cue18ZtJQQxUAFiI4V43HEjlDs_mImxDa7Pvv-p2vazB29rTH3it-3qZCG2">
+<meta property="og:updated_time" content="2020-04-20T14:09:05.356Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="TODO 把stackedit上的学习文档迁移过来">
-  <link rel="canonical" href="http://yoursite.com/about/">
+<meta name="twitter:title" content="反向投影">
+<meta name="twitter:description" content="OpenCV 反向投影1.什么是反向投影在OpenCV的中文文档上反向投影的描述是这样的：  反向投影是一种记录给定图像中的像素点如何适应直方图模型的像素分布的方式。 简单的讲， 所谓反向投影就是首先计算某一特征的直方图模型，然后使用模型去寻找图像中存在的该特征。 例如， 你有一个肤色直方图 ( Hue-Saturation 直方图 )，你可以用它来寻找图像中的肤色区域  2.反向投影的步骤从上面">
+<meta name="twitter:image" content="http://www.opencv.org.cn/opencvdoc/2.3.2/html/_images/Back_Projection_Theory2.jpg">
+  <link rel="canonical" href="http://yoursite.com/反向投影">
 
 
 <script id="page.configurations">
@@ -77,7 +81,7 @@
   };
 </script>
 
-  <title>about | Classiczy</title>
+  <title>反向投影 | Classiczy</title>
   
 
 
@@ -112,9 +116,6 @@
   </style>
 </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
-<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
-<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -163,7 +164,7 @@
         
         
           
-          <li class="menu-item menu-item-about menu-item-active">
+          <li class="menu-item menu-item-about">
       
     
 
@@ -248,7 +249,7 @@
     <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">about
+<h1 class="post-title" itemprop="name headline">反向投影
 
 </h1>
 
@@ -264,36 +265,22 @@
       
       <div class="post-body">
         
-          <h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
-<li>把stackedit上的学习文档迁移过来</li>
+          <h1 id="OpenCV-反向投影"><a href="#OpenCV-反向投影" class="headerlink" title="OpenCV 反向投影"></a>OpenCV 反向投影</h1><h2 id="1-什么是反向投影"><a href="#1-什么是反向投影" class="headerlink" title="1.什么是反向投影"></a>1.什么是反向投影</h2><p>在OpenCV的中文文档上反向投影的描述是这样的：</p>
+<ul>
+<li>反向投影是一种记录给定图像中的<strong>像素点如何适应直方图模型</strong>的像素分布的方式。</li>
+<li>简单的讲， 所谓反向投影就是首先计算某一特征的直方图模型，然后使用模型去寻找图像中存在的该特征。</li>
+<li>例如， 你有一个肤色直方图 ( Hue-Saturation 直方图 )，你可以用它来寻找图像中的肤色区域</li>
 </ul>
-<!-- 
-        <div id="aplayer-xuxrRwGp" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
-            <pre class="aplayer-lrc-content"></pre>
-        </div>
-        <script>
-          var ap = new APlayer({
-            element: document.getElementById("aplayer-xuxrRwGp"),
-            narrow: false,
-            autoplay: false,
-            showlrc: false,
-            music: {
-              title: "Think",
-              author: "Kaleida",
-              url: "THINK.mp3",
-              pic: "",
-              lrc: ""
-            }
-          });
-          window.aplayers || (window.aplayers = []);
-          window.aplayers.push(ap);
-        </script> -->
-<!-- 
-    <div id="aplayer-JQdqqieF" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="31273553" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
-    ></div> -->
-
-    <div id="aplayer-VxKIHaks" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="31273553" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="false" data-listmaxheight="340px" data-preload="none" data-theme="#ad7a86" data-lrctype="1"></div>
+<h2 id="2-反向投影的步骤"><a href="#2-反向投影的步骤" class="headerlink" title="2.反向投影的步骤"></a>2.反向投影的步骤</h2><p>从上面文档的描述中可以看到，反向投影的步骤三步：<br>1.获取目标图像区域的直方图模型<br>2.将新图像中的每一个像素点与直方图进行比较，获得该像素点的颜色在直方图中的概率。<br>3.将结果储存到新的图像中<br><a id="more"></a><br>我们用一个灰度图的例子来解释：<br>0|1|2 |3<br>4|5|6|7<br>8|9|10|11<br>8|9|14|16</p>
+<p>对图像进行直方图统计（bin指定的区间为[0,3)，[4,7)，[8,11)，[12,16)）如下所示：<br>Histogram=<br>4 4 6 2<br>也就是说在[0,3)这个区间的像素值有4个，其它含义相同<br>根据上述的直方图进行反向投影，得到反向投影图像像素值如下：<br>Back_Projection=</p>
+<p>4 4 4 4<br>4 4 4 4<br>6 6 6 6<br>6 6 2 2 </p>
+<p>过程可以描述为：<br>目标图像—&gt;直方图—&gt;反向投影图像<br>比如我们选取一张手的图像为目标图像</p>
+<p><img src="http://www.opencv.org.cn/opencvdoc/2.3.2/html/_images/Back_Projection_Theory2.jpg" alt="enter image description here"></p>
+<p>根据这个图像我们得到了直方图如下</p>
+<p><img src="https://lh3.googleusercontent.com/xAHIT6xQ9_tc7u6mIu7xLMpR728XMovxd8fY_rXGHX0manqe4ik3WhrDD1wzGuW1qohc_u6kVoTI" alt="enter image description here"></p>
+<p>然后判断图像中每个像素点，生成反向投影图像：</p>
+<p><img src="https://lh3.googleusercontent.com/rreQyyOxZB1Px3dq6Cue18ZtJQQxUAFiI4V43HEjlDs_mImxDa7Pvv-p2vazB29rTH3it-3qZCG2" alt="enter image description here"></p>
+<p>使用统计学的语言, _BackProjection_ 中储存的数值代表了测试图像中该像素属于皮肤区域的 <strong>概率</strong> 。比如以上图为例， 亮起的区域是皮肤区域的概率更大(事实确实如此),而更暗的区域则表示更低的概率</p>
 
         
       </div>
@@ -463,7 +450,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TODO"><span class="nav-number">1.</span> <span class="nav-text">TODO</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenCV-反向投影"><span class="nav-number">1.</span> <span class="nav-text">OpenCV 反向投影</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是反向投影"><span class="nav-number">1.1.</span> <span class="nav-text">1.什么是反向投影</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-反向投影的步骤"><span class="nav-number">1.2.</span> <span class="nav-text">2.反向投影的步骤</span></a></li></ol></li></ol></div>
             
 
           </div>
