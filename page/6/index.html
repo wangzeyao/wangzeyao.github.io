@@ -59,12 +59,12 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Classiczy">
-<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:url" content="http://yoursite.com/page/6/index.html">
 <meta property="og:site_name" content="Classiczy">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Classiczy">
-  <link rel="canonical" href="http://yoursite.com/page/4/">
+  <link rel="canonical" href="http://yoursite.com/page/6/">
 
 
 <script id="page.configurations">
@@ -220,7 +220,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/yolo/yolo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/集成学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -237,7 +237,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/12/17/yolo/yolo/" class="post-title-link" itemprop="url">目标检测：YOLO</a>
+                <a href="/2019/12/03/集成学习/" class="post-title-link" itemprop="url">集成学习</a>
               
             
           </h1>
@@ -256,7 +256,7 @@
                 
               
 
-              <time title="Created: 17-12-2019 11:13:10" itemprop="dateCreated datePublished" datetime="2019-12-17T11:13:10+08:00">17-12-2019</time>
+              <time title="Created: 03-12-2019 21:36:12" itemprop="dateCreated datePublished" datetime="2019-12-03T21:36:12+08:00">03-12-2019</time>
             </span>
           
             
@@ -269,7 +269,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 18-12-2019 19:30:00" itemprop="dateModified" datetime="2019-12-18T19:30:00+08:00">18-12-2019</time>
+                <time title="Modified: 04-12-2019 04:50:10" itemprop="dateModified" datetime="2019-12-04T04:50:10+08:00">04-12-2019</time>
               </span>
             
           
@@ -281,21 +281,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/集成学习/" itemprop="url" rel="index"><span itemprop="name">集成学习</span></a></span>
 
                 
                 
@@ -315,8 +301,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2019/12/17/yolo/yolo/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/17/yolo/yolo/" itemprop="commentCount"></span>
+    <a href="/2019/12/03/集成学习/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/03/集成学习/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -332,13 +318,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="目标检测：YOLO"><a href="#目标检测：YOLO" class="headerlink" title="目标检测：YOLO"></a>目标检测：YOLO</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>对yolo的印象就是快，yolo把整个目标检测（分类和定位）当作一个回归问题，直接从图像像素输出bbox坐标和类别，如下图:</p>
-<p><img src="yolo1_detection_system.png" alt="png"></p>
-<p>yolo使用一个卷积神经网络同时预测多个检测目标。它首先把图像resize到$448 \times 448$，图像通过卷积网络后生成bbox坐标和分类，然后用NMS进行筛选。<br>
+          <h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p><img src="https://images2015.cnblogs.com/blog/1042406/201612/1042406-20161204194331365-2142863547.png" alt="enter image description here"><br>从图中可以看出，Boosting算法的工作机制是首先从训练集用初始权重训练出一个弱学习器1，根据弱学习的学习误差率表现来更新训练样本的权重，通过之前弱学习器1学习误差率高的训练样本点的权重变高的方法，使得这些误差率高的点在后面的弱学习器2中得到更多的重视。然后基于调整权重后的训练集来训练弱学习器2.，如此重复进行，直到弱学习器数达到事先指定的数目T，最终将这T个弱学习器通过集合策略进行整合，得到最终的强学习器。<br>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/12/17/yolo/yolo/#more" rel="contents">
+              <a class="btn" href="/2019/12/03/集成学习/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -369,7 +353,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/SSD/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/28/列联表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -386,7 +370,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/12/16/SSD/" class="post-title-link" itemprop="url">目标检测:SSD</a>
+                <a href="/2019/11/28/列联表/" class="post-title-link" itemprop="url">列联表</a>
               
             
           </h1>
@@ -405,7 +389,7 @@
                 
               
 
-              <time title="Created: 16-12-2019 16:44:39" itemprop="dateCreated datePublished" datetime="2019-12-16T16:44:39+08:00">16-12-2019</time>
+              <time title="Created: 28-11-2019 17:56:12" itemprop="dateCreated datePublished" datetime="2019-11-28T17:56:12+08:00">28-11-2019</time>
             </span>
           
             
@@ -418,7 +402,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 17-12-2019 17:28:16" itemprop="dateModified" datetime="2019-12-17T17:28:16+08:00">17-12-2019</time>
+                <time title="Modified: 29-11-2019 01:00:48" itemprop="dateModified" datetime="2019-11-29T01:00:48+08:00">29-11-2019</time>
               </span>
             
           
@@ -430,14 +414,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/统计/" itemprop="url" rel="index"><span itemprop="name">统计</span></a></span>
 
                 
                 
@@ -457,8 +434,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2019/12/16/SSD/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/16/SSD/" itemprop="commentCount"></span>
+    <a href="/2019/11/28/列联表/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/28/列联表/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -474,15 +451,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Single-Shot-MultiBox-Detector"><a href="#Single-Shot-MultiBox-Detector" class="headerlink" title="Single Shot MultiBox Detector"></a>Single Shot MultiBox Detector</h1><p>目标检测的算法主要分为两个：</p>
-<ol>
-<li><strong>two-stage</strong>算法，比如RCNN系列。需要先生成候选区域，再对候选区域进行分类和回归。</li>
-<li><strong>one-stage</strong> 比如yolo和SSD， 不需要先生成候选区域，而是直接从图片上进行不同尺度(scale)和长宽比(aspect ratio)的抽样，然后经由CNN提取特征后直接进行分类和回归。这种方法的优势是速度快。</li>
-</ol>
+          <h2 id="列联表"><a href="#列联表" class="headerlink" title="列联表"></a>列联表</h2><h3 id="频数列联表"><a href="#频数列联表" class="headerlink" title="频数列联表"></a>频数列联表</h3><p><img src="https://lh3.googleusercontent.com/jdrGRT45MIBTbFvkeVaNFl985tEPvu7lvtEj6Bb-c0tnsMIwdCe5RZO95smEb4WfXEEtRphZAbly" alt="enter image description here"><br><img src="https://lh3.googleusercontent.com/XcPrihByB4qyc5FpN3suC-iK4j1eJj3a9QE1V0iP6zUNQVx5207Xcpr9XH6qjbk8k6FEkFFELm3u" alt="enter image description here"></p>
+<h3 id="频率列联表"><a href="#频率列联表" class="headerlink" title="频率列联表"></a>频率列联表</h3><p><img src="https://lh3.googleusercontent.com/P5p39QQtDgluUsUEIV3Zn_n_ORw5iumCWdVOm8D5XOTKWmPYqdY73bzWYRKrMdUkU3AfCfj8U_TF" alt="enter image description here"><br><img src="https://lh3.googleusercontent.com/PetpYPw2DkIbTZIfj_xb1WdA85v6cTioPbFFFm2C6PcUmFEzaUOxbkEoTWGOymcE_oEQF3yrjjcQ" alt="enter image description here"><br>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/12/16/SSD/#more" rel="contents">
+              <a class="btn" href="/2019/11/28/列联表/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -513,7 +487,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/12/Faster-RCNN/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/28/似然方程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -530,7 +504,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/12/12/Faster-RCNN/" class="post-title-link" itemprop="url">目标检测：Faster-RCNN</a>
+                <a href="/2019/11/28/似然方程/" class="post-title-link" itemprop="url">似然函数</a>
               
             
           </h1>
@@ -549,7 +523,7 @@
                 
               
 
-              <time title="Created: 12-12-2019 11:53:34" itemprop="dateCreated datePublished" datetime="2019-12-12T11:53:34+08:00">12-12-2019</time>
+              <time title="Created: 28-11-2019 17:05:30" itemprop="dateCreated datePublished" datetime="2019-11-28T17:05:30+08:00">28-11-2019</time>
             </span>
           
             
@@ -562,7 +536,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 23-02-2020 18:41:10" itemprop="dateModified" datetime="2020-02-23T18:41:10+08:00">23-02-2020</time>
+                <time title="Modified: 29-11-2019 01:00:50" itemprop="dateModified" datetime="2019-11-29T01:00:50+08:00">29-11-2019</time>
               </span>
             
           
@@ -574,21 +548,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/统计/" itemprop="url" rel="index"><span itemprop="name">统计</span></a></span>
 
                 
                 
@@ -608,8 +568,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2019/12/12/Faster-RCNN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/12/Faster-RCNN/" itemprop="commentCount"></span>
+    <a href="/2019/11/28/似然方程/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/28/似然方程/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -625,14 +585,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Faster-RCNN"><a href="#Faster-RCNN" class="headerlink" title="Faster-RCNN"></a>Faster-RCNN</h1><h2 id="Fast-RCNN回顾"><a href="#Fast-RCNN回顾" class="headerlink" title="Fast-RCNN回顾"></a>Fast-RCNN回顾</h2><p>尽管相比起RCNN，Fast-RCNN网络中有许多改进。但是对于候选区域的生成仍然使用selective search这一十分耗时的方法。 而在Faster-RCNN中对这一项进行了改进。</p>
-<h2 id="Faster-RCNN-1"><a href="#Faster-RCNN-1" class="headerlink" title="Faster-RCNN"></a>Faster-RCNN</h2><p>我们先来看看Faster-RCNN整个网络的结构：</p>
-<p><img src="网络结构.png" alt="png"></p>
-<p>整个网络被分为两个部分，上半部分就是我们在Fast-RCNN中熟悉过的网络结构（除去候选区域生成部分），而下半部分就是用来生成候选区域的Region Proposal Network（RPN）<br>（有的博主认为在Fast-RCNN部分中有特有不共享的卷积层，但是在论文中并没有看到哪里提及）<br>
+          <h1 id="Likehood-Funciton"><a href="#Likehood-Funciton" class="headerlink" title="Likehood Funciton"></a>Likehood Funciton</h1><h2 id="似然函数"><a href="#似然函数" class="headerlink" title="似然函数"></a>似然函数</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>记已知的样本集为：</p>
+<script type="math/tex; mode=display">
+D=\left\{x_{1}, x_{2}, \cdots, x_{N}\right\}</script><p>联合概率密度函数$p(D | \theta)$称为相对于$\left\{x_{1}, x_{2}, \cdots, x_{N}\right\}$的θ的似然函数:</p>
+<script type="math/tex; mode=display">
+l(\theta)=p(D | \theta)=p\left(x_{1}, x_{2}, \cdots, x_{N} | \theta\right)=\prod_{i=1}^{N} p\left(x_{i} | \theta\right)</script><p>如果$\hat{\theta}$是使似然函数$l(\theta)$最大的$\theta$值，则$\hat{\theta}$应该是“最可能”的参数值，那么$\hat{\theta}$就是$l(\theta)$的极大似然估计量。</p>
+<p>它是样本集的函数，记作：</p>
+<script type="math/tex; mode=display">
+\hat{\theta}=d\left(x_{1}, x_{2}, \cdots, x_{N}\right)=d(D)</script><p>$\hat{\theta}\left(x_{1}, x_{2}, \cdots, x_{N}\right)$称作极大似然函数估计值<br>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/12/12/Faster-RCNN/#more" rel="contents">
+              <a class="btn" href="/2019/11/28/似然方程/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -663,7 +627,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/11/Fast-RCNN/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/字母识别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -680,7 +644,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/12/11/Fast-RCNN/" class="post-title-link" itemprop="url">目标检测：Fast-RCNN</a>
+                <a href="/2019/11/27/字母识别/" class="post-title-link" itemprop="url">字母识别</a>
               
             
           </h1>
@@ -699,7 +663,7 @@
                 
               
 
-              <time title="Created: 11-12-2019 19:13:08" itemprop="dateCreated datePublished" datetime="2019-12-11T19:13:08+08:00">11-12-2019</time>
+              <time title="Created: 27-11-2019 20:20:57" itemprop="dateCreated datePublished" datetime="2019-11-27T20:20:57+08:00">27-11-2019</time>
             </span>
           
             
@@ -712,7 +676,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 17-12-2019 17:28:54" itemprop="dateModified" datetime="2019-12-17T17:28:54+08:00">17-12-2019</time>
+                <time title="Modified: 28-11-2019 23:21:56" itemprop="dateModified" datetime="2019-11-28T23:21:56+08:00">28-11-2019</time>
               </span>
             
           
@@ -725,20 +689,6 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
 
                 
                 
@@ -758,8 +708,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2019/12/11/Fast-RCNN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/11/Fast-RCNN/" itemprop="commentCount"></span>
+    <a href="/2019/11/27/字母识别/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/27/字母识别/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -775,16 +725,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Fast-RCNN"><a href="#Fast-RCNN" class="headerlink" title="Fast-RCNN"></a>Fast-RCNN</h1><h2 id="回顾RCNN"><a href="#回顾RCNN" class="headerlink" title="回顾RCNN"></a>回顾RCNN</h2><p>RCNN网络的不足：</p>
-<ol>
-<li>在RCNN网络的训练和测试都很慢，因为每一张图片都需要先经过selective search去选择约2k个候选框（而且这些候选框很多都是重叠的），然后再对候选框通过CNN网络进行特征提取，这个过程是很冗余的，因为相当于我们对很多重复的区域进行了特征提取。</li>
-<li>其次我们在训练的时候步骤非常繁琐。不仅仅是CNN的特征提取，还有SVM的分类器（20个），Bounding Box的回归器（20个）需要训练。同时在训练分类器和回归器的是，特征都需要存储在本地，占用大量的存储空间</li>
-</ol>
-<h2 id="Fast-RCNN-1"><a href="#Fast-RCNN-1" class="headerlink" title="Fast-RCNN"></a>Fast-RCNN</h2><p>那么作为RCNN的改进型，Fast-RCNN是如何改进上述的不足呢？先来看看FRCNN网络的结构:<br>
+          <h1 id="Gesture-recognition-by-Deep-Neural-Network"><a href="#Gesture-recognition-by-Deep-Neural-Network" class="headerlink" title="Gesture recognition by Deep Neural Network"></a>Gesture recognition by Deep Neural Network</h1><h2 id="Previously-on-Camshift"><a href="#Previously-on-Camshift" class="headerlink" title="Previously on Camshift"></a>Previously on Camshift</h2><p>In the last TP, we used the camshift algorithme to track the hand and take picture of it. Then we resize the picture to 16X16 matrix and store it as the data set to train our neural network.<br>I spend an hour to capture the gesture of my hand and I only got like 1500 pictures. So in order to have more data to train the network. I randomly select 1000 pictures I have and rotate each of them with a random angle and add them into the data.(The code for selecting and rotating them is <a href="https://github.com/wangzeyao/ComputerVision/blob/master/TP2/img_process.py" target="_blank" rel="noopener">here</a>). So now I have a data set with 2500 pictures.<br><img src="https://lh3.googleusercontent.com/6nrSCWnXf75wqYINjmOW35lKdmufyrk-GmxiSHLdex9ZjCvHKF6_qfRer5DcR2GRQJuv2JzzBUVd" alt="The data set we have" title="The data set"><br>We have four letters to predict C,V,I and O<br>We will use two kinds of Network, MLP and CNN<br>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/12/11/Fast-RCNN/#more" rel="contents">
+              <a class="btn" href="/2019/11/27/字母识别/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -815,7 +760,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/RCNN/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/直方图均衡化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -832,7 +777,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/12/10/RCNN/" class="post-title-link" itemprop="url">目标检测：R-CNN</a>
+                <a href="/2019/11/26/直方图均衡化/" class="post-title-link" itemprop="url">直方图均衡化</a>
               
             
           </h1>
@@ -851,7 +796,7 @@
                 
               
 
-              <time title="Created: 10-12-2019 15:04:44" itemprop="dateCreated datePublished" datetime="2019-12-10T15:04:44+08:00">10-12-2019</time>
+              <time title="Created: 26-11-2019 13:30:44" itemprop="dateCreated datePublished" datetime="2019-11-26T13:30:44+08:00">26-11-2019</time>
             </span>
           
             
@@ -864,7 +809,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 23-02-2020 23:19:32" itemprop="dateModified" datetime="2020-02-23T23:19:32+08:00">23-02-2020</time>
+                <time title="Modified: 28-11-2019 23:20:04" itemprop="dateModified" datetime="2019-11-28T23:20:04+08:00">28-11-2019</time>
               </span>
             
           
@@ -877,20 +822,6 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
 
                 
                 
@@ -910,8 +841,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2019/12/10/RCNN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/10/RCNN/" itemprop="commentCount"></span>
+    <a href="/2019/11/26/直方图均衡化/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/直方图均衡化/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -927,18 +858,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="目标检测：R-CNN"><a href="#目标检测：R-CNN" class="headerlink" title="目标检测：R-CNN"></a>目标检测：R-CNN</h1><p>最近实习的时候接触了目标检测类的任务，在使用这些算法的同时了解一下算法整体的流程和内容。作为RCNN算法系列的开山鼻祖，采用了CNN网络用于图像特征的提取，而不是之前的人工设定的特征提取。但是RCNN应该有很多细节都被后面的算法改进了（产生了一系列RCNN的算法）。所以这里只对算法的流程做一个大概的理解。</p>
-<h2 id="RCNN的基本流程"><a href="#RCNN的基本流程" class="headerlink" title="RCNN的基本流程"></a>RCNN的基本流程</h2><p>RCNN算法有4个步骤：</p>
-<ol>
-<li>候选区域生成： 一张图像生成约2K个候选区域 （Selective Search 方法）</li>
-<li>特征提取： 对每个候选区域，使用深度卷积网络提取特征</li>
-<li>类别判断： 特征送入每一类的SVM 分类器，判别是否属于该类</li>
-<li>位置精修： 使用回归器精细修正候选框位置</li>
-</ol>
+          <h1 id="直方图和直方图均衡化-Histogram-Equalization"><a href="#直方图和直方图均衡化-Histogram-Equalization" class="headerlink" title="直方图和直方图均衡化(Histogram Equalization)"></a>直方图和直方图均衡化(Histogram Equalization)</h1><h3 id="图像直方-Image-Histiograms"><a href="#图像直方-Image-Histiograms" class="headerlink" title="图像直方(Image Histiograms)"></a>图像直方(Image Histiograms)</h3><p>灰度直方图是对每一阶灰度的像素数量进行计数。<br>像素数量常常可以改用像素的概率来表现： Pk=nk/N  其中k为灰阶，n为k灰阶像素的数量，N为像素数量总数<br>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/12/10/RCNN/#more" rel="contents">
+              <a class="btn" href="/2019/11/26/直方图均衡化/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -966,7 +890,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 

@@ -59,12 +59,12 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Classiczy">
-<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:url" content="http://yoursite.com/page/7/index.html">
 <meta property="og:site_name" content="Classiczy">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Classiczy">
-  <link rel="canonical" href="http://yoursite.com/page/4/">
+  <link rel="canonical" href="http://yoursite.com/page/7/">
 
 
 <script id="page.configurations">
@@ -220,7 +220,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/17/yolo/yolo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/反向投影/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -237,7 +237,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/12/17/yolo/yolo/" class="post-title-link" itemprop="url">目标检测：YOLO</a>
+                <a href="/2019/11/26/反向投影/" class="post-title-link" itemprop="url">反向投影</a>
               
             
           </h1>
@@ -256,7 +256,7 @@
                 
               
 
-              <time title="Created: 17-12-2019 11:13:10" itemprop="dateCreated datePublished" datetime="2019-12-17T11:13:10+08:00">17-12-2019</time>
+              <time title="Created: 26-11-2019 11:06:18" itemprop="dateCreated datePublished" datetime="2019-11-26T11:06:18+08:00">26-11-2019</time>
             </span>
           
             
@@ -269,7 +269,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 18-12-2019 19:30:00" itemprop="dateModified" datetime="2019-12-18T19:30:00+08:00">18-12-2019</time>
+                <time title="Modified: 20-04-2020 22:09:05" itemprop="dateModified" datetime="2020-04-20T22:09:05+08:00">20-04-2020</time>
               </span>
             
           
@@ -282,20 +282,6 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
 
                 
                 
@@ -315,8 +301,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2019/12/17/yolo/yolo/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/17/yolo/yolo/" itemprop="commentCount"></span>
+    <a href="/2019/11/26/反向投影/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/26/反向投影/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -332,13 +318,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="目标检测：YOLO"><a href="#目标检测：YOLO" class="headerlink" title="目标检测：YOLO"></a>目标检测：YOLO</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>对yolo的印象就是快，yolo把整个目标检测（分类和定位）当作一个回归问题，直接从图像像素输出bbox坐标和类别，如下图:</p>
-<p><img src="yolo1_detection_system.png" alt="png"></p>
-<p>yolo使用一个卷积神经网络同时预测多个检测目标。它首先把图像resize到$448 \times 448$，图像通过卷积网络后生成bbox坐标和分类，然后用NMS进行筛选。<br>
+          <h1 id="OpenCV-反向投影"><a href="#OpenCV-反向投影" class="headerlink" title="OpenCV 反向投影"></a>OpenCV 反向投影</h1><h2 id="1-什么是反向投影"><a href="#1-什么是反向投影" class="headerlink" title="1.什么是反向投影"></a>1.什么是反向投影</h2><p>在OpenCV的中文文档上反向投影的描述是这样的：</p>
+<ul>
+<li>反向投影是一种记录给定图像中的<strong>像素点如何适应直方图模型</strong>的像素分布的方式。</li>
+<li>简单的讲， 所谓反向投影就是首先计算某一特征的直方图模型，然后使用模型去寻找图像中存在的该特征。</li>
+<li>例如， 你有一个肤色直方图 ( Hue-Saturation 直方图 )，你可以用它来寻找图像中的肤色区域</li>
+</ul>
+<h2 id="2-反向投影的步骤"><a href="#2-反向投影的步骤" class="headerlink" title="2.反向投影的步骤"></a>2.反向投影的步骤</h2><p>从上面文档的描述中可以看到，反向投影的步骤三步：<br>1.获取目标图像区域的直方图模型<br>2.将新图像中的每一个像素点与直方图进行比较，获得该像素点的颜色在直方图中的概率。<br>3.将结果储存到新的图像中<br>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/12/17/yolo/yolo/#more" rel="contents">
+              <a class="btn" href="/2019/11/26/反向投影/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -369,7 +359,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/SSD/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/15/collection学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -386,7 +376,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/12/16/SSD/" class="post-title-link" itemprop="url">目标检测:SSD</a>
+                <a href="/2019/10/15/collection学习/" class="post-title-link" itemprop="url">Python collecitons学习</a>
               
             
           </h1>
@@ -405,7 +395,7 @@
                 
               
 
-              <time title="Created: 16-12-2019 16:44:39" itemprop="dateCreated datePublished" datetime="2019-12-16T16:44:39+08:00">16-12-2019</time>
+              <time title="Created: 15-10-2019 21:47:42" itemprop="dateCreated datePublished" datetime="2019-10-15T21:47:42+08:00">15-10-2019</time>
             </span>
           
             
@@ -418,7 +408,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 17-12-2019 17:28:16" itemprop="dateModified" datetime="2019-12-17T17:28:16+08:00">17-12-2019</time>
+                <time title="Modified: 05-11-2019 00:26:58" itemprop="dateModified" datetime="2019-11-05T00:26:58+08:00">05-11-2019</time>
               </span>
             
           
@@ -430,14 +420,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
 
                 
                 
@@ -457,8 +440,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2019/12/16/SSD/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/16/SSD/" itemprop="commentCount"></span>
+    <a href="/2019/10/15/collection学习/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/15/collection学习/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -474,322 +457,155 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Single-Shot-MultiBox-Detector"><a href="#Single-Shot-MultiBox-Detector" class="headerlink" title="Single Shot MultiBox Detector"></a>Single Shot MultiBox Detector</h1><p>目标检测的算法主要分为两个：</p>
-<ol>
-<li><strong>two-stage</strong>算法，比如RCNN系列。需要先生成候选区域，再对候选区域进行分类和回归。</li>
-<li><strong>one-stage</strong> 比如yolo和SSD， 不需要先生成候选区域，而是直接从图片上进行不同尺度(scale)和长宽比(aspect ratio)的抽样，然后经由CNN提取特征后直接进行分类和回归。这种方法的优势是速度快。</li>
+          <h1 id="Python-collecitons学习"><a href="#Python-collecitons学习" class="headerlink" title="Python collecitons学习"></a>Python collecitons学习</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> collections</span><br></pre></td></tr></table></figure>
+<h2 id="Counter"><a href="#Counter" class="headerlink" title="Counter"></a>Counter</h2><p>可以接受list 或者 tuple 的迭代器，返回一个 counter dictionary，这个词典的key是迭代器中unique的元素，value是该key在迭代器中的计数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lst = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">9</span>]</span><br><span class="line">counter = collections.Counter(lst)</span><br><span class="line">print(counter)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">输出：Counter(&#123;<span class="number">4</span>: <span class="number">4</span>, <span class="number">1</span>: <span class="number">3</span>, <span class="number">5</span>: <span class="number">3</span>, <span class="number">2</span>: <span class="number">2</span>, <span class="number">3</span>: <span class="number">1</span>, <span class="number">9</span>: <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/10/15/collection学习/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/15/numpy学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/15/numpy学习/" class="post-title-link" itemprop="url">numpy学习</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 15-10-2019 21:47:42" itemprop="dateCreated datePublished" datetime="2019-10-15T21:47:42+08:00">15-10-2019</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 13-01-2020 03:15:32" itemprop="dateModified" datetime="2020-01-13T03:15:32+08:00">13-01-2020</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2019/10/15/numpy学习/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/15/numpy学习/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="Numpy-学习记录"><a href="#Numpy-学习记录" class="headerlink" title="Numpy 学习记录"></a>Numpy 学习记录</h1><h2 id="np-where-用法"><a href="#np-where-用法" class="headerlink" title="np.where()用法"></a>np.where()用法</h2><ol>
+<li>np.where(condition, x, y)，满足条件(condition)，输出x，不满足输出y。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.where([[<span class="literal">True</span>,<span class="literal">False</span>], [<span class="literal">True</span>,<span class="literal">True</span>]],</span><br><span class="line">             [[<span class="number">1</span>,<span class="number">2</span>], [<span class="number">3</span>,<span class="number">4</span>]],</span><br><span class="line">             [[<span class="number">9</span>,<span class="number">8</span>], [<span class="number">7</span>,<span class="number">6</span>]])</span><br><span class="line"></span><br><span class="line">输出：array([[<span class="number">1</span>, <span class="number">8</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>]])</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/12/16/SSD/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/12/Faster-RCNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/12/12/Faster-RCNN/" class="post-title-link" itemprop="url">目标检测：Faster-RCNN</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 12-12-2019 11:53:34" itemprop="dateCreated datePublished" datetime="2019-12-12T11:53:34+08:00">12-12-2019</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 23-02-2020 18:41:10" itemprop="dateModified" datetime="2020-02-23T18:41:10+08:00">23-02-2020</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2019/12/12/Faster-RCNN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/12/Faster-RCNN/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Faster-RCNN"><a href="#Faster-RCNN" class="headerlink" title="Faster-RCNN"></a>Faster-RCNN</h1><h2 id="Fast-RCNN回顾"><a href="#Fast-RCNN回顾" class="headerlink" title="Fast-RCNN回顾"></a>Fast-RCNN回顾</h2><p>尽管相比起RCNN，Fast-RCNN网络中有许多改进。但是对于候选区域的生成仍然使用selective search这一十分耗时的方法。 而在Faster-RCNN中对这一项进行了改进。</p>
-<h2 id="Faster-RCNN-1"><a href="#Faster-RCNN-1" class="headerlink" title="Faster-RCNN"></a>Faster-RCNN</h2><p>我们先来看看Faster-RCNN整个网络的结构：</p>
-<p><img src="网络结构.png" alt="png"></p>
-<p>整个网络被分为两个部分，上半部分就是我们在Fast-RCNN中熟悉过的网络结构（除去候选区域生成部分），而下半部分就是用来生成候选区域的Region Proposal Network（RPN）<br>（有的博主认为在Fast-RCNN部分中有特有不共享的卷积层，但是在论文中并没有看到哪里提及）<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/12/12/Faster-RCNN/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/11/Fast-RCNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/12/11/Fast-RCNN/" class="post-title-link" itemprop="url">目标检测：Fast-RCNN</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 11-12-2019 19:13:08" itemprop="dateCreated datePublished" datetime="2019-12-11T19:13:08+08:00">11-12-2019</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 17-12-2019 17:28:54" itemprop="dateModified" datetime="2019-12-17T17:28:54+08:00">17-12-2019</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2019/12/11/Fast-RCNN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/11/Fast-RCNN/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Fast-RCNN"><a href="#Fast-RCNN" class="headerlink" title="Fast-RCNN"></a>Fast-RCNN</h1><h2 id="回顾RCNN"><a href="#回顾RCNN" class="headerlink" title="回顾RCNN"></a>回顾RCNN</h2><p>RCNN网络的不足：</p>
+<p>那么第一列是在1和9之间选择，为True所以选1。 第二列在2和8之间选择，因为是False所以选8，后面的以此类推</p>
 <ol>
-<li>在RCNN网络的训练和测试都很慢，因为每一张图片都需要先经过selective search去选择约2k个候选框（而且这些候选框很多都是重叠的），然后再对候选框通过CNN网络进行特征提取，这个过程是很冗余的，因为相当于我们对很多重复的区域进行了特征提取。</li>
-<li>其次我们在训练的时候步骤非常繁琐。不仅仅是CNN的特征提取，还有SVM的分类器（20个），Bounding Box的回归器（20个）需要训练。同时在训练分类器和回归器的是，特征都需要存储在本地，占用大量的存储空间</li>
+<li>np.where(condition)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">10</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.where(a &gt; <span class="number">5</span>)             <span class="comment"># 返回索引</span></span><br><span class="line">(array([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]),)   </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[np.where(a &gt; <span class="number">5</span>)]              <span class="comment"># 等价于 a[a&gt;5]</span></span><br><span class="line">array([ <span class="number">6</span>,  <span class="number">8</span>, <span class="number">10</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.where([[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">0</span>]])</span><br><span class="line">(array([<span class="number">0</span>, <span class="number">1</span>]), array([<span class="number">1</span>, <span class="number">0</span>])) <span class="comment"># 输出的为两个1的坐标</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h2 id="Fast-RCNN-1"><a href="#Fast-RCNN-1" class="headerlink" title="Fast-RCNN"></a>Fast-RCNN</h2><p>那么作为RCNN的改进型，Fast-RCNN是如何改进上述的不足呢？先来看看FRCNN网络的结构:<br>
-          <!--noindex-->
+<h2 id="np-zero-like"><a href="#np-zero-like" class="headerlink" title="np.zero_like()"></a>np.zero_like()</h2><p>np.zeros_like(W);其维度与矩阵W一致，并为其初始化为全0；这个函数方便的构造了新矩阵，无需参数指定shape大小；</p>
+<h2 id="np-unique"><a href="#np-unique" class="headerlink" title="np.unique()"></a>np.unique()</h2><p><a href="https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.unique.html" target="_blank" rel="noopener">https://docs.scipy.org/doc/numpy-1.14.0/reference/generated/numpy.unique.html</a><br>去重，并返回小到大排序后的数组</p>
+
           
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/12/11/Fast-RCNN/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
         
       
     </div>
@@ -815,7 +631,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/RCNN/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/11/accuracy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Classiczy">
@@ -832,7 +648,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/12/10/RCNN/" class="post-title-link" itemprop="url">目标检测：R-CNN</a>
+                <a href="/2019/10/11/accuracy/" class="post-title-link" itemprop="url">准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线</a>
               
             
           </h1>
@@ -851,7 +667,7 @@
                 
               
 
-              <time title="Created: 10-12-2019 15:04:44" itemprop="dateCreated datePublished" datetime="2019-12-10T15:04:44+08:00">10-12-2019</time>
+              <time title="Created: 11-10-2019 10:32:57" itemprop="dateCreated datePublished" datetime="2019-10-11T10:32:57+08:00">11-10-2019</time>
             </span>
           
             
@@ -864,7 +680,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 23-02-2020 23:19:32" itemprop="dateModified" datetime="2020-02-23T23:19:32+08:00">23-02-2020</time>
+                <time title="Modified: 15-10-2019 02:19:06" itemprop="dateModified" datetime="2019-10-15T02:19:06+08:00">15-10-2019</time>
               </span>
             
           
@@ -876,21 +692,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/目标检测/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
 
                 
                 
@@ -910,8 +712,8 @@
       <span class="post-meta-item-text">Comments: </span>
     
   
-    <a href="/2019/12/10/RCNN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/10/RCNN/" itemprop="commentCount"></span>
+    <a href="/2019/10/11/accuracy/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/11/accuracy/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -927,18 +729,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="目标检测：R-CNN"><a href="#目标检测：R-CNN" class="headerlink" title="目标检测：R-CNN"></a>目标检测：R-CNN</h1><p>最近实习的时候接触了目标检测类的任务，在使用这些算法的同时了解一下算法整体的流程和内容。作为RCNN算法系列的开山鼻祖，采用了CNN网络用于图像特征的提取，而不是之前的人工设定的特征提取。但是RCNN应该有很多细节都被后面的算法改进了（产生了一系列RCNN的算法）。所以这里只对算法的流程做一个大概的理解。</p>
-<h2 id="RCNN的基本流程"><a href="#RCNN的基本流程" class="headerlink" title="RCNN的基本流程"></a>RCNN的基本流程</h2><p>RCNN算法有4个步骤：</p>
-<ol>
-<li>候选区域生成： 一张图像生成约2K个候选区域 （Selective Search 方法）</li>
-<li>特征提取： 对每个候选区域，使用深度卷积网络提取特征</li>
-<li>类别判断： 特征送入每一类的SVM 分类器，判别是否属于该类</li>
-<li>位置精修： 使用回归器精细修正候选框位置</li>
-</ol>
+          <h1 id="准确率-Accuracy-精确率-Precision-召回率-Recall-F-Measure-ROC曲线"><a href="#准确率-Accuracy-精确率-Precision-召回率-Recall-F-Measure-ROC曲线" class="headerlink" title="准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线"></a>准确率(Accuracy) 精确率(Precision) 召回率(Recall) F-Measure ROC曲线</h1><h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><p>以二元分类为例子，我们用一个 $2 \times 2$ 的矩阵来表示模型的分类效果，这个矩阵叫做混淆矩阵。</p>
+<p><img src="混淆矩阵.png" alt="png"></p>
+<p>我们一共有477个样本，其中有18个实际有肿瘤的样本被正确预测，我们称之为 <strong>True Positve</strong>， 而有一个实际为肿瘤的样本被误判为没有肿瘤，则称之为 <strong>True Negative</strong><br>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/12/10/RCNN/#more" rel="contents">
+              <a class="btn" href="/2019/10/11/accuracy/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -966,7 +763,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
   </nav>
 
 
@@ -1229,15 +1026,13 @@
   
     
       
+    
+      
+    
+      
+    
+      
         
-      
-    
-      
-    
-      
-    
-      
-    
       
     
   
