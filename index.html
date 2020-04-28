@@ -220,6 +220,147 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/automl平台思考/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Classiczy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Classiczy">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/04/27/automl平台思考/" class="post-title-link" itemprop="url">automl平台思考（未完待续）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 27-04-2020 21:46:31 21:46:31" itemprop="dateCreated datePublished" datetime="2020-04-27T21:46:31+08:00">27-04-2020 21:46:31</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 28-04-2020 20:52:57 20:52:57" itemprop="dateModified" datetime="2020-04-28T20:52:57+08:00">28-04-2020 20:52:57</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/产品/" itemprop="url" rel="index"><span itemprop="name">产品</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="fa fa-comment-o"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Comments: </span>
+    
+  
+    <a href="/2020/04/27/automl平台思考/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/27/automl平台思考/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <h1 id="automl平台思考（未完待续）"><a href="#automl平台思考（未完待续）" class="headerlink" title="automl平台思考（未完待续）"></a>automl平台思考（未完待续）</h1><p>最近有些忙，虽然没啥人看，但是还是立个flag：五一放假前把上周版本和1.01版本的界面模块逻辑对比写完</p>
+<h3 id="左侧菜单栏改版"><a href="#左侧菜单栏改版" class="headerlink" title="左侧菜单栏改版"></a>左侧菜单栏改版</h3><p>平台的左侧菜单栏终于要改版了，真的不知道跟产品同学吐槽了多少次旧的菜单逻辑混乱。这次改版也跟他们提了很多建议，而且好像也采纳了不少，虽然不是完全跟我的构思一样，但是思路没有很大的区别。</p>
+<p>改版前菜单里有在线开发，远程开发，多卡开发，分布式开发，任务管理，数据增强，自动调参，内容太多比较杂乱（所以原型图只能凭着记忆化了，实在记不起来）</p>
+<p><img src="改版前_脚本管理.png" alt="png"></p>
+<p>多卡资源和分布式开发也是开发入口，但是放到远程开发和在线开发都不合适，索性直接单列到第一级了。任务管理更是让人摸不着头脑，一直没弄明白这个“任务”到底是什么任务？是我在两个开发入口里新建的容器吗？是的话这个管理能管理什么呢？自动调参和任务管理有什么关系？脚本管理的是哪里的脚本，这些脚本应该到哪里去使用？总之一句话，没有提炼出来平台到底提供什么功能，和这些功能之间的关系。</p>
+<h4 id="AI开发流程"><a href="#AI开发流程" class="headerlink" title="AI开发流程"></a>AI开发流程</h4><p><img src="ai开发流程.png" alt="png"></p>
+<p>这就是一套比较完整的AI开发流程</p>
+<ul>
+<li>数据准备：用户可以从AI市场获得数据集直接使用，同时也可以使用数据增强</li>
+<li>模型开发：用户可以使用ai市场中的算法镜像直接进行开发，开发工具包括远程开发和在线开发</li>
+<li>模型训练：用户可以选择单机多卡，或者分布式加速模型训练</li>
+<li>模型评估</li>
+<li>模型部署</li>
+</ul>
+<p>这样就把PaaS各个平台的的功能给填写到了各个步骤里。这样捋一遍就可以抽象成三个部分，开发接口，模型工具，资源市场。</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/20/云笔记体验/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1051,153 +1192,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/06/Unet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Classiczy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Classiczy">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/01/06/Unet/" class="post-title-link" itemprop="url">Unet</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 06-01-2020 20:18:31 20:18:31" itemprop="dateCreated datePublished" datetime="2020-01-06T20:18:31+08:00">06-01-2020 20:18:31</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 07-01-2020 03:20:52 03:20:52" itemprop="dateModified" datetime="2020-01-07T03:20:52+08:00">07-01-2020 03:20:52</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机视觉/深度学习/语义分割/" itemprop="url" rel="index"><span itemprop="name">语义分割</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="fa fa-comment-o"></i>
-    </span>
-    
-      <span class="post-meta-item-text">Comments: </span>
-    
-  
-    <a href="/2020/01/06/Unet/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/06/Unet/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在医疗生物的图像处理中，我们希望输出包括<strong>定位</strong>，也就是对于每一个像素进行分类。此外，卷积神经网络需要使用几千张图像进行训练，这常常超过了医疗生物能获得的数量范围。为了解决这些问题，Cireans et al训练了一个基于滑动窗口的网络用来预测每一个像素的分类（把每一个像素周围一定范围内的像素用作输入）。这个网络可以实现定位，而且训练数据也远远大于训练用的图片（每个图片都被分为很多小patch）。<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2020/01/06/Unet/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1238,7 +1232,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1328,7 +1322,9 @@
         
           
         
-        <span class="site-state-item-count">18</span>
+          
+        
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">tags</span>
         
       </div>
